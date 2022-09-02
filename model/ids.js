@@ -1,4 +1,10 @@
 import mongoose from 'mongoose'
+import config from 'config-lite'
+
+//连接数据库
+mongoose.connect(config.url, {
+  useNewUrlParser: true
+})
 
 const idsSchema = new mongoose.Schema({
 	restaurant_id: Number,
