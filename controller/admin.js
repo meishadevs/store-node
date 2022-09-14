@@ -1,10 +1,10 @@
 import AdminModel from '../model/admin'
-import AddressComponent from '../prototype/addressComponent'
+import BaseComponent from '../prototype/baseComponent'
 import crypto from 'crypto'
 import formidable from 'formidable'
 import dtime from 'time-formater'
 
-class Admin extends AddressComponent {
+class Admin extends BaseComponent {
 
 	// 构造函数
 	constructor() {
@@ -17,7 +17,6 @@ class Admin extends AddressComponent {
 
 	// 登录
 	async login(req, res, next) {
-
 		// 创建 form 表单
 		const form = new formidable.IncomingForm();
 
@@ -196,7 +195,9 @@ class Admin extends AddressComponent {
 
 	// 获得所有管理员
 	async getAllAdmin(req, res, next) {
+		console.log("query:", req.query);
 		const { limit = 20, offset = 0 } = req.query;
+
 		try {
 			const allAdmin = await AdminModel.find({}, '-_id -password').sort({ id: -1 }).skip(Number(offset)).limit(Number(limit))
 			res.send({
