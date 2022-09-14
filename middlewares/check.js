@@ -1,21 +1,18 @@
-import AdminModel from '../model/admin'
+import UserModel from '../model/user'
 
 class Check {
-	constructor(){
-	}
-	
-	async checkAdmin(req, res, next){
-		const admin_id = req.session.admin_id;
-		if (!admin_id || !Number(admin_id)) {
+	async checkUser(req, res, next) {
+		const user_id = req.session.user_id;
+		if (!user_id || !Number(user_id)) {
 			res.send({
 				status: 0,
 				type: 'ERROR_SESSION',
 				message: '亲，您还没有登录',
 			})
 			return
-		}else{
-			const admin = await AdminModel.findOne({id: admin_id});
-			if (!admin) {
+		} else {
+			const user = await UserModel.findOne({ id: user_id });
+			if (!user) {
 				res.send({
 					status: 0,
 					type: 'HAS_NO_ACCESS',
@@ -26,18 +23,18 @@ class Check {
 		}
 		next()
 	}
-	async checkSuperAdmin(req, res, next){
-		const admin_id = req.session.admin_id;
-		if (!admin_id || !Number(admin_id)) {
+	async checkSuperUser(req, res, next) {
+		const user_id = req.session.user_id;
+		if (!user_id || !Number(user_id)) {
 			res.send({
 				status: 0,
 				type: 'ERROR_SESSION',
 				message: '亲，您还没有登录',
 			})
 			return
-		}else{
-			const admin = await AdminModel.findOne({id: admin_id});
-			if (!admin || admin.status != 2) {
+		} else {
+			const user = await UserModel.findOne({ id: user_id });
+			if (!user || user.status != 2) {
 				res.send({
 					status: 0,
 					type: 'HAS_NO_ACCESS',
