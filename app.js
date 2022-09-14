@@ -5,6 +5,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser'
 import history from 'connect-history-api-fallback';
+import db from './mongodb/db.js';
 import router from './routes/index.js';
 
 // 创建 express 对象

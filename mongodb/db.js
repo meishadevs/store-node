@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import config from 'config-lite';
 
 //连接数据库
-mongoose.connect('mongodb://localhost:27017/elm', {
+mongoose.connect(config.url, {
   useNewUrlParser: true
-})
+});
 
 //监听数据库连接状态
 mongoose.connection.once('open', () => {

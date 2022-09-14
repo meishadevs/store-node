@@ -99,6 +99,7 @@ class Admin extends BaseComponent {
 		})
 	}
 
+	// 注册
 	async register(req, res, next) {
 		const form = new formidable.IncomingForm();
 		form.parse(req, async (err, fields, files) => {
@@ -110,7 +111,9 @@ class Admin extends BaseComponent {
 				})
 				return
 			}
+
 			const { user_name, password, status = 1 } = fields;
+			
 			try {
 				if (!user_name) {
 					throw new Error('用户名错误')
@@ -231,6 +234,8 @@ class Admin extends BaseComponent {
 			})
 		}
 	}
+
+	// 获得管理员信息
 	async getAdminInfo(req, res, next) {
 		const admin_id = req.session.admin_id;
 		if (!admin_id || !Number(admin_id)) {
@@ -261,6 +266,8 @@ class Admin extends BaseComponent {
 			})
 		}
 	}
+
+	// 更新管理员头像
 	async updateAvatar(req, res, next) {
 		const admin_id = req.params.admin_id;
 		if (!admin_id || !Number(admin_id)) {
