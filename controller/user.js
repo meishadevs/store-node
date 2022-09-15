@@ -28,10 +28,10 @@ class User extends BaseComponent {
         return;
       }
 
-      const { user_name, password, status = 1 } = fields;
+      const { userName, password, email } = fields;
 
       try {
-        if (!user_name) {
+        if (!userName) {
           throw new Error('用户名错误');
         } else if (!password) {
           throw new Error('密码错误');
@@ -45,28 +45,29 @@ class User extends BaseComponent {
         });
         return;
       }
+
       try {
-        const user = await UserModel.findOne({ user_name });
+        const user = await UserModel.findOne({ userName });
         if (user) {
-          console.log('该用户已经存在');
           res.send({
             status: 0,
             type: 'USER_HAS_EXIST',
             message: '该用户已经存在'
           });
         } else {
-          const user_id = await this.getId('user_id');
+          const userId = await this.getId('userId');
           const newpassword = this.encryption(password);
+
           const newUser = {
-            user_name,
+            userName,
             password: newpassword,
-            id: user_id,
-            create_time: dtime().format('YYYY-MM-DD'),
-            status
+            id: userId,
+            email,
+            createTime: dtime().format('YYYY-MM-DD')
           };
 
           await UserModel.create(newUser);
-          req.session.user_id = user_id;
+          req.session.userId = userId;
           res.send({
             status: 1,
             message: '注册用户成功'
