@@ -11,12 +11,12 @@ const idsSchema = new mongoose.Schema({
   category_id: Number,
   item_id: Number,
   sku_id: Number,
-  user_id: Number,
   statis_id: Number
 });
 
 const Ids = mongoose.model('Ids', idsSchema);
 
+/* eslint-disable handle-callback-err */
 Ids.findOne((err, data) => {
   if (!data) {
     const newIds = new Ids({
@@ -30,7 +30,6 @@ Ids.findOne((err, data) => {
       category_id: 0,
       item_id: 0,
       sku_id: 0,
-      user_id: 0,
       statis_id: 0
     });
 
