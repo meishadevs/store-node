@@ -56,6 +56,8 @@ class User extends BaseComponent {
           });
         } else {
           const userId = await this.getId('userId');
+
+          // 对密码进行加密
           const newpassword = this.encryption(password);
 
           const newUser = {
@@ -66,7 +68,9 @@ class User extends BaseComponent {
             createTime: dtime().format('YYYY-MM-DD')
           };
 
+          // 保存用户信息
           await UserModel.create(newUser);
+
           req.session.userId = userId;
           res.send({
             status: 1,

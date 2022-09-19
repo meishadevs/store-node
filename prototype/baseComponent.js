@@ -5,18 +5,7 @@ export default class BaseComponent {
   constructor() {
     // id 列表
     this.idList = [
-      'restaurant_id',
-      'food_id',
-      'order_id',
-      'user_id',
-      'address_id',
-      'cart_id',
-      'img_id',
-      'category_id',
-      'item_id',
-      'sku_id',
-      'user_id',
-      'statis_id'
+      'userId'
     ];
   }
 
