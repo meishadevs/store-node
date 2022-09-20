@@ -1,7 +1,7 @@
 {
   "name": "node-dswz",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Node.js server using MongoDB",
   "main": "index.js",
   "author": "meishadevs <meishadevs@gmail.com>",
   "license": "GPL",
