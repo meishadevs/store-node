@@ -1,3 +1,4 @@
+import path from 'path';
 import chalk from 'chalk';
 import express from 'express';
 import config from 'config-lite';
@@ -52,7 +53,9 @@ router(app);
 
 app.use(history());
 
-app.use(express.static('./public'));
+// 实现静态资源访问功能
+// express.static 的参数为静态资源的存放目录
+app.use(express.static(path.join(__dirname, 'statics')));
 
 // 监听端口
 app.listen(config.port, () => {

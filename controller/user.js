@@ -55,7 +55,9 @@ class User extends BaseComponent {
             message: '该用户已经存在'
           });
         } else {
-          const userId = await this.getId('userId');
+
+          // 获得用户 id，用户 id 是唯一的
+          const userId = await this.generateIdValue('userId');
 
           // 对密码进行加密
           const newpassword = this.encryption(password);
@@ -125,25 +127,11 @@ class User extends BaseComponent {
 
       try {
         const user = await UserModel.findOne({ user_name });
+
         if (!user) {
-          const user_id = await this.getId('user_id');
-          const cityInfo = await this.guessPosition(req);
-          const newUser = {
-            user_name,
-            password: newpassword,
-            id: user_id,
-            create_time: dtime().format('YYYY-MM-DD HH:mm'),
-            status,
-            city: cityInfo.city
-          };
-
-          await UserModel.create(newUser);
-
-          req.session.user_id = user_id;
-
           res.send({
-            status: 1,
-            success: '注册用户成功'
+            status: 0,
+            success: '用户不存在'
           });
         } else if (newpassword.toString() !== user.password.toString()) {
           console.log('用户登录密码错误');

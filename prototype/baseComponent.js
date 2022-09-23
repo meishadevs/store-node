@@ -52,18 +52,27 @@ export default class BaseComponent {
     return responseJson;
   }
 
-  // 获取id列表
-  async getId(type) {
-    if (!this.idList.includes(type)) {
+  /**
+   * 根据 id 类型，生成对应的 id 值
+   * @param idType id 类型 
+   * @return
+   */
+  async generateIdValue(idType) {
+    if (!this.idList.includes(idType)) {
       console.log('id类型错误');
       throw new Error('id类型错误');
     }
 
     try {
+      // 获得 id 对象
       const idData = await Ids.findOne();
-      idData[type]++;
+
+      // 给 id 对象中对应的 id 值加一，其目的是为了保证不同数据的 id 值唯一
+      idData[idType]++;
+
+      // 更新 id 数据
       await idData.save();
-      return idData[type];
+      return idData[idType];
     } catch (err) {
       console.log('获取ID数据失败');
       throw new Error(err);
