@@ -90,13 +90,13 @@ class User extends BaseComponent {
         return;
       }
 
-      const { user_name, password } = fields;
+      const { userName, password } = fields;
 
       try {
-        if (!user_name) {
-          throw new Error('用户名参数错误');
+        if (!userName) {
+          throw new Error('用户名不能为空');
         } else if (!password) {
-          throw new Error('密码参数错误');
+          throw new Error('密码不能为空');
         }
       } catch (err) {
         res.send(this.failMessage(err.message));
@@ -106,7 +106,7 @@ class User extends BaseComponent {
       const newpassword = this.encryption(password);
 
       try {
-        const user = await UserModel.findOne({ user_name });
+        const user = await UserModel.findOne({ userName });
 
         if (!user) {
           res.send(this.failMessage('用户不存在'));
