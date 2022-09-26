@@ -21,7 +21,6 @@ class User extends BaseComponent {
       if (err) {
         res.send({
           code: 150,
-          type: 'FORM_DATA_ERROR',
           message: '表单信息错误'
         });
 
@@ -37,23 +36,24 @@ class User extends BaseComponent {
           throw new Error('密码不能为空');
         } else if (!secondPassword) {
           throw new Error('确认密码不能为空');
+        } else if (password !== secondPassword) {
+          throw new Error('两次输入的密码不一致');
         }
       } catch (err) {
-        console.log(err.message, err);
         res.send({
           code: 150,
-          type: 'GET_ERROR_PARAM',
           message: err.message
         });
+
         return;
       }
 
       try {
         const user = await UserModel.findOne({ userName });
+
         if (user) {
           res.send({
             code: 150,
-            type: 'USER_HAS_EXIST',
             message: '该用户已经存在'
           });
         } else {
@@ -75,6 +75,7 @@ class User extends BaseComponent {
           await UserModel.create(newUser);
 
           req.session.userId = userId;
+
           res.send({
             code: 200,
             message: '注册用户成功'
@@ -84,7 +85,6 @@ class User extends BaseComponent {
         console.log('注册用户失败', err);
         res.send({
           code: 150,
-          type: 'REGISTER_ADMIN_FAILED',
           message: '注册用户失败'
         });
       }
@@ -100,7 +100,6 @@ class User extends BaseComponent {
       if (err) {
         res.send({
           code: 200,
-          type: 'FORM_DATA_ERROR',
           message: '表单信息错误'
         });
         return;
@@ -118,7 +117,6 @@ class User extends BaseComponent {
         console.log(err.message, err);
         res.send({
           code: 150,
-          type: 'GET_ERROR_PARAM',
           message: err.message
         });
         return;
@@ -135,10 +133,8 @@ class User extends BaseComponent {
             success: '用户不存在'
           });
         } else if (newpassword.toString() !== user.password.toString()) {
-          console.log('用户登录密码错误');
           res.send({
             code: 150,
-            type: 'ERROR_PASSWORD',
             message: '该用户已存在，密码输入错误'
           });
         } else {
@@ -152,7 +148,6 @@ class User extends BaseComponent {
         console.log('用户登录失败', err);
         res.send({
           code: 150,
-          type: 'LOGIN_ADMIN_FAILED',
           message: '用户登录失败'
         });
       }
@@ -190,7 +185,6 @@ class User extends BaseComponent {
       console.log('获取用户列表失败', err);
       res.send({
         code: 200,
-        type: 'ERROR_GET_ADMIN_LIST',
         message: '获取用户列表失败'
       });
     }
@@ -208,7 +202,6 @@ class User extends BaseComponent {
       console.log('获取用户数量失败', err);
       res.send({
         code: 150,
-        type: 'ERROR_GET_ADMIN_COUNT',
         message: '获取用户数量失败'
       });
     }
@@ -220,7 +213,6 @@ class User extends BaseComponent {
     if (!user_id || !Number(user_id)) {
       res.send({
         code: 200,
-        type: 'ERROR_SESSION',
         message: '获取用户信息失败'
       });
       return;
@@ -236,10 +228,8 @@ class User extends BaseComponent {
         });
       }
     } catch (err) {
-      console.log('获取用户信息失败');
       res.send({
         code: 150,
-        type: 'GET_ADMIN_INFO_FAILED',
         message: '获取用户信息失败'
       });
     }
