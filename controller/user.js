@@ -78,14 +78,13 @@ class User extends BaseComponent {
 
           res.send({
             code: 200,
-            message: '注册用户成功'
+            message: '用户注册成功'
           });
         }
       } catch (err) {
-        console.log('注册用户失败', err);
         res.send({
           code: 150,
-          message: '注册用户失败'
+          message: '用户注册失败'
         });
       }
     });
