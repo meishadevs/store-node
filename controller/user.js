@@ -10,6 +10,10 @@ class User extends BaseComponent {
     super();
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
+    this.singout = this.singout.bind(this);
+    this.getAllUser = this.getAllUser.bind(this);
+    this.getUserCount = this.getUserCount.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
     this.encryption = this.encryption.bind(this);
   }
 
@@ -19,10 +23,7 @@ class User extends BaseComponent {
 
     form.parse(req, async(err, fields, files) => {
       if (err) {
-        res.send({
-          code: 150,
-          message: '表单信息错误'
-        });
+        res.send(this.failMessage('表单信息错误'));
 
         return;
       }
@@ -40,10 +41,7 @@ class User extends BaseComponent {
           throw new Error('两次输入的密码不一致');
         }
       } catch (err) {
-        res.send({
-          code: 150,
-          message: err.message
-        });
+        res.send(this.failMessage(err.message));
 
         return;
       }
@@ -52,10 +50,7 @@ class User extends BaseComponent {
         const user = await UserModel.findOne({ userName });
 
         if (user) {
-          res.send({
-            code: 150,
-            message: '该用户已经存在'
-          });
+          res.send(this.failMessage('该用户已经存在'));
         } else {
           // 获得用户 id，用户 id 是唯一的
           const userId = await this.generateIdValue('userId');
@@ -76,16 +71,10 @@ class User extends BaseComponent {
 
           req.session.userId = userId;
 
-          res.send({
-            code: 200,
-            message: '用户注册成功'
-          });
+          res.send(this.successMessage('用户注册成功'));
         }
       } catch (err) {
-        res.send({
-          code: 150,
-          message: '用户注册失败'
-        });
+        res.send(this.failMessage('用户注册失败'));
       }
     });
   }
@@ -97,10 +86,7 @@ class User extends BaseComponent {
 
     form.parse(req, async(err, fields, files) => {
       if (err) {
-        res.send({
-          code: 200,
-          message: '表单信息错误'
-        });
+        res.send(this.failMessage('表单信息错误'));
         return;
       }
 
@@ -113,11 +99,7 @@ class User extends BaseComponent {
           throw new Error('密码参数错误');
         }
       } catch (err) {
-        console.log(err.message, err);
-        res.send({
-          code: 150,
-          message: err.message
-        });
+        res.send(this.failMessage(err.message));
         return;
       }
 
@@ -127,28 +109,15 @@ class User extends BaseComponent {
         const user = await UserModel.findOne({ user_name });
 
         if (!user) {
-          res.send({
-            code: 150,
-            success: '用户不存在'
-          });
+          res.send(this.failMessage('用户不存在'));
         } else if (newpassword.toString() !== user.password.toString()) {
-          res.send({
-            code: 150,
-            message: '该用户已存在，密码输入错误'
-          });
+          res.send(this.failMessage('该用户已存在，密码输入错误'));
         } else {
           req.session.user_id = user.id;
-          res.send({
-            code: 200,
-            success: '登录成功'
-          });
+          res.send(this.successMessage('登录成功'));
         }
       } catch (err) {
-        console.log('用户登录失败', err);
-        res.send({
-          code: 150,
-          message: '用户登录失败'
-        });
+        res.send(this.failMessage('用户登录失败'));
       }
     });
   }
@@ -157,16 +126,9 @@ class User extends BaseComponent {
   async singout(req, res, next) {
     try {
       delete req.session.user_id;
-      res.send({
-        code: 200,
-        success: '退出成功'
-      });
+      res.send(this.successMessage('退出成功'));
     } catch (err) {
-      console.log('退出失败', err);
-      res.send({
-        code: 150,
-        message: '退出失败'
-      });
+      res.send(this.failMessage('退出失败'));
     }
   }
 
@@ -176,16 +138,9 @@ class User extends BaseComponent {
 
     try {
       const allUser = await UserModel.find({}, '-_id -password').sort({ id: -1 }).skip(Number(offset)).limit(Number(limit));
-      res.send({
-        code: 200,
-        data: allUser
-      });
+      res.send(this.successMessage(null, allUser));
     } catch (err) {
-      console.log('获取用户列表失败', err);
-      res.send({
-        code: 200,
-        message: '获取用户列表失败'
-      });
+      res.send(this.failMessage('获取用户列表失败'));
     }
   }
 
@@ -193,16 +148,9 @@ class User extends BaseComponent {
   async getUserCount(req, res, next) {
     try {
       const count = await UserModel.count();
-      res.send({
-        code: 200,
-        count
-      });
+      res.send(this.successMessage(null, { count }));
     } catch (err) {
-      console.log('获取用户数量失败', err);
-      res.send({
-        code: 150,
-        message: '获取用户数量失败'
-      });
+      res.send(this.failMessage('获取用户数量失败'));
     }
   }
 
@@ -210,10 +158,7 @@ class User extends BaseComponent {
   async getUserInfo(req, res, next) {
     const user_id = req.session.user_id;
     if (!user_id || !Number(user_id)) {
-      res.send({
-        code: 200,
-        message: '获取用户信息失败'
-      });
+      res.send(this.failMessage('获取用户信息失败'));
       return;
     }
     try {
@@ -221,16 +166,10 @@ class User extends BaseComponent {
       if (!info) {
         throw new Error('未找到当前用户');
       } else {
-        res.send({
-          code: 200,
-          data: info
-        });
+        res.send(this.successMessage(null, info));
       }
     } catch (err) {
-      res.send({
-        code: 150,
-        message: '获取用户信息失败'
-      });
+      res.send(this.failMessage('获取用户信息失败'));
     }
   }
 

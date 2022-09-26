@@ -43,4 +43,43 @@ export default class BaseComponent {
       throw new Error(err);
     }
   }
+
+  /**
+   * 成功的消息
+   * @param message 消息内容
+   * @param data 返回的数据
+   * @returns
+   */
+  successMessage(message, data) {
+    message = message || '请求成功';
+
+    let result = {};
+
+    if (data) {
+      result = {
+        code: 200,
+        message,
+        data
+      };
+    } else {
+      result = {
+        code: 200,
+        message
+      };
+    }
+
+    return result;
+  }
+
+  /**
+   * 失败的消息
+   * @param message 消息内容
+   * @returns
+   */
+  failMessage(message) {
+    return {
+      code: 150,
+      message
+    };
+  }
 }
