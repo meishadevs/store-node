@@ -20,7 +20,7 @@ class User extends BaseComponent {
     form.parse(req, async(err, fields, files) => {
       if (err) {
         res.send({
-          status: 0,
+          code: 150,
           type: 'FORM_DATA_ERROR',
           message: '表单信息错误'
         });
@@ -28,18 +28,20 @@ class User extends BaseComponent {
         return;
       }
 
-      const { userName, password, email } = fields;
+      const { userName, password, secondPassword, email } = fields;
 
       try {
         if (!userName) {
-          throw new Error('用户名错误');
+          throw new Error('用户名不能为空');
         } else if (!password) {
-          throw new Error('密码错误');
+          throw new Error('密码不能为空');
+        } else if (!secondPassword) {
+          throw new Error('确认密码不能为空');
         }
       } catch (err) {
         console.log(err.message, err);
         res.send({
-          status: 0,
+          code: 150,
           type: 'GET_ERROR_PARAM',
           message: err.message
         });
@@ -50,12 +52,11 @@ class User extends BaseComponent {
         const user = await UserModel.findOne({ userName });
         if (user) {
           res.send({
-            status: 0,
+            code: 150,
             type: 'USER_HAS_EXIST',
             message: '该用户已经存在'
           });
         } else {
-
           // 获得用户 id，用户 id 是唯一的
           const userId = await this.generateIdValue('userId');
 
@@ -75,14 +76,14 @@ class User extends BaseComponent {
 
           req.session.userId = userId;
           res.send({
-            status: 1,
+            code: 200,
             message: '注册用户成功'
           });
         }
       } catch (err) {
         console.log('注册用户失败', err);
         res.send({
-          status: 0,
+          code: 150,
           type: 'REGISTER_ADMIN_FAILED',
           message: '注册用户失败'
         });
@@ -98,14 +99,14 @@ class User extends BaseComponent {
     form.parse(req, async(err, fields, files) => {
       if (err) {
         res.send({
-          status: 0,
+          code: 200,
           type: 'FORM_DATA_ERROR',
           message: '表单信息错误'
         });
         return;
       }
 
-      const { user_name, password, status = 1 } = fields;
+      const { user_name, password } = fields;
 
       try {
         if (!user_name) {
@@ -116,7 +117,7 @@ class User extends BaseComponent {
       } catch (err) {
         console.log(err.message, err);
         res.send({
-          status: 0,
+          code: 150,
           type: 'GET_ERROR_PARAM',
           message: err.message
         });
@@ -130,27 +131,27 @@ class User extends BaseComponent {
 
         if (!user) {
           res.send({
-            status: 0,
+            code: 150,
             success: '用户不存在'
           });
         } else if (newpassword.toString() !== user.password.toString()) {
           console.log('用户登录密码错误');
           res.send({
-            status: 0,
+            code: 150,
             type: 'ERROR_PASSWORD',
             message: '该用户已存在，密码输入错误'
           });
         } else {
           req.session.user_id = user.id;
           res.send({
-            status: 1,
+            code: 200,
             success: '登录成功'
           });
         }
       } catch (err) {
         console.log('用户登录失败', err);
         res.send({
-          status: 0,
+          code: 150,
           type: 'LOGIN_ADMIN_FAILED',
           message: '用户登录失败'
         });
@@ -163,13 +164,13 @@ class User extends BaseComponent {
     try {
       delete req.session.user_id;
       res.send({
-        status: 1,
+        code: 200,
         success: '退出成功'
       });
     } catch (err) {
       console.log('退出失败', err);
       res.send({
-        status: 0,
+        code: 150,
         message: '退出失败'
       });
     }
@@ -182,13 +183,13 @@ class User extends BaseComponent {
     try {
       const allUser = await UserModel.find({}, '-_id -password').sort({ id: -1 }).skip(Number(offset)).limit(Number(limit));
       res.send({
-        status: 1,
+        code: 200,
         data: allUser
       });
     } catch (err) {
       console.log('获取用户列表失败', err);
       res.send({
-        status: 0,
+        code: 200,
         type: 'ERROR_GET_ADMIN_LIST',
         message: '获取用户列表失败'
       });
@@ -200,13 +201,13 @@ class User extends BaseComponent {
     try {
       const count = await UserModel.count();
       res.send({
-        status: 1,
+        code: 200,
         count
       });
     } catch (err) {
       console.log('获取用户数量失败', err);
       res.send({
-        status: 0,
+        code: 150,
         type: 'ERROR_GET_ADMIN_COUNT',
         message: '获取用户数量失败'
       });
@@ -218,7 +219,7 @@ class User extends BaseComponent {
     const user_id = req.session.user_id;
     if (!user_id || !Number(user_id)) {
       res.send({
-        status: 0,
+        code: 200,
         type: 'ERROR_SESSION',
         message: '获取用户信息失败'
       });
@@ -230,14 +231,14 @@ class User extends BaseComponent {
         throw new Error('未找到当前用户');
       } else {
         res.send({
-          status: 1,
+          code: 200,
           data: info
         });
       }
     } catch (err) {
       console.log('获取用户信息失败');
       res.send({
-        status: 0,
+        code: 150,
         type: 'GET_ADMIN_INFO_FAILED',
         message: '获取用户信息失败'
       });

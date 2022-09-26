@@ -4,7 +4,7 @@ const idsSchema = new mongoose.Schema({
   userId: Number
 });
 
-const Ids = mongoose.model('Ids', idsSchema);
+const Ids = mongoose.model('ids', idsSchema);
 
 /* eslint-disable handle-callback-err */
 Ids.findOne((err, data) => {

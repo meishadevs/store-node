@@ -1,5 +1,3 @@
-'use strict';
-
 import BaseComponent from '../prototype/baseComponent';
 import StatisModel from '../model/statis/statis';
 import dtime from 'time-formater';
