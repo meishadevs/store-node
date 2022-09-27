@@ -1,6 +1,5 @@
 import UserModel from '../model/user';
 import BaseComponent from '../prototype/baseComponent';
-import crypto from 'crypto';
 import formidable from 'formidable';
 import dtime from 'time-formater';
 
@@ -14,7 +13,6 @@ class User extends BaseComponent {
     this.getAllUser = this.getAllUser.bind(this);
     this.getUserCount = this.getUserCount.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
-    this.encryption = this.encryption.bind(this);
   }
 
   // 注册
@@ -171,17 +169,6 @@ class User extends BaseComponent {
     } catch (err) {
       res.send(this.failMessage('获取用户信息失败'));
     }
-  }
-
-  // 加密
-  encryption(password) {
-    const newpassword = this.Md5(this.Md5(password).substr(2, 7) + this.Md5(password));
-    return newpassword;
-  }
-
-  Md5(password) {
-    const md5 = crypto.createHash('md5');
-    return md5.update(password).digest('base64');
   }
 }
 
