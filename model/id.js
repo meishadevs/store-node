@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 
-const idsSchema = new mongoose.Schema({
+const idSchema = new mongoose.Schema({
   userId: Number
 });
 
-const Ids = mongoose.model('ids', idsSchema);
+const Id = mongoose.model('id', idSchema, 'id');
 
 /* eslint-disable handle-callback-err */
-Ids.findOne((err, data) => {
+Id.findOne((err, data) => {
   if (!data) {
-    const newIds = new Ids({
+    const newIds = new Id({
       userId: 0
     });
 
@@ -17,4 +17,4 @@ Ids.findOne((err, data) => {
   }
 });
 
-export default Ids;
+export default Id;
