@@ -78,7 +78,7 @@ export default class BaseComponent {
    */
   failMessage(message) {
     return {
-      code: 150,
+      code: 500,
       message
     };
   }
