@@ -1,0 +1,38 @@
+import ProductModel from '../model/product';
+import BaseComponent from '../prototype/baseComponent';
+
+class Product extends BaseComponent {
+  constructor() {
+    super();
+    this.getPageList = this.getPageList.bind(this);
+  }
+
+  // 获得带分页的商品列表数据
+  async getPageList(req, res, next) {
+    const { pageSize = 10, pageNumber = 1 } = req.query;
+
+    const offset = (pageNumber - 1) * pageSize;
+
+    try {
+      // 获得商品列表
+      // -_id 表示不显示 _id 字段
+      const productList = await ProductModel.find({}, '-_id -id')
+        .sort({ id: -1 })
+        .skip(Number(offset)).limit(Number(pageSize));
+
+      // 获得商品数量
+      const productTotal = await ProductModel.count();
+
+      let data = {
+        list: productList,
+        total: productTotal
+      };
+
+      res.send(this.successMessage(null, data));
+    } catch (err) {
+      res.send(this.failMessage('获取商品列表失败'));
+    }
+  }
+}
+
+export default new Product();
