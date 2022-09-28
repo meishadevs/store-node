@@ -74,19 +74,13 @@ export default class BaseComponent {
   successMessage(message, data) {
     message = message || '请求成功';
 
-    let result = {};
+    let result = {
+      code: 200,
+      message
+    };
 
     if (data) {
-      result = {
-        code: 200,
-        message,
-        data
-      };
-    } else {
-      result = {
-        code: 200,
-        message
-      };
+      Object.assign(result, data);
     }
 
     return result;
