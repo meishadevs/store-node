@@ -5,6 +5,7 @@ class Product extends BaseComponent {
   constructor() {
     super();
     this.getPageList = this.getPageList.bind(this);
+    this.getCount = this.getCount.bind(this);
   }
 
   // 获得带分页的商品列表数据
@@ -21,16 +22,27 @@ class Product extends BaseComponent {
         .skip(Number(offset)).limit(Number(pageSize));
 
       // 获得商品数量
-      const productTotal = await ProductModel.count();
+      const productCount = await ProductModel.count();
 
       let data = {
         list: productList,
-        total: productTotal
+        count: productCount
       };
 
       res.send(this.successMessage(null, data));
     } catch (err) {
       res.send(this.failMessage('获取商品列表失败'));
+    }
+  }
+
+  // 获得商品数量
+  async getCount(req, res, next) {
+    try {
+      const productCount = await ProductModel.count();
+
+      res.send(this.successMessage(null, { count: productCount }));
+    } catch (error) {
+      res.send(this.failMessage('获得商品数量失败'));
     }
   }
 }
