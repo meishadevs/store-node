@@ -135,8 +135,12 @@ class User extends BaseComponent {
     const { limit = 20, offset = 0 } = req.query;
 
     try {
-      const allUser = await UserModel.find({}, '-_id -password').sort({ id: -1 }).skip(Number(offset)).limit(Number(limit));
-      res.send(this.successMessage(null, allUser));
+      const allUser = await UserModel.find({}, '-_id -password')
+        .sort({ id: -1 })
+        .skip(Number(offset))
+        .limit(Number(limit));
+
+      res.send(this.successMessage(null, { list: allUser }));
     } catch (err) {
       res.send(this.failMessage('获取用户列表失败'));
     }
