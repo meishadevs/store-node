@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'node-elm',
+    name: 'store-node',
     script: 'index.js',
     instances: 1,
     autorestart: true,
@@ -24,8 +24,8 @@ module.exports = {
       host: ['139.224.234.213'],
       port: '22',
       ref: 'origin/master',
-      repo: 'git@github.com:bailicangdu/node-elm.git',
-      path: '/root/mygit/node-elm',
+      repo: 'git@github.com:meishadevs/store-node.git',
+      path: '/root/mygit/store-node',
       'ssh_options': 'StrictHostKeyChecking=no',
       'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
     }
