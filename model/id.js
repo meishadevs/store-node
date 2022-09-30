@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const idSchema = new mongoose.Schema({
+  // 用户 id
   userId: Number
 });
 

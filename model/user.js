@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
 
   // 创建时间
   createTime: String,
+
+  // 用户 id
   id: Number
 });
 
