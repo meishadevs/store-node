@@ -10,9 +10,15 @@ class Advisory extends BaseComponent {
 
   // 获得咨询列表
   async getPageList(req, res, next) {
+    const { pageSize = 10, pageNumber = 1 } = req.query;
+
+    const offset = (pageNumber - 1) * pageSize;
+
     try {
       // 获得咨询列表
-      const advisoryList = await AdvisoryModel.find({}, '-_id -id');
+      const advisoryList = await AdvisoryModel
+        .find({}, '-_id -id')
+        .skip(Number(offset)).limit(Number(pageSize));
 
       // 获得咨询数量
       const advisoryCount = await AdvisoryModel.count();
