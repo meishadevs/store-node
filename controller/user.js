@@ -22,7 +22,6 @@ class User extends BaseComponent {
     form.parse(req, async(err, fields, files) => {
       if (err) {
         res.send(this.failMessage('表单信息错误'));
-
         return;
       }
 
@@ -67,6 +66,7 @@ class User extends BaseComponent {
           // 保存用户信息
           await UserModel.create(newUser);
 
+          // 将用户 id 存储到 session 中
           req.session.userId = userId;
 
           res.send(this.successMessage('用户注册成功'));
@@ -111,7 +111,8 @@ class User extends BaseComponent {
         } else if (newpassword.toString() !== user.password.toString()) {
           res.send(this.failMessage('该用户已存在，密码输入错误'));
         } else {
-          req.session.user_id = user.id;
+          // 将用户 id 存储到 session 中
+          req.session.userId = user.id;
           res.send(this.successMessage('登录成功'));
         }
       } catch (err) {
@@ -123,7 +124,8 @@ class User extends BaseComponent {
   // 退出登录
   async singout(req, res, next) {
     try {
-      delete req.session.user_id;
+      // 删除存储在 session 中的用户 id
+      delete req.session.userId;
       res.send(this.successMessage('退出成功'));
     } catch (err) {
       res.send(this.failMessage('退出失败'));
@@ -158,17 +160,20 @@ class User extends BaseComponent {
 
   // 获得用户信息
   async getUserInfo(req, res, next) {
-    const user_id = req.session.user_id;
-    if (!user_id || !Number(user_id)) {
+    // 获得 session 中的用户 id
+    const userId = req.session.userId;
+    if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));
       return;
     }
+
     try {
-      const info = await UserModel.findOne({ id: user_id }, '-_id -__v -password');
-      if (!info) {
+      // 根据用户 id 查找用户信息
+      const userInfo = await UserModel.findOne({ id: userId }, '-_id -__v -password');
+      if (!userInfo) {
         throw new Error('未找到当前用户');
       } else {
-        res.send(this.successMessage(null, info));
+        res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
       res.send(this.failMessage('获取用户信息失败'));

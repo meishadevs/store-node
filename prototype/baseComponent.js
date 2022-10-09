@@ -69,7 +69,7 @@ export default class BaseComponent {
    * 成功的消息
    * @param message 消息内容
    * @param data 返回的数据
-   * @returns
+   * @return
    */
   successMessage(message, data) {
     message = message || '请求成功';
@@ -89,7 +89,7 @@ export default class BaseComponent {
   /**
    * 失败的消息
    * @param message 消息内容
-   * @returns
+   * @return
    */
   failMessage(message) {
     return {
