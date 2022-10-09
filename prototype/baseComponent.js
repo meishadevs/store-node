@@ -80,7 +80,7 @@ export default class BaseComponent {
     };
 
     if (data) {
-      Object.assign(result, data);
+      result.data = data;
     }
 
     return result;
