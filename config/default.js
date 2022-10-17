@@ -1,9 +1,9 @@
 module.exports = {
   port: 8002,
-  url: 'mongodb://localhost:27017/dswz',
+  url: 'mongodb://localhost:27017/store',
   session: {
-    name: 'SID',
-    secret: 'SID',
+    name: 'store',
+    secret: 'store',
     cookie: {
       httpOnly: true,
       secure: false,
