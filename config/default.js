@@ -1,6 +1,6 @@
 module.exports = {
   port: 8002,
-  url: 'mongodb://192.168.10.178:27017/store',
+  url: 'mongodb://localhost:27017/store',
   session: {
     name: 'store',
     secret: 'store',
