@@ -14,10 +14,10 @@ Node.js + Express + MongoDB + Mongoose + ES6
 
 ```
 # 将项目克隆到本地
-git clone https://github.com/meishadevs/store-vue.git
+https://github.com/meishadevs/store-node.git
 
-# 进入 store-vue 目录下
-cd store-vue
+# 进入 store-node 目录下
+cd store-node
 
 # 安装依赖
 npm install
