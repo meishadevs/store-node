@@ -19,7 +19,8 @@ class Product extends BaseComponent {
       // -_id 表示不显示 _id 字段
       const productList = await ProductModel.find({}, '-_id -id')
         .sort({ id: -1 })
-        .skip(Number(offset)).limit(Number(pageSize));
+        .skip(Number(offset))
+        .limit(Number(pageSize));
 
       // 获得商品数量
       const productCount = await ProductModel.count();

@@ -10,7 +10,7 @@ class User extends BaseComponent {
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
     this.logout = this.logout.bind(this);
-    this.getAllUser = this.getAllUser.bind(this);
+    this.getPageList = this.getPageList.bind(this);
     this.getUserCount = this.getUserCount.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
   }
@@ -135,17 +135,28 @@ class User extends BaseComponent {
     }
   }
 
-  // 获得所有用户
-  async getAllUser(req, res, next) {
-    const { limit = 20, offset = 0 } = req.query;
+  // 获得用户列表
+  async getPageList(req, res, next) {
+    const { pageSize = 10, pageNumber = 1 } = req.query;
+
+    const offset = (pageNumber - 1) * pageSize;
 
     try {
-      const allUser = await UserModel.find({}, '-_id -password')
+      // 获得用户列表
+      const userList = await UserModel.find({}, '-_id -password -__v')
         .sort({ id: -1 })
         .skip(Number(offset))
-        .limit(Number(limit));
+        .limit(Number(pageSize));
 
-      res.send(this.successMessage(null, { list: allUser }));
+      // 获得用户数量
+      const userCount = await UserModel.count();
+
+      let data = {
+        list: userList,
+        count: userCount
+      };
+
+      res.send(this.successMessage(null, data));
     } catch (err) {
       res.send(this.failMessage('获取用户列表失败'));
     }
@@ -173,7 +184,7 @@ class User extends BaseComponent {
 
     try {
       // 根据用户 id 查找用户信息
-      const userInfo = await UserModel.findOne({ id: userId }, '-_id -__v -password');
+      const userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v');
       if (!userInfo) {
         throw new Error('未找到当前用户');
       } else {
