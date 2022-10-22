@@ -35,10 +35,9 @@ POST
 
 ```javascript
 {
-    "code": 200,
-    "message": "用户注册成功"
+  "code": 200,
+  "message": "用户注册成功"
 }
-
 ```
 
 ### 2、登录
@@ -64,8 +63,8 @@ POST
 
 ```javascript
 {
-    "code": 200,
-    "message": "登录成功"
+  "code": 200,
+  "message": "登录成功"
 }
 ```
 
@@ -88,8 +87,8 @@ POST
 
 ```javascript
 {
-    "code": 200,
-    "message": "退出成功"
+  "code": 200,
+  "message": "退出成功"
 }
 ```
 
@@ -112,10 +111,10 @@ GET
 
 ```javascript
 {
-    "code": 200,
-    "message": "请求成功",
-    "data": {
-        "count": 3
-    }
+  "code": 200,
+  "message": "请求成功",
+  "data": {
+    "count": 3
+  }
 }
 ```
