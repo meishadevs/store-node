@@ -25,11 +25,11 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userName      |Y       |string  |用户名 |
-|password      |Y       |string  |密码 |
-|secondPassword      |Y       |string  |确认密码 |
-|email      |Y       |string  |邮箱 |
-|isAccept      |Y       |boolean  |是否同意服务协议，true：同意，false：不同意 |
+|userName      |Y       |String  |用户名 |
+|password      |Y       |String  |密码 |
+|secondPassword      |Y       |String  |确认密码 |
+|email      |Y       |String  |邮箱 |
+|isAccept      |Y       |Boolean  |是否同意服务协议，true：同意，false：不同意 |
 
 #### 返回示例：
 
@@ -57,8 +57,8 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userName      |Y       |string  |用户名 |
-|password      |Y       |string  |密码 |
+|userName      |Y       |String  |用户名 |
+|password      |Y       |String  |密码 |
 
 #### 返回示例：
 
