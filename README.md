@@ -30,3 +30,9 @@ npm run dev
 
 数据库备份文件：[下载数据库文件](https://raw.githubusercontent.com/meishadevs/store-node/master/database/store.rar)
 
+数据还原
+```
+# -h 数据库地址
+# -d 数据库名称，数据文件的路径
+mongorestore -h 192.168.10.178:27017 -d store F:\database
+```
