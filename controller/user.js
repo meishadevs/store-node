@@ -103,6 +103,7 @@ class User extends BaseComponent {
         return;
       }
 
+      // 对用户填写的密码加密
       const newpassword = this.encryption(password);
 
       try {
@@ -164,6 +165,7 @@ class User extends BaseComponent {
   async getUserInfo(req, res, next) {
     // 获得 session 中的用户 id
     const userId = req.session.userId;
+
     if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));
       return;
