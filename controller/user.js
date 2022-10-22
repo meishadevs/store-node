@@ -9,7 +9,7 @@ class User extends BaseComponent {
     super();
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
-    this.singout = this.singout.bind(this);
+    this.logout = this.logout.bind(this);
     this.getAllUser = this.getAllUser.bind(this);
     this.getUserCount = this.getUserCount.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
@@ -125,7 +125,7 @@ class User extends BaseComponent {
   }
 
   // 退出登录
-  async singout(req, res, next) {
+  async logout(req, res, next) {
     try {
       // 删除存储在 session 中的用户 id
       delete req.session.userId;
