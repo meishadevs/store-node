@@ -29,7 +29,7 @@ POST
 |password      |Y       |string  |密码 |
 |secondPassword      |Y       |string  |确认密码 |
 |email      |Y       |string  |邮箱 |
-|isAccept      |Y       |string  |是否同意服务协议，true：同意，false：不同意 |
+|isAccept      |Y       |boolean  |是否同意服务协议，true：同意，false：不同意 |
 
 #### 返回示例：
 
