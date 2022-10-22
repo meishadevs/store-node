@@ -25,7 +25,7 @@ class User extends BaseComponent {
         return;
       }
 
-      const { userName, password, secondPassword, email } = fields;
+      const { userName, password, secondPassword, email, isAccept } = fields;
 
       try {
         if (!userName) {
@@ -36,6 +36,8 @@ class User extends BaseComponent {
           throw new Error('确认密码不能为空');
         } else if (password !== secondPassword) {
           throw new Error('两次输入的密码不一致');
+        } else if (isAccept !== 'true') {
+          throw new Error('请同意用户协议');
         }
       } catch (err) {
         res.send(this.failMessage(err.message));
