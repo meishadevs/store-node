@@ -10,3 +10,20 @@
 
 Node.js + Express + MongoDB + Mongoose + ES6
 
+## 运行项目
+
+```
+# 将项目克隆到本地
+https://github.com/meishadevs/store-node.git
+
+# 进入 store-node 目录下
+cd store-node
+
+# 安装依赖
+npm install
+
+# 运行项目
+npm run dev
+```
+
+
