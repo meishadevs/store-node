@@ -26,4 +26,7 @@ npm install
 npm run dev
 ```
 
+## 数据库文件
+
+数据库备份文件：[下载数据库文件](https://raw.githubusercontent.com/meishadevs/store-node/master/database/store.rar)
 
