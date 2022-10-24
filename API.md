@@ -372,5 +372,51 @@ GET
 }
 ```
 
+### 获得区列表
+
+#### 请求URL:  
+```
+/region/DistrictLis
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|cityCode      |Y       |Number  |市编码|
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "districtCode": 360501,
+        "districtName": "市辖区",
+        "cityCode": 360500
+      },
+      {
+        "districtCode": 360502,
+        "districtName": "渝水区",
+        "cityCode": 360500
+      },
+      {
+        "districtCode": 360521,
+        "districtName": "分宜县",
+        "cityCode": 360500
+      }
+    ]
+  }
+}
+```
+
 
 
