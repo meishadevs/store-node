@@ -325,4 +325,52 @@ GET
 }
 ```
 
+### 获得市列表
+
+#### 请求URL:  
+```
+/region/cityList
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|provinceCode      |Y       |Number  |省份编码|
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "cityCode": 360100,
+        "cityName": "南昌市",
+        "provinceCode": 360000
+      },
+      {
+        "cityCode": 360200,
+        "cityName": "景德镇市",
+        "provinceCode": 360000
+      },
+      {
+        "cityCode": 360300,
+        "cityName": "萍乡市",
+        "provinceCode": 360000
+      },
+     .....
+    ]
+  }
+}
+```
+
+
 
