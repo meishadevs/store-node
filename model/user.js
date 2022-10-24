@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
   // 邮箱
   email: String,
 
+  // 是否同意用户协议
+  isAgree: Number,
+
   // 创建时间
   createTime: String,
 
