@@ -36,7 +36,7 @@ POST
 ```javascript
 {
   "code": 200,
-  "message": "用户注册成功"
+  "msg": "用户注册成功"
 }
 ```
 
@@ -64,7 +64,7 @@ POST
 ```javascript
 {
   "code": 200,
-  "message": "登录成功"
+  "msg": "登录成功"
 }
 ```
 
@@ -88,7 +88,7 @@ POST
 ```javascript
 {
   "code": 200,
-  "message": "退出成功"
+  "msg": "退出成功"
 }
 ```
 
@@ -112,7 +112,7 @@ GET
 ```javascript
 {
   "code": 200,
-  "message": "请求成功",
+  "msg": "请求成功",
   "data": {
     "count": 3
   }
