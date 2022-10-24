@@ -76,7 +76,7 @@ export default class BaseComponent {
 
     let result = {
       code: 200,
-      message
+      msg: message
     };
 
     if (data) {
@@ -94,7 +94,7 @@ export default class BaseComponent {
   failMessage(message) {
     return {
       code: 500,
-      message
+      msg: message
     };
   }
 }
