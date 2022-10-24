@@ -376,7 +376,7 @@ GET
 
 #### 请求URL:  
 ```
-/region/DistrictLis
+/region/DistrictList
 ```
 
 #### 请求方式: 
