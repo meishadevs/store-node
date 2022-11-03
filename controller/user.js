@@ -117,7 +117,12 @@ class User extends BaseComponent {
         } else {
           // 将用户 id 存储到 session 中
           req.session.userId = user.id;
-          res.send(this.successMessage('登录成功'));
+
+          const result = {
+            accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaWNlbnNlIjoiY2FueW91IiwidXNlcl9pZCI6MSwidXNlcl9uYW1lIjoiYWRtaW4iLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNjcxNzY2MzIzLCJqdGkiOiI3ZTI2ZGMxYi02ZWQyLTQ5YTEtOGY2Ny0zMWExODVlZGQ4MzIiLCJjbGllbnRfaWQiOiJhZG1pbi13ZWIifQ.Ze24aTM2BpXxC2M32sQjlg_xqisVfzA7P7SGD4DCCKI'
+          };
+
+          res.send(this.successMessage('登录成功', result));
         }
       } catch (err) {
         res.send(this.failMessage('用户登录失败'));
