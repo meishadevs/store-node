@@ -13,7 +13,7 @@ const userApi = (router) => {
 
   // 退出登录
   router.post('/user/logout', (req, res, next) => {
-    User.register(req, res, next);
+    User.logout(req, res, next);
   });
 
   // 获得用户列表
