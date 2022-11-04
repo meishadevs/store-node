@@ -25,4 +25,4 @@ class Menu extends BaseComponent {
   }
 }
 
-module.exports = Menu;
+module.exports = new Menu();

@@ -48,4 +48,4 @@ class Product extends BaseComponent {
   }
 }
 
-module.exports = Product;
+module.exports = new Product();

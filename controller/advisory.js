@@ -51,4 +51,4 @@ class Advisory extends BaseComponent {
   }
 }
 
-module.exports = Advisory;
+module.exports = new Advisory();

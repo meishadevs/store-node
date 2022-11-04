@@ -59,4 +59,4 @@ class Region extends BaseComponent {
   }
 }
 
-module.exports = Region;
+module.exports = new Region();
