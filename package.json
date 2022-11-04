@@ -1,5 +1,5 @@
 {
-  "name": "node-dswz",
+  "name": "store-node",
   "version": "1.0.0",
   "description": "A Node.js server using MongoDB",
   "main": "index.js",
