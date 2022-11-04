@@ -1,5 +1,5 @@
-import ProductModel from '../model/product';
-import BaseComponent from '../prototype/baseComponent';
+const ProductModel = require('../model/product');
+const BaseComponent = require('../prototype/baseComponent');
 
 class Product extends BaseComponent {
   constructor() {
@@ -48,4 +48,4 @@ class Product extends BaseComponent {
   }
 }
 
-export default new Product();
+module.exports = Product;

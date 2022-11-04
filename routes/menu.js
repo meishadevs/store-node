@@ -1,8 +1,8 @@
-import express from 'express';
-import Menu from '../controller/menu';
+const express = require('express');
+const Menu = require('../controller/menu');
 
 const router = express.Router();
 
 router.get('/list', Menu.getList);
 
-export default router;
+module.exports = router;

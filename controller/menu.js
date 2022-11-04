@@ -1,5 +1,5 @@
-import MenuModel from '../model/Menu';
-import BaseComponent from '../prototype/baseComponent';
+const MenuModel = require('../model/Menu');
+const BaseComponent = require('../prototype/baseComponent');
 
 class Menu extends BaseComponent {
   constructor() {
@@ -25,4 +25,4 @@ class Menu extends BaseComponent {
   }
 }
 
-export default new Menu();
+module.exports = Menu;

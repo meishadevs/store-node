@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const districtSchema = new mongoose.Schema({
   // 区名称
@@ -18,4 +18,4 @@ districtSchema.index({ id: 1 });
 
 const District = mongoose.model('district', districtSchema, 'district');
 
-export default District;
+module.exports = District;

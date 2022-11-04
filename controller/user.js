@@ -1,7 +1,7 @@
-import UserModel from '../model/user';
-import BaseComponent from '../prototype/baseComponent';
-import formidable from 'formidable';
-import dtime from 'time-formater';
+const UserModel = require('../model/user');
+const BaseComponent = require('../prototype/baseComponent');
+const formidable = require('formidable');
+const dtime = require('time-formater');
 
 class User extends BaseComponent {
   // 构造函数
@@ -202,4 +202,4 @@ class User extends BaseComponent {
   }
 }
 
-export default new User();
+module.exports = new User();

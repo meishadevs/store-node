@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const idSchema = new mongoose.Schema({
   // 用户 id
@@ -18,4 +18,4 @@ Id.findOne((err, data) => {
   }
 });
 
-export default Id;
+module.exports = Id;

@@ -7,8 +7,8 @@
   "license": "GPL",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --harmony index.js",
-    "check": "cross-env NODE_ENV=production nodemon --harmony index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --harmony app.js",
+    "check": "cross-env NODE_ENV=production nodemon --harmony app.js",
     "lint": "eslint **/*.js",
     "lint-html": "eslint **/*.js -f html -o ./reports/lint-results.html",
     "lint-fix": "eslint --fix **/*.js",
@@ -20,8 +20,6 @@
     "url": "https://github.com/meishadevs/store-node"
   },
   "dependencies": {
-    "@babel/core": "^7.19.0",
-    "babel-register": "^6.26.0",
     "bluebird": "^3.5.0",
     "captchapng": "0.0.1",
     "chalk": "^2.3.0",
@@ -51,9 +49,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",
     "babel-eslint": "^10.1.0",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
     "eslint": "^8.23.1",
     "nodemon": "^1.18.6"
   }

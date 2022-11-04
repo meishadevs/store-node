@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   // 用户名
@@ -24,4 +24,4 @@ userSchema.index({ id: 1 });
 
 const User = mongoose.model('user', userSchema, 'user');
 
-export default User;
+module.exports = User;

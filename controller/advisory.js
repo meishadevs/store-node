@@ -1,5 +1,5 @@
-import AdvisoryModel from '../model/advisory';
-import BaseComponent from '../prototype/baseComponent';
+const AdvisoryModel = require('../model/advisory');
+const BaseComponent = require('../prototype/baseComponent');
 
 class Advisory extends BaseComponent {
   constructor() {
@@ -51,4 +51,4 @@ class Advisory extends BaseComponent {
   }
 }
 
-export default new Advisory();
+module.exports = Advisory;

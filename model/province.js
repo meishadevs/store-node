@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const provinceSchema = new mongoose.Schema({
   // 省份名称
@@ -15,4 +15,4 @@ provinceSchema.index({ id: 1 });
 
 const Province = mongoose.model('province', provinceSchema, 'province');
 
-export default Province;
+module.exports = Province;

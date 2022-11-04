@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   // 商品名称
@@ -21,4 +21,4 @@ productSchema.index({ id: 1 });
 
 const Product = mongoose.model('product', productSchema, 'product');
 
-export default Product;
+module.exports = Product;

@@ -1,7 +1,7 @@
-import crypto from 'crypto';
-import IdModel from '../model/id';
+const crypto = require('crypto');
+const IdModel = require('../model/id');
 
-export default class BaseComponent {
+class BaseComponent {
   constructor() {
     // id 列表
     this.idList = [
@@ -98,3 +98,5 @@ export default class BaseComponent {
     };
   }
 }
+
+module.exports = BaseComponent;

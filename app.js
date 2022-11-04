@@ -1,15 +1,14 @@
-import path from 'path';
-import chalk from 'chalk';
-import express from 'express';
-import config from 'config-lite';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import cookieParser from 'cookie-parser';
-import history from 'connect-history-api-fallback';
+const path = require('path');
+const chalk = require('chalk');
+const express = require('express');
+const config = require('config-lite');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser');
+const history = require('connect-history-api-fallback');
 
-/* eslint-disable no-unused-vars */
-import db from './mongodb/db.js';
-import router from './routes/index.js';
+require('./mongodb/db.js');
+const router = require('./routes/index.js');
 
 // 创建 express 对象
 const app = express();
@@ -48,8 +47,8 @@ app.use(session({
   })
 }));
 
-// 配置路由
-router(app);
+// 页面路由
+app.use('/', router);
 
 app.use(history());
 

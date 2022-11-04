@@ -1,4 +1,4 @@
-import UserModel from '../model/user';
+const UserModel = require('../model/user');
 
 class Check {
   async checkUser(req, res, next) {
@@ -23,6 +23,7 @@ class Check {
     }
     next();
   }
+
   async checkSuperUser(req, res, next) {
     const user_id = req.session.user_id;
     if (!user_id || !Number(user_id)) {
@@ -47,4 +48,4 @@ class Check {
   }
 }
 
-export default new Check();
+module.exports = Check;

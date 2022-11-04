@@ -1,13 +1,13 @@
-import user from './user';
-import product from './product';
-import region from './region';
-import advisory from './advisory';
-import menu from './menu';
+const userApi = require('./userApi');
+const express = require('express');
 
-export default app => {
-  app.use('/user', user);
-  app.use('/product', product);
-  app.use('/region', region);
-  app.use('/advisory', advisory);
-  app.use('/menu', menu);
-};
+const router = express.Router();
+
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+userApi(router);
+
+module.exports = router;
+

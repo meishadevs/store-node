@@ -1,7 +1,7 @@
-import ProvinceModel from '../model/province';
-import CityModel from '../model/city';
-import DistrictModel from '../model/district';
-import BaseComponent from '../prototype/baseComponent';
+const ProvinceModel = require('../model/province');
+const CityModel = require('../model/city');
+const DistrictModel = require('../model/district');
+const BaseComponent = require('../prototype/baseComponent');
 
 class Region extends BaseComponent {
   constructor() {
@@ -59,4 +59,4 @@ class Region extends BaseComponent {
   }
 }
 
-export default new Region();
+module.exports = Region;

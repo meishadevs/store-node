@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const citySchema = new mongoose.Schema({
   // 市名称
@@ -18,4 +18,4 @@ citySchema.index({ id: 1 });
 
 const City = mongoose.model('city', citySchema, 'city');
 
-export default City;
+module.exports = City;

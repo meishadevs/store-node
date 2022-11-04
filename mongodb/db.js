@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import config from 'config-lite';
+const mongoose = require('mongoose');
+const config = require('config-lite');
 
 // 连接数据库
 mongoose.connect(config.url, {

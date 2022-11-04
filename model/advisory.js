@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const advisorySchema = new mongoose.Schema({
   // 用户名
@@ -27,4 +27,4 @@ advisorySchema.index({ id: 1 });
 
 const Advisory = mongoose.model('advisory', advisorySchema, 'advisory');
 
-export default Advisory;
+module.exports = Advisory;
