@@ -3,7 +3,6 @@ const User = require('../controller/user');
 const userApi = (router) => {
   // 登录
   router.post('/user/login', (req, res, next) => {
-    console.log('User:', User);
     User.login(req, res, next);
   });
 
