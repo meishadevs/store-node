@@ -7,8 +7,8 @@ const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const history = require('connect-history-api-fallback');
 
-require('./mongodb/db.js');
-const router = require('./routes/index.js');
+require('./mongodb/db');
+const router = require('./routes/index');
 
 // 创建 express 对象
 const app = express();
