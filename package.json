@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/meishadevs/node-dswz"
+    "url": "https://github.com/meishadevs/store-node"
   },
   "dependencies": {
     "@babel/core": "^7.19.0",
