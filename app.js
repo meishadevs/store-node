@@ -6,6 +6,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const history = require('connect-history-api-fallback');
+var { expressjwt: jwt } = require('express-jwt');
 
 require('./mongodb/db');
 const router = require('./routes/index');
@@ -45,6 +46,14 @@ app.use(session({
   store: MongoStore.create({
     mongoUrl: config.url
   })
+}));
+
+// 用于解析传递过来的 token
+app.use(jwt({
+  secret: config.secretKey,
+  algorithms: ['HS256']
+}).unless({
+  path: ['/user/login']
 }));
 
 // 页面路由

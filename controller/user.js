@@ -179,7 +179,7 @@ class User extends BaseComponent {
 
   // 获得用户信息
   async getUserInfo(req, res, next) {
-    let userId = 0;
+    const { userId } = req.auth;
 
     if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));
