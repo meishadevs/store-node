@@ -3,7 +3,7 @@ const BaseComponent = require('../prototype/baseComponent');
 const formidable = require('formidable');
 const dtime = require('time-formater');
 const jwt = require('jsonwebtoken');
-const config = require('config-lite');
+const config = require('config-lite')(__dirname);
 
 class User extends BaseComponent {
   // 构造函数

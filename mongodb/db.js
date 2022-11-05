@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('config-lite');
+const config = require('config-lite')(__dirname);
 
 // 连接数据库
 mongoose.connect(config.url, {
