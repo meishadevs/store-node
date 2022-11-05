@@ -49,11 +49,12 @@ app.use(session({
 }));
 
 // 用于解析传递过来的 token
+// unless 设置不需要 token 也能访问的 api 接口
 app.use(jwt({
   secret: config.secretKey,
   algorithms: ['HS256']
 }).unless({
-  path: ['/user/login']
+  path: config.apiList
 }));
 
 // 页面路由
