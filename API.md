@@ -15,6 +15,7 @@
 [获得区列表](#获得区列表)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
+[获得菜单列表](#获得菜单列表)  
 
 ## 接口列表：
 
@@ -493,6 +494,83 @@ GET
       ....
     ],
     "count": 30
+  }
+}
+```
+
+### 获得菜单列表
+
+#### 请求URL:  
+```
+/menu/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+无
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "parentId": 0,
+        "title": "系统设置",
+        "url": "/setting",
+        "permission": "setting",
+        "icon": "",
+        "sort": 1,
+        "remark": "",
+        "type": 0,
+        "children": [
+          {
+            "id": 2,
+            "parentId": 1,
+            "title": "用户管理",
+            "url": "/user",
+            "permission": "user",
+            "icon": "",
+            "sort": 2,
+            "remark": "",
+            "type": 0,
+            "children": []
+          },
+          {
+            "id": 3,
+            "parentId": 1,
+            "title": "角色管理",
+            "url": "/role",
+            "permission": "role",
+            "icon": "",
+            "sort": 3,
+            "remark": "",
+            "type": 0,
+            "children": []
+          },
+          {
+            "id": 4,
+            "parentId": 1,
+            "title": "菜单管理",
+            "url": "/menu",
+            "permission": "menu",
+            "icon": "",
+            "sort": 4,
+            "remark": "",
+            "type": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
   }
 }
 ```
