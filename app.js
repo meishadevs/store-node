@@ -66,6 +66,15 @@ app.use(history());
 // express.static 的参数为静态资源的存放目录
 app.use(express.static(path.join(__dirname, 'statics')));
 
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.send({ code: 401, msg: 'Invalid token' });
+  }
+
+  res.send({ code: 500, msg: 'Unknown error' });
+});
+
 // 监听端口
 app.listen(config.port, () => {
   console.log(
