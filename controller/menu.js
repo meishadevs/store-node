@@ -12,10 +12,13 @@ class Menu extends BaseComponent {
     try {
       // 获得菜单列表
       // -_id 表示不显示 _id 字段
-      const menuList = await MenuModel.find({}, '-_id').sort({ id: -1 });
+      const menuList = await MenuModel.find({}, '-_id').sort({ id: -1 }).lean();
+
+      // 将菜单列表转成一颗树的结构
+      const treeData = this.arrayToTree(menuList);
 
       let data = {
-        list: menuList
+        list: treeData
       };
 
       res.send(this.successMessage(null, data));
