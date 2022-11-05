@@ -97,6 +97,54 @@ class BaseComponent {
       msg: message
     };
   }
+
+  /**
+   * 将数组转成树
+   * @param array
+   * @return
+   */
+  arrayToTree(array) {
+    // 存放结果集
+    const result = [];
+    const map = {};
+
+    // 遍历数组
+    for (const item of array) {
+      // 当前数组元素的 id
+      const id = item.id;
+
+      // 当前数组元素的父 id
+      const parentId = item.parentId;
+
+      // 把当前值加入map
+      if (!map[id]) {
+        map[id] = {
+          children: []
+        };
+      }
+
+      map[id] = {
+        ...item,
+        children: map[id]['children']
+      };
+
+      const treeItem = map[id];
+
+      if (parentId === 0) {
+        result.push(treeItem);
+      } else {
+        if (!map[parentId]) {
+          map[parentId] = {
+            children: []
+          };
+        }
+
+        map[parentId].children.push(treeItem);
+      }
+    }
+
+    return result;
+  }
 }
 
 module.exports = BaseComponent;
