@@ -2,6 +2,8 @@ const UserModel = require('../model/user');
 const BaseComponent = require('../prototype/baseComponent');
 const formidable = require('formidable');
 const dtime = require('time-formater');
+const jwt = require('jsonwebtoken');
+const config = require('config-lite');
 
 class User extends BaseComponent {
   // 构造函数
@@ -69,9 +71,6 @@ class User extends BaseComponent {
           // 保存用户信息
           await UserModel.create(newUser);
 
-          // 将用户 id 存储到 session 中
-          req.session.userId = userId;
-
           res.send(this.successMessage('用户注册成功'));
         }
       } catch (err) {
@@ -115,11 +114,13 @@ class User extends BaseComponent {
         } else if (newpassword.toString() !== user.password.toString()) {
           res.send(this.failMessage('该用户已存在，密码输入错误'));
         } else {
-          // 将用户 id 存储到 session 中
-          req.session.userId = user.id;
+          // 生成 token
+          // 第一个参数：用户信息对象
+          // 第二个参数：加密秘钥
+          const token = jwt.sign({ userId: user.id }, config.secretKey, { expiresIn: config.expiresIn });
 
           const result = {
-            accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaWNlbnNlIjoiY2FueW91IiwidXNlcl9pZCI6MSwidXNlcl9uYW1lIjoiYWRtaW4iLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNjcxNzY2MzIzLCJqdGkiOiI3ZTI2ZGMxYi02ZWQyLTQ5YTEtOGY2Ny0zMWExODVlZGQ4MzIiLCJjbGllbnRfaWQiOiJhZG1pbi13ZWIifQ.Ze24aTM2BpXxC2M32sQjlg_xqisVfzA7P7SGD4DCCKI'
+            accessToken: token
           };
 
           res.send(this.successMessage('登录成功', result));
@@ -133,8 +134,6 @@ class User extends BaseComponent {
   // 退出登录
   async logout(req, res, next) {
     try {
-      // 删除存储在 session 中的用户 id
-      delete req.session.userId;
       res.send(this.successMessage('退出成功'));
     } catch (err) {
       res.send(this.failMessage('退出失败'));
@@ -180,8 +179,7 @@ class User extends BaseComponent {
 
   // 获得用户信息
   async getUserInfo(req, res, next) {
-    // 获得 session 中的用户 id
-    const userId = req.session.userId;
+    let userId = 0;
 
     if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));

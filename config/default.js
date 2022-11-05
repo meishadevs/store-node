@@ -1,6 +1,8 @@
 module.exports = {
   port: 8002,
   url: 'mongodb://localhost:27017/store',
+  secretKey: 'store',
+  expiresIn: '10h',
   session: {
     name: 'store',
     secret: 'store',
