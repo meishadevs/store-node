@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   // 创建时间
   createTime: String,
 
-  // 所属角色
+  // 给用户分配的角色
   roles: {
     type: Array,
     default: []

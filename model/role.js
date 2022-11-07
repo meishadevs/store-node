@@ -5,7 +5,13 @@ const roleSchema = new mongoose.Schema({
   id: Number,
 
   // 角色名称
-  roleName: String
+  roleName: String,
+
+  // 给角色分配的菜单（权限）
+  menus: {
+    type: Array,
+    default: []
+  }
 });
 
 userSchema.index({ id: 1 });
