@@ -1,4 +1,5 @@
 const UserModel = require('../model/user');
+const RoleModel = require('../model/role');
 const BaseComponent = require('../prototype/baseComponent');
 const formidable = require('formidable');
 const dtime = require('time-formater');
@@ -185,6 +186,9 @@ class User extends BaseComponent {
     // 用户的所属角色
     let roleList = [];
 
+    // 用户的权限
+    let permissions = [];
+
     if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));
       return;
@@ -193,6 +197,7 @@ class User extends BaseComponent {
     try {
       // 获得用户信息
       let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
+
 
       // 根据用户 id 获得用户的所属角色 
       const roleInfo = await UserModel.aggregate([
@@ -215,18 +220,47 @@ class User extends BaseComponent {
         }
       ]);
 
+      // 根据角色 id 获得角色的权限
+      const permissionInfo = await RoleModel.aggregate([
+        {
+          $match: { id: { $in: userInfo.roles } }
+        },
+        {
+          $lookup: {
+            from: 'menu',
+            localField: 'menus',
+            foreignField: 'id',
+            as: 'permissionList',
+          }
+        },
+        {
+          $project: {
+            '_id': 0,
+            'permissionList.permission': 1
+          }
+        }
+      ]);
+
       // 如果获取到了用户分配的角色
       if(roleInfo.length && roleInfo[0].roleList.length) {
         roleList = roleInfo[0].roleList.map(item => {
           return item.roleName;
         });
-      } else {
-        roleList = [];
+      }
+
+      // 如果获取到了用户分配的权限
+      if(permissionInfo.length && permissionInfo[0].permissionList.length) {
+        permissionInfo.map(permission => {
+          permission.permissionList.map(item => {
+            permissions.push(item.permission);
+          });
+        });
       }
 
       userInfo = {
         ...userInfo,
-        roleList
+        roleList,
+        permissions
       }
 
       if (!userInfo) {
@@ -235,6 +269,7 @@ class User extends BaseComponent {
         res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
+      console.log("err:", err);
       res.send(this.failMessage('获取用户信息失败'));
     }
   }

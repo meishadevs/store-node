@@ -8,14 +8,15 @@ const roleSchema = new mongoose.Schema({
   roleName: String,
 
   // 给角色分配的菜单（权限）
-  menus: {
-    type: Array,
-    default: []
-  }
+  // 关联菜单集合，用于查询给角色分配的菜单
+  menus: [{ 
+    type: Number, 
+    ref: 'menu' 
+  }]
 });
 
-userSchema.index({ id: 1 });
+roleSchema.index({ id: 1 });
 
-const Role = mongoose.model('role', userSchema, 'role');
+const Role = mongoose.model('role', roleSchema, 'role');
 
 module.exports = Role;

@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema({
 
   // 给用户分配的角色
   // 关联角色集合，用于查询给用户分配的角色
-  roles: [{ type: Number, ref: 'role' }]
+  roles: [{ 
+    type: Number, 
+    ref: 'role' 
+  }]
 });
 
 userSchema.index({ id: 1 });
