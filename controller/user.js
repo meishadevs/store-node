@@ -21,7 +21,7 @@ class User extends BaseComponent {
   async register(req, res, next) {
     const form = new formidable.IncomingForm();
 
-    form.parse(req, async(err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
       if (err) {
         res.send(this.failMessage('表单信息错误'));
         return;
@@ -64,6 +64,7 @@ class User extends BaseComponent {
             password: newpassword,
             id: userId,
             email,
+            roles: [4],
             isAgree: parseInt(isAgree),
             createTime: dtime().format('YYYY-MM-DD')
           };
@@ -84,7 +85,7 @@ class User extends BaseComponent {
     // 创建 form 表单
     const form = new formidable.IncomingForm();
 
-    form.parse(req, async(err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
       if (err) {
         res.send(this.failMessage('表单信息错误'));
         return;
@@ -188,13 +189,27 @@ class User extends BaseComponent {
 
     try {
       // 根据用户 id 查找用户信息
-      const userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v');
+      const userInfo = await UserModel
+        .aggregate([
+          {
+            $lookup:{
+              from:'msgs',  // 关联的集合
+              localField:'_id',  // 本地关联的字段
+              foreignField:'article',  // 对方集合关联的字段
+              as:'mms',  // 结果字段名,
+            },
+          }
+        ]);
+
       if (!userInfo) {
         throw new Error('未找到当前用户');
       } else {
+
+
         res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
+      console.log("err:", err);
       res.send(this.failMessage('获取用户信息失败'));
     }
   }

@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
   // 创建时间
   createTime: String,
 
+  // 所属角色
+  roles: {
+    type: Array,
+    default: []
+  },
+
   // 用户 id
   id: Number
 });
