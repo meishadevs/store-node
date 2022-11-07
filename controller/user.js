@@ -216,10 +216,12 @@ class User extends BaseComponent {
       ]);
 
       // 如果获取到了用户分配的角色
-      if(roleInfo[0].roleList.length) {
+      if(roleInfo.length && roleInfo[0].roleList.length) {
         roleList = roleInfo[0].roleList.map(item => {
           return item.roleName;
         });
+      } else {
+        roleList = [];
       }
 
       userInfo = {
