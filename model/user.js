@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+  // 用户 id
+  id: Number,
+
   // 用户名
   userName: String,
 
@@ -20,10 +23,7 @@ const userSchema = new mongoose.Schema({
   roles: {
     type: Array,
     default: []
-  },
-
-  // 用户 id
-  id: Number
+  }
 });
 
 userSchema.index({ id: 1 });

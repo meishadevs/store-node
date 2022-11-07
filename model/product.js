@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
+  // 商品 id
+  id: Number,
+
   // 商品名称
   productName: String,
 
@@ -11,10 +14,7 @@ const productSchema = new mongoose.Schema({
   productPrice: Number,
 
   // 商品评论数
-  commentNum: String,
-
-  // 商品 id
-  id: Number
+  commentNum: String
 });
 
 productSchema.index({ id: 1 });

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const districtSchema = new mongoose.Schema({
+  // 区 id
+  id: Number,
+
   // 区名称
   districtName: String,
 
@@ -8,10 +11,7 @@ const districtSchema = new mongoose.Schema({
   districtCode: Number,
 
   // 市编码
-  cityCode: Number,
-
-  // 区 id
-  id: Number
+  cityCode: Number
 });
 
 districtSchema.index({ id: 1 });

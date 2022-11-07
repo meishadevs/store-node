@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const citySchema = new mongoose.Schema({
+  // 市 id
+  id: Number,
+
   // 市名称
   cityName: String,
 
@@ -8,10 +11,7 @@ const citySchema = new mongoose.Schema({
   cityCode: Number,
 
   // 省份编码
-  provinceCode: Number,
-
-  // 市 id
-  id: Number
+  provinceCode: Number
 });
 
 citySchema.index({ id: 1 });

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const advisorySchema = new mongoose.Schema({
+  // 咨询 id
+  id: Number,
+
   // 用户名
   memberName: String,
 
@@ -17,10 +20,7 @@ const advisorySchema = new mongoose.Schema({
   answer: String,
 
   // 提问时间
-  time: String,
-
-  // 用户 id
-  id: Number
+  time: String
 });
 
 advisorySchema.index({ id: 1 });
