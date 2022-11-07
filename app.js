@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     return res.send({ code: 401, msg: 'access_token无效' });
   }
-
+  
   res.send({ code: 500, msg: 'Unknown error' });
 });
 

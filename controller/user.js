@@ -182,34 +182,57 @@ class User extends BaseComponent {
   async getUserInfo(req, res, next) {
     const { userId } = req.auth;
 
+    // 用户的所属角色
+    let roleList = [];
+
     if (!userId || !Number(userId)) {
       res.send(this.failMessage('获取用户信息失败'));
       return;
     }
 
     try {
-      // 根据用户 id 查找用户信息
-      const userInfo = await UserModel
-        .aggregate([
-          {
-            $lookup:{
-              from:'msgs',  // 关联的集合
-              localField:'_id',  // 本地关联的字段
-              foreignField:'article',  // 对方集合关联的字段
-              as:'mms',  // 结果字段名,
-            },
+      // 获得用户信息
+      let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
+
+      // 根据用户 id 获得用户的所属角色 
+      const roleInfo = await UserModel.aggregate([
+        {
+          $match: { id: userId }
+        },
+        {
+          $lookup: {
+            from: 'role',
+            localField: 'roles',
+            foreignField: 'id',
+            as: 'roleList',
           }
-        ]);
+        },
+        {
+          $project: {
+            '_id': 0,
+            'roleList.roleName': 1
+          }
+        }
+      ]);
+
+      // 如果获取到了用户分配的角色
+      if(roleInfo[0].roleList.length) {
+        roleList = roleInfo[0].roleList.map(item => {
+          return item.roleName;
+        });
+      }
+
+      userInfo = {
+        ...userInfo,
+        roleList
+      }
 
       if (!userInfo) {
         throw new Error('未找到当前用户');
       } else {
-
-
         res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
-      console.log("err:", err);
       res.send(this.failMessage('获取用户信息失败'));
     }
   }
