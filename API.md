@@ -106,8 +106,26 @@ GET
     "userName": "meishadevs",
     "email": "meishadevs@gmail.com",
     "isAgree": 1,
-    "createTime": "2022-10-24",
-    "id": 4
+    "createTime": "2022-11-07",
+    "roles": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "id": 1,
+    "roleList": [
+      "销售",
+      "运营人员",
+      "管理员",
+      "普通用户"
+    ],
+    "permissions": [
+      "role",
+      "user",
+      "setting",
+      "menu"
+    ]
   }
 }
 ```
