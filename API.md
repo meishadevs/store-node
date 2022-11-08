@@ -74,7 +74,10 @@ POST
 ```javascript
 {
   "code": 200,
-  "msg": "登录成功"
+  "msg": "登录成功",
+  "data": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY2Nzg5ODM4MSwiZXhwIjoxNjY3OTM0MzgxfQ.tGlVwKXxpFU4JFGIYnvJk3ASi9s8tPbmPSEfDcKQ-0k"
+  }
 }
 ```
 
