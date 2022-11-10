@@ -156,7 +156,7 @@ class User extends BaseComponent {
 
     // 查询条件
     let queryCondition= {};
-    
+
     if(userName) {
       queryCondition = {
         ...queryCondition,
@@ -201,7 +201,7 @@ class User extends BaseComponent {
       });
 
       // 获得用户数量
-      const userCount = await UserModel.count();
+      const userCount = await UserModel.find(queryCondition).count();
 
       let data = {
         list,
