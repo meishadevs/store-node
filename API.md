@@ -199,6 +199,7 @@ GET
 |:-----|:-------:|:-----|:-----|
 |pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
 |pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|userName      |N       |Number  |用户名 |
 
 #### 返回示例：
 
@@ -210,27 +211,31 @@ GET
     "list": [
       {
         "userName": "fyt",
-        "email": "fyt@163.com",
+        "email": "fyt@canyou.com",
         "isAgree": 1,
-        "createTime": "2022-10-24",
-        "id": 6
-      },
-      {
-        "userName": "tyy",
-        "email": "tyy@163.com",
-        "isAgree": 1,
-        "createTime": "2022-10-24",
-        "id": 5
+        "id": 4,
+        "roleNames": "客户",
+        "createTime": "2022-11-10 10:11"
       },
       {
         "userName": "meishadevs",
         "email": "meishadevs@gmail.com",
         "isAgree": 1,
-        "createTime": "2022-10-24",
-        "id": 4
+        "id": 2,
+        "roleNames": "销售",
+        "createTime": "2022-11-10 10:09"
+      },
+      {
+        "userName": "admin",
+        "email": "admin@163.com",
+        "isAgree": 1,
+        "id": 1,
+        "roleNames": "管理员，客户，销售，运营人员",
+        "createTime": "2022-11-10 10:08"
       }
+      ....
     ],
-    "count": 3
+    "count": 4
   }
 }
 ```
