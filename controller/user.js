@@ -66,6 +66,7 @@ class User extends BaseComponent {
             id: userId,
             email,
             roles: [4],
+            status: 1,
             isAgree: parseInt(isAgree),
             createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
           };
@@ -115,6 +116,8 @@ class User extends BaseComponent {
           res.send(this.failMessage('用户不存在'));
         } else if (newpassword.toString() !== user.password.toString()) {
           res.send(this.failMessage('该用户已存在，密码输入错误'));
+        } else if(!user.status) {
+          res.send(this.failMessage('该用户已禁用'));
         } else {
           // 生成 token
           // 第一个参数：用户信息对象
@@ -128,6 +131,7 @@ class User extends BaseComponent {
           res.send(this.successMessage('登录成功', result));
         }
       } catch (err) {
+        console.log("err:", err);
         res.send(this.failMessage('用户登录失败'));
       }
     });
@@ -162,13 +166,14 @@ class User extends BaseComponent {
 
         // 遍历用户数据
         userList.map(item => {
-          const {userName, email, isAgree, createTime, id, roleList } = item;
+          const { id, userName, email, isAgree, status, createTime, roleList } = item;
 
           list.push({
+            id,
             userName, 
             email, 
             isAgree, 
-            id,
+            status,
             roleNames: roleList.map(role => role.roleName).join('，'),
             createTime : dtime(createTime).format('YYYY-MM-DD HH:mm')
           });

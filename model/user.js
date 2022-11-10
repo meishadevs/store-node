@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
   // 是否同意用户协议
   isAgree: Number,
 
+  // 用户状态，1：启用，2：禁用
+  status: {
+    type: Number,
+    default: 1
+  },
+
   // 创建时间
   createTime: String,
 
