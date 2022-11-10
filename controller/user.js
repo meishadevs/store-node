@@ -144,8 +144,9 @@ class User extends BaseComponent {
 
   // 获得用户列表
   async getPageList(req, res, next) {
-    const { pageSize = 10, pageNumber = 1, userName = '' } = req.query;
+    let list = [];
 
+    const { pageSize = 10, pageNumber = 1, userName = '' } = req.query;
     const offset = (pageNumber - 1) * pageSize;
 
     try {
@@ -153,18 +154,39 @@ class User extends BaseComponent {
       const userList = await UserModel.find(userName ? { userName } : {}, '-_id -password -__v')
         .sort({ id: -1 })
         .skip(Number(offset))
-        .limit(Number(pageSize));
+        .limit(Number(pageSize))
+        .populate({
+          path: 'roleList',
+          select: 'roleName -_id'
+        });
+
+        // 遍历用户数据
+        userList.map(item => {
+          const {userName, email, isAgree, createTime, id, roleList } = item;
+
+          const roleNames = roleList.map(role => role.roleName).join('，');
+
+          list.push({
+            userName, 
+            email, 
+            isAgree, 
+            createTime,
+            id,
+            roleNames
+          });
+      });
 
       // 获得用户数量
       const userCount = await UserModel.count();
 
       let data = {
-        list: userList,
+        list,
         count: userCount
       };
 
       res.send(this.successMessage(null, data));
     } catch (err) {
+      console.log("err:", err);
       res.send(this.failMessage('获取用户列表失败'));
     }
   }
@@ -242,14 +264,14 @@ class User extends BaseComponent {
       ]);
 
       // 如果获取到了用户分配的角色
-      if(roleInfo.length && roleInfo[0].roleList.length) {
+      if (roleInfo.length && roleInfo[0].roleList.length) {
         roleList = roleInfo[0].roleList.map(item => {
           return item.roleName;
         });
       }
 
       // 如果获取到了用户分配的权限
-      if(permissionInfo.length && permissionInfo[0].permissionList.length) {
+      if (permissionInfo.length && permissionInfo[0].permissionList.length) {
         permissionInfo.map(permission => {
           permission.permissionList.map(item => {
             permissions.push(item.permission);

@@ -27,7 +27,17 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
+userSchema.virtual('roleList', {
+  ref: 'role',
+  localField: 'roles',
+  foreignField: 'id',
+  justOne: false,
+});
+
 userSchema.index({ id: 1 });
+
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
 
 const User = mongoose.model('user', userSchema, 'user');
 
