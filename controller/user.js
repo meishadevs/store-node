@@ -67,7 +67,7 @@ class User extends BaseComponent {
             email,
             roles: [4],
             isAgree: parseInt(isAgree),
-            createTime: dtime().format('YYYY-MM-DD')
+            createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
           };
 
           // 保存用户信息
@@ -152,7 +152,7 @@ class User extends BaseComponent {
     try {
       // 获得用户列表
       const userList = await UserModel.find(userName ? { userName } : {}, '-_id -password -__v')
-        .sort({ id: -1 })
+        .sort({ createTime: 'desc' })
         .skip(Number(offset))
         .limit(Number(pageSize))
         .populate({
@@ -164,15 +164,13 @@ class User extends BaseComponent {
         userList.map(item => {
           const {userName, email, isAgree, createTime, id, roleList } = item;
 
-          const roleNames = roleList.map(role => role.roleName).join('，');
-
           list.push({
             userName, 
             email, 
             isAgree, 
-            createTime,
             id,
-            roleNames
+            roleNames: roleList.map(role => role.roleName).join('，'),
+            createTime : dtime(createTime).format('YYYY-MM-DD HH:mm')
           });
       });
 
