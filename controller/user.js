@@ -144,13 +144,13 @@ class User extends BaseComponent {
 
   // 获得用户列表
   async getPageList(req, res, next) {
-    const { pageSize = 10, pageNumber = 1 } = req.query;
+    const { pageSize = 10, pageNumber = 1, userName = '' } = req.query;
 
     const offset = (pageNumber - 1) * pageSize;
 
     try {
       // 获得用户列表
-      const userList = await UserModel.find({}, '-_id -password -__v')
+      const userList = await UserModel.find(userName ? { userName } : {}, '-_id -password -__v')
         .sort({ id: -1 })
         .skip(Number(offset))
         .limit(Number(pageSize));
