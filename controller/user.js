@@ -150,12 +150,30 @@ class User extends BaseComponent {
   async getPageList(req, res, next) {
     let list = [];
 
-    const { pageSize = 10, pageNumber = 1, userName = '' } = req.query;
+    const { pageSize = 10, pageNumber = 1, userName = '', status } = req.query;
+
     const offset = (pageNumber - 1) * pageSize;
+
+    // 查询条件
+    let queryCondition= {};
+    
+    if(userName) {
+      queryCondition = {
+        ...queryCondition,
+        userName
+      }
+    }
+
+    if(status) {
+      queryCondition = {
+        ...queryCondition,
+        status
+      }
+    }
 
     try {
       // 获得用户列表
-      const userList = await UserModel.find(userName ? { userName } : {}, '-_id -password -__v')
+      const userList = await UserModel.find(queryCondition, '-_id -password -__v')
         .sort({ createTime: 'desc' })
         .skip(Number(offset))
         .limit(Number(pageSize))
