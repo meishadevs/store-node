@@ -168,13 +168,16 @@ class User extends BaseComponent {
         userList.map(item => {
           const { id, userName, email, isAgree, status, createTime, roleList } = item;
 
+          // 获得为用户分配的角色
+          const roleNames = roleList.map(role => role.roleName).join('，');
+
           list.push({
             id,
             userName, 
             email, 
             isAgree, 
             status,
-            roleNames: roleList.map(role => role.roleName).join('，'),
+            roleNames,
             createTime : dtime(createTime).format('YYYY-MM-DD HH:mm')
           });
       });
