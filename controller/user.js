@@ -345,8 +345,7 @@ class User extends BaseComponent {
         res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
-      console.log("err:", err);
-      res.send(this.failMessage('获取用户信息失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
