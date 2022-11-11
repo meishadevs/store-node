@@ -55,7 +55,7 @@ class User extends BaseComponent {
         if (user) {
           res.send(this.failMessage('该用户已经存在'));
         } else {
-          // 获得用户 id，用户 id 是唯一的
+          // 生成用户 id，用户 id 是唯一的
           const userId = await this.generateIdValue('userId');
 
           // 对密码进行加密
@@ -331,7 +331,7 @@ class User extends BaseComponent {
         return;
       }
 
-      const { userName, email, status = 0, roles = [], id } = fields;
+      const { userName, email, status = 0, roles = [], id = 0 } = fields;
 
       try {
         if (!userName) {
@@ -344,16 +344,42 @@ class User extends BaseComponent {
         return;
       }
 
+      let userInfo = {
+        userName,
+        email,
+        status,
+        roles,
+        isAgree: 1
+      }
+      
+      // 根据用户名查找用户信息
+      const user = await UserModel.findOne({ userName });
+      
+      // 生成用户 id，用户 id 是唯一的
+      const userId = await this.generateIdValue('userId');
+
       try {
         // 编辑用户信息
         if(id) {
 
         // 新增用户信息
         } else {
+          if(user) {
+            res.send(this.failMessage('该用户已存在'));
+            return
+          }
 
+          userInfo = {
+            ...userInfo,
+            id: userId,
+            password: this.encryption(defaultPassword),
+            createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
+          }
+
+          await UserModel.create(userInfo);
+          res.send(this.successMessage('用户新增成功'));
         }
       } catch (err) {
-        console.log("err:", err);
         res.send(this.failMessage('用户新增失败'));
       }
     });
