@@ -16,6 +16,7 @@ class User extends BaseComponent {
     this.getPageList = this.getPageList.bind(this);
     this.getUserCount = this.getUserCount.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
+    this.getUserDetail = this.getUserDetail.bind(this);
     this.saveUserData = this.saveUserData.bind(this);
   }
 
@@ -309,6 +310,34 @@ class User extends BaseComponent {
         roleList,
         permissions
       }
+
+      if (!userInfo) {
+        throw new Error('未找到当前用户');
+      } else {
+        res.send(this.successMessage(null, userInfo));
+      }
+    } catch (err) {
+      console.log("err:", err);
+      res.send(this.failMessage('获取用户信息失败'));
+    }
+  }
+
+  //获得用户详情
+  async getUserDetail(req, res, nex) {
+    const { userId } = req.query;
+    
+    try {
+      if (!userId) {
+        throw new Error('用户id不能为空');
+      }
+    } catch (err) {
+      res.send(this.failMessage(err.message));
+      return;
+    }
+
+    try {
+      // 获得用户信息
+      let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
       if (!userInfo) {
         throw new Error('未找到当前用户');

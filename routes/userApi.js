@@ -31,6 +31,11 @@ const userApi = (router) => {
     User.getUserInfo(req, res, next);
   });
 
+   // 获得用户详情
+   router.get('/user/detail', (req, res, next) => {
+    User.getUserDetail(req, res, next);
+  });
+
   // 保存用户数据
   router.post('/user/save', (req, res, next) => {
     User.saveUserData(req, res, next);
