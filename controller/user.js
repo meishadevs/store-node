@@ -348,8 +348,7 @@ class User extends BaseComponent {
         userName,
         email,
         status,
-        roles,
-        isAgree: 1
+        roles
       }
       
       // 根据用户名查找用户信息
@@ -361,7 +360,8 @@ class User extends BaseComponent {
       try {
         // 编辑用户信息
         if(id) {
-
+          await UserModel.updateOne({ id }, {$set: userInfo })
+          res.send(this.successMessage('用户信息编辑成功'));
         // 新增用户信息
         } else {
           if(user) {
@@ -372,12 +372,13 @@ class User extends BaseComponent {
           userInfo = {
             ...userInfo,
             id: userId,
+            isAgree: 1,
             password: this.encryption(defaultPassword),
             createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
           }
 
           await UserModel.create(userInfo);
-          res.send(this.successMessage('用户新增成功'));
+          res.send(this.successMessage('用户信息新增成功'));
         }
       } catch (err) {
         res.send(this.failMessage('用户新增失败'));
