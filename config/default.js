@@ -6,6 +6,7 @@ module.exports = {
   secretKey: 'store',
   expiresIn: '10h',
   apiList: allowApi,
+  defaultPassword: "000000",
   session: {
     name: 'store',
     secret: 'store',

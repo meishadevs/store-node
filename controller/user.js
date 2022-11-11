@@ -4,7 +4,7 @@ const BaseComponent = require('../prototype/baseComponent');
 const formidable = require('formidable');
 const dtime = require('time-formater');
 const jwt = require('jsonwebtoken');
-const config = require('config-lite')(__dirname);
+const { secretKey, expiresIn, defaultPassword } = require('config-lite')(__dirname);
 
 class User extends BaseComponent {
   // 构造函数
@@ -16,6 +16,7 @@ class User extends BaseComponent {
     this.getPageList = this.getPageList.bind(this);
     this.getUserCount = this.getUserCount.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
+    this.saveUserData = this.saveUserData.bind(this);
   }
 
   // 注册
@@ -122,7 +123,7 @@ class User extends BaseComponent {
           // 生成 token
           // 第一个参数：用户信息对象
           // 第二个参数：加密秘钥
-          const token = jwt.sign({ userId: user.id }, config.secretKey, { expiresIn: config.expiresIn });
+          const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: expiresIn });
 
           const result = {
             accessToken: token
@@ -318,6 +319,44 @@ class User extends BaseComponent {
       console.log("err:", err);
       res.send(this.failMessage('获取用户信息失败'));
     }
+  }
+
+  // 保存用户数据
+  async saveUserData(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { userName, email, status = 0, roles = [], id } = fields;
+
+      try {
+        if (!userName) {
+          throw new Error('用户名不能为空');
+        } else if (!roles.length) {
+          throw new Error('所属角色不能为空');
+        }
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
+      }
+
+      try {
+        // 编辑用户信息
+        if(id) {
+
+        // 新增用户信息
+        } else {
+
+        }
+      } catch (err) {
+        console.log("err:", err);
+        res.send(this.failMessage('用户新增失败'));
+      }
+    });
   }
 }
 

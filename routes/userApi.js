@@ -30,6 +30,11 @@ const userApi = (router) => {
   router.get('/user/info', (req, res, next) => {
     User.getUserInfo(req, res, next);
   });
+
+  // 保存用户数据
+  router.post('/user/save', (req, res, next) => {
+    User.saveUserData(req, res, next);
+  });
 };
 
 module.exports = userApi;
