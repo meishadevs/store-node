@@ -210,32 +210,26 @@ GET
   "data": {
     "list": [
       {
-        "userName": "fyt",
-        "email": "fyt@canyou.com",
+        "id": 11,
+        "userName": "test1024",
+        "email": "test1024@163.com",
         "isAgree": 1,
-        "id": 4,
+        "status": 1,
         "roleNames": "客户",
-        "createTime": "2022-11-10 10:11"
+        "createTime": "2022-11-11 11:45"
       },
       {
-        "userName": "meishadevs",
-        "email": "meishadevs@gmail.com",
+        "id": 6,
+        "userName": "test",
+        "email": "test@163.com",
         "isAgree": 1,
-        "id": 2,
-        "roleNames": "销售",
-        "createTime": "2022-11-10 10:09"
+        "status": 1,
+        "roleNames": "客户，管理员，销售",
+        "createTime": "2022-11-11 11:38"
       },
-      {
-        "userName": "admin",
-        "email": "admin@163.com",
-        "isAgree": 1,
-        "id": 1,
-        "roleNames": "管理员，客户，销售，运营人员",
-        "createTime": "2022-11-10 10:08"
-      }
       ....
     ],
-    "count": 4
+    "count": 6
   }
 }
 ```
