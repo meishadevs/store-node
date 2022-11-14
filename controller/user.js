@@ -20,6 +20,7 @@ class User extends BaseComponent {
     this.saveUserData = this.saveUserData.bind(this);
     this.changeUserStatus = this.changeUserStatus.bind(this);
     this.resetUserPassword = this.resetUserPassword.bind(this);
+    this.deleteUserInfo = this.deleteUserInfo.bind(this);
   }
 
   // 注册
@@ -420,11 +421,11 @@ class User extends BaseComponent {
         if (!user) {
           throw new Error('没有找到与id对应的用户信息');
         }
-        
+
         await UserModel.updateOne({ id: userId }, { $set: { status: !user.status } })
 
         const msgContent = user.status ? '用户禁用成功' : '用户启用成功';
-        
+
         res.send(this.successMessage(msgContent));
 
       } catch (err) {
@@ -459,10 +460,45 @@ class User extends BaseComponent {
         }
 
         const newpassword = this.encryption(defaultPassword);
-        
-        await UserModel.updateOne({ id: userId }, { $set: { password: newpassword }})
-        
+
+        await UserModel.updateOne({ id: userId }, { $set: { password: newpassword } })
+
         res.send(this.successMessage('密码重置成功'));
+
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
+      }
+    });
+  }
+
+  // 删除用户
+  async deleteUserInfo(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { userId = 0 } = fields;
+
+      try {
+        if (!userId) {
+          throw new Error('用户id不能为空');
+        }
+
+        // 根据用户 id 查找用户信息
+        const user = await UserModel.findOne({ id: userId });
+
+        if (!user) {
+          throw new Error('没有找到与id对应的用户信息');
+        }
+
+        await UserModel.findOneAndDelete({ id: userId })
+
+        res.send(this.successMessage('用户删除成功'));
 
       } catch (err) {
         res.send(this.failMessage(err.message));

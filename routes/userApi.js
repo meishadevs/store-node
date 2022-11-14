@@ -50,6 +50,11 @@ const userApi = (router) => {
   router.post('/user/reset_password', (req, res, next) => {
     User.resetUserPassword(req, res, next);
   });
+  
+  // 删除用户
+  router.post('/user/delete', (req, res, next) => {
+    User.deleteUserInfo(req, res, next);
+  });
 };
 
 module.exports = userApi;
