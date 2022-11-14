@@ -104,8 +104,8 @@ class User extends BaseComponent {
         // 根据用户名，查找用户信息
         const user = await UserModel.findOne({ userName });
 
-         // 对用户填写的密码加密
-         const newpassword = this.encryption(password);
+        // 对用户填写的密码加密
+        const newpassword = this.encryption(password);
 
         if (!user) {
           throw new Error('用户不存在');
@@ -205,8 +205,7 @@ class User extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      console.log("err:", err);
-      res.send(this.failMessage('获取用户列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -216,7 +215,7 @@ class User extends BaseComponent {
       const count = await UserModel.count();
       res.send(this.successMessage(null, { count }));
     } catch (err) {
-      res.send(this.failMessage('获取用户数量失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -230,12 +229,11 @@ class User extends BaseComponent {
     // 用户的权限
     let permissions = [];
 
-    if (!userId || !Number(userId)) {
-      res.send(this.failMessage('获取用户信息失败'));
-      return;
-    }
-
     try {
+      if (!userId || !Number(userId)) {
+        throw new Error('获取用户信息失败');
+      }
+
       // 获得用户信息
       let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
@@ -310,8 +308,7 @@ class User extends BaseComponent {
         res.send(this.successMessage(null, userInfo));
       }
     } catch (err) {
-      console.log("err:", err);
-      res.send(this.failMessage('获取用户信息失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -323,12 +320,7 @@ class User extends BaseComponent {
       if (!userId) {
         throw new Error('用户id不能为空');
       }
-    } catch (err) {
-      res.send(this.failMessage(err.message));
-      return;
-    }
 
-    try {
       // 获得用户信息
       let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
