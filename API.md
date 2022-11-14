@@ -201,6 +201,7 @@ GET
 |pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
 |pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
 |userName      |N       |Number  |用户名 |
+|status      |N       |Number  |用户状态，1：启用，2：禁用 |
 
 #### 返回示例：
 
@@ -224,10 +225,10 @@ GET
         "userName": "test",
         "email": "test@163.com",
         "isAgree": 1,
-        "status": 1,
+        "status": 0,
         "roleNames": "客户，管理员，销售",
         "createTime": "2022-11-11 11:38"
-      },
+      }
       ....
     ],
     "count": 6
