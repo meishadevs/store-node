@@ -304,20 +304,7 @@ POST
 ```javascript
 {
   "code": 200,
-  "msg": "请求成功",
-  "data": {
-    "id": 6,
-    "userName": "test",
-    "email": "test@163.com",
-    "isAgree": 1,
-    "status": 1,
-    "createTime": "2022-11-11 11:38:03",
-    "roles": [
-      2,
-      1,
-      3
-    ]
-  }
+  "msg": "用户信息新增成功"
 }
 ```
 
