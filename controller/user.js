@@ -100,38 +100,34 @@ class User extends BaseComponent {
         } else if (!password) {
           throw new Error('密码不能为空');
         }
-      } catch (err) {
-        res.send(this.failMessage(err.message));
-        return;
-      }
 
-      // 对用户填写的密码加密
-      const newpassword = this.encryption(password);
-
-      try {
+        // 根据用户名，查找用户信息
         const user = await UserModel.findOne({ userName });
 
+         // 对用户填写的密码加密
+         const newpassword = this.encryption(password);
+
         if (!user) {
-          res.send(this.failMessage('用户不存在'));
+          throw new Error('用户不存在');
         } else if (newpassword.toString() !== user.password.toString()) {
-          res.send(this.failMessage('该用户已存在，密码输入错误'));
+          throw new Error('该用户已存在，密码输入错误');
         } else if (!user.status) {
-          res.send(this.failMessage('该用户已禁用'));
-        } else {
-          // 生成 token
-          // 第一个参数：用户信息对象
-          // 第二个参数：加密秘钥
-          const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: expiresIn });
-
-          const result = {
-            accessToken: token
-          };
-
-          res.send(this.successMessage('登录成功', result));
+          throw new Error('该用户已禁用');
         }
+
+        // 生成 token
+        // 第一个参数：用户信息对象
+        // 第二个参数：加密秘钥
+        const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: expiresIn });
+
+        const result = {
+          accessToken: token
+        };
+
+        res.send(this.successMessage('登录成功', result));
+
       } catch (err) {
-        console.log("err:", err);
-        res.send(this.failMessage('用户登录失败'));
+        res.send(this.failMessage(err.message));
       }
     });
   }
