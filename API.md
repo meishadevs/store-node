@@ -198,7 +198,7 @@ GET
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
 |pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
 |userName      |N       |Number  |用户名 |
 
 #### 返回示例：
