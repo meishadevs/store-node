@@ -8,6 +8,8 @@
 [退出登录](#退出登录)  
 [获得用户数量](#获得用户数量)  
 [获得用户列表](#获得用户列表)  
+[获得用户详情](#获得用户详情)  
+[保存用户信息](#保存用户信息)  
 [获得商品数量](#获得商品数量)  
 [获得商品列表](#获得商品列表)  
 [获得省份列表](#获得省份列表)  
@@ -198,8 +200,9 @@ GET
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
 |pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
 |userName      |N       |Number  |用户名 |
+|status      |N       |Number  |用户状态，1：启用，2：禁用 |
 
 #### 返回示例：
 
@@ -210,33 +213,98 @@ GET
   "data": {
     "list": [
       {
-        "userName": "fyt",
-        "email": "fyt@canyou.com",
+        "id": 11,
+        "userName": "test1024",
+        "email": "test1024@163.com",
         "isAgree": 1,
-        "id": 4,
+        "status": 1,
         "roleNames": "客户",
-        "createTime": "2022-11-10 10:11"
+        "createTime": "2022-11-11 11:45"
       },
       {
-        "userName": "meishadevs",
-        "email": "meishadevs@gmail.com",
+        "id": 6,
+        "userName": "test",
+        "email": "test@163.com",
         "isAgree": 1,
-        "id": 2,
-        "roleNames": "销售",
-        "createTime": "2022-11-10 10:09"
-      },
-      {
-        "userName": "admin",
-        "email": "admin@163.com",
-        "isAgree": 1,
-        "id": 1,
-        "roleNames": "管理员，客户，销售，运营人员",
-        "createTime": "2022-11-10 10:08"
+        "status": 0,
+        "roleNames": "客户，管理员，销售",
+        "createTime": "2022-11-11 11:38"
       }
       ....
     ],
-    "count": 4
+    "count": 6
   }
+}
+```
+
+### 获得用户详情
+
+#### 请求URL:  
+```
+/user/detail
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|userId      |Y       |Number  |用户id |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "id": 6,
+    "userName": "test",
+    "email": "test@163.com",
+    "isAgree": 1,
+    "status": 1,
+    "createTime": "2022-11-11 11:38:03",
+    "roles": [
+      2,
+      1,
+      3
+    ]
+  }
+}
+```
+
+### 保存用户信息
+
+#### 请求URL:  
+```
+/user/save
+```
+
+#### 请求方式: 
+```
+POST
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|id      |N       |Number  |用户id，有值表示编辑用户信息，无值表示新增用户信息|
+|userName      |Y       |String  |用户名 |
+|roles      |Y       |Array  |所属角色，由角色 id 组成的数组 |
+|email      |N       |String  |邮箱 |
+|status      |Y       |Number  |用户状态，默认值为 0，表示禁用，1表示启用 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "用户信息新增成功"
 }
 ```
 
