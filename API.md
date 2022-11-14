@@ -297,7 +297,7 @@ POST
 |userName      |Y       |String  |用户名 |
 |roles      |Y       |Array  |所属角色，由角色 id 组成的数组 |
 |email      |N       |String  |邮箱 |
-|status      |Y       |Number  |用户状态，默认值为 0，表示禁用 |
+|status      |Y       |Number  |用户状态，默认值为 0，表示禁用，1表示启用 |
 
 #### 返回示例：
 
