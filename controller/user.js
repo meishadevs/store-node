@@ -18,7 +18,8 @@ class User extends BaseComponent {
     this.getUserInfo = this.getUserInfo.bind(this);
     this.getUserDetail = this.getUserDetail.bind(this);
     this.saveUserData = this.saveUserData.bind(this);
-    this.hangeUserStatus = this.changeUserStatus.bind(this);
+    this.changeUserStatus = this.changeUserStatus.bind(this);
+    this.resetUserPassword = this.resetUserPassword.bind(this);
   }
 
   // 注册
@@ -425,6 +426,43 @@ class User extends BaseComponent {
         const msgContent = user.status ? '用户禁用成功' : '用户启用成功';
         
         res.send(this.successMessage(msgContent));
+
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
+      }
+    });
+  }
+
+  // 重置密码
+  async resetUserPassword(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { userId = 0 } = fields;
+
+      try {
+        if (!userId) {
+          throw new Error('用户id不能为空');
+        }
+
+        // 根据用户 id 查找用户信息
+        const user = await UserModel.findOne({ id: userId });
+
+        if (!user) {
+          throw new Error('没有找到与id对应的用户信息');
+        }
+
+        const newpassword = this.encryption(defaultPassword);
+        
+        await UserModel.updateOne({ id: userId }, { $set: { password: newpassword }})
+        
+        res.send(this.successMessage('密码重置成功'));
 
       } catch (err) {
         res.send(this.failMessage(err.message));

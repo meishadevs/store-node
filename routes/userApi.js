@@ -31,8 +31,8 @@ const userApi = (router) => {
     User.getUserInfo(req, res, next);
   });
 
-   // 获得用户详情
-   router.get('/user/detail', (req, res, next) => {
+  // 获得用户详情
+  router.get('/user/detail', (req, res, next) => {
     User.getUserDetail(req, res, next);
   });
 
@@ -41,9 +41,14 @@ const userApi = (router) => {
     User.saveUserData(req, res, next);
   });
 
-   // 修改用户状态
-   router.post('/user/change_status', (req, res, next) => {
+  // 修改用户状态
+  router.post('/user/change_status', (req, res, next) => {
     User.changeUserStatus(req, res, next);
+  });
+
+  // 重置用户密码
+  router.post('/user/reset_password', (req, res, next) => {
+    User.resetUserPassword(req, res, next);
   });
 };
 
