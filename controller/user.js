@@ -406,7 +406,7 @@ class User extends BaseComponent {
         return;
       }
 
-      const { status = 0, userId = 0 } = fields;
+      const { userId = 0 } = fields;
 
       try {
         if (!userId) {
@@ -419,6 +419,13 @@ class User extends BaseComponent {
         if (!user) {
           throw new Error('没有找到与id对应的用户信息');
         }
+        
+        await UserModel.updateOne({ id: userId }, { $set: { status: !user.status } })
+
+        const msgContent = user.status ? '用户禁用成功' : '用户启用成功';
+        
+        res.send(this.successMessage(msgContent));
+
       } catch (err) {
         res.send(this.failMessage(err.message));
         return;
