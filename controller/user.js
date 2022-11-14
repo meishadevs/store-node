@@ -352,25 +352,20 @@ class User extends BaseComponent {
         } else if (!roles.length) {
           throw new Error('所属角色不能为空');
         }
-      } catch (err) {
-        res.send(this.failMessage(err.message));
-        return;
-      }
 
-      let userInfo = {
-        userName,
-        email,
-        status,
-        roles
-      }
+        let userInfo = {
+          userName,
+          email,
+          status,
+          roles
+        }
 
-      // 根据用户名查找用户信息
-      const user = await UserModel.findOne({ userName });
+        // 根据用户名查找用户信息
+        const user = await UserModel.findOne({ userName });
 
-      // 生成用户 id，用户 id 是唯一的
-      const userId = await this.generateIdValue('userId');
+        // 生成用户 id，用户 id 是唯一的
+        const userId = await this.generateIdValue('userId');
 
-      try {
         // 编辑用户信息
         if (id) {
           await UserModel.updateOne({ id }, { $set: userInfo })
@@ -393,8 +388,10 @@ class User extends BaseComponent {
           await UserModel.create(userInfo);
           res.send(this.successMessage('用户信息新增成功'));
         }
+
       } catch (err) {
-        res.send(this.failMessage('用户新增失败'));
+        res.send(this.failMessage(err.message));
+        return;
       }
     });
   }
