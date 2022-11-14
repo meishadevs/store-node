@@ -40,6 +40,11 @@ const userApi = (router) => {
   router.post('/user/save', (req, res, next) => {
     User.saveUserData(req, res, next);
   });
+
+   // 修改用户状态
+   router.post('/user/change_status', (req, res, next) => {
+    User.changeUserStatus(req, res, next);
+  });
 };
 
 module.exports = userApi;

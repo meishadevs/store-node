@@ -18,6 +18,7 @@ class User extends BaseComponent {
     this.getUserInfo = this.getUserInfo.bind(this);
     this.getUserDetail = this.getUserDetail.bind(this);
     this.saveUserData = this.saveUserData.bind(this);
+    this.hangeUserStatus = this.changeUserStatus.bind(this);
   }
 
   // 注册
@@ -44,42 +45,40 @@ class User extends BaseComponent {
         } else if (!parseInt(isAgree)) {
           throw new Error('请同意用户注册协议');
         }
-      } catch (err) {
-        res.send(this.failMessage(err.message));
 
-        return;
-      }
-
-      try {
+        // 根据用户名查找用户信息
         const user = await UserModel.findOne({ userName });
 
         if (user) {
-          res.send(this.failMessage('该用户已经存在'));
-        } else {
-          // 生成用户 id，用户 id 是唯一的
-          const userId = await this.generateIdValue('userId');
-
-          // 对密码进行加密
-          const newpassword = this.encryption(password);
-
-          const newUser = {
-            userName,
-            password: newpassword,
-            id: userId,
-            email,
-            roles: [4],
-            status: 1,
-            isAgree: parseInt(isAgree),
-            createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
-          };
-
-          // 保存用户信息
-          await UserModel.create(newUser);
-
-          res.send(this.successMessage('用户注册成功'));
+          throw new Error('该用户已存在');
         }
+
+        // 生成用户 id，用户 id 是唯一的
+        const userId = await this.generateIdValue('userId');
+
+        // 对密码进行加密
+        const newpassword = this.encryption(password);
+
+        const newUser = {
+          userName,
+          password: newpassword,
+          id: userId,
+          email,
+          roles: [4],
+          status: 1,
+          isAgree: parseInt(isAgree),
+          createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
+        };
+
+        // 保存用户信息
+        await UserModel.create(newUser);
+
+        console.log("调用");
+
+        res.send(this.successMessage('用户注册成功'));
       } catch (err) {
-        res.send(this.failMessage('用户注册失败'));
+        res.send(this.failMessage(err.message));
+        return;
       }
     });
   }
@@ -118,7 +117,7 @@ class User extends BaseComponent {
           res.send(this.failMessage('用户不存在'));
         } else if (newpassword.toString() !== user.password.toString()) {
           res.send(this.failMessage('该用户已存在，密码输入错误'));
-        } else if(!user.status) {
+        } else if (!user.status) {
           res.send(this.failMessage('该用户已禁用'));
         } else {
           // 生成 token
@@ -157,16 +156,16 @@ class User extends BaseComponent {
     const offset = (pageNumber - 1) * pageSize;
 
     // 查询条件
-    let queryCondition= {};
+    let queryCondition = {};
 
-    if(userName) {
+    if (userName) {
       queryCondition = {
         ...queryCondition,
         userName
       }
     }
 
-    if(status) {
+    if (status) {
       queryCondition = {
         ...queryCondition,
         status
@@ -184,22 +183,22 @@ class User extends BaseComponent {
           select: 'roleName -_id'
         });
 
-        // 遍历用户数据
-        userList.map(item => {
-          const { id, userName, email, isAgree, status, createTime, roleList } = item;
+      // 遍历用户数据
+      userList.map(item => {
+        const { id, userName, email, isAgree, status, createTime, roleList } = item;
 
-          // 获得为用户分配的角色
-          const roleNames = roleList.map(role => role.roleName).join('，');
+        // 获得为用户分配的角色
+        const roleNames = roleList.map(role => role.roleName).join('，');
 
-          list.push({
-            id,
-            userName, 
-            email, 
-            isAgree, 
-            status,
-            roleNames,
-            createTime : dtime(createTime).format('YYYY-MM-DD HH:mm')
-          });
+        list.push({
+          id,
+          userName,
+          email,
+          isAgree,
+          status,
+          roleNames,
+          createTime: dtime(createTime).format('YYYY-MM-DD HH:mm')
+        });
       });
 
       // 获得用户数量
@@ -325,7 +324,7 @@ class User extends BaseComponent {
   //获得用户详情
   async getUserDetail(req, res, nex) {
     const { userId } = req.query;
-    
+
     try {
       if (!userId) {
         throw new Error('用户id不能为空');
@@ -378,21 +377,21 @@ class User extends BaseComponent {
         status,
         roles
       }
-      
+
       // 根据用户名查找用户信息
       const user = await UserModel.findOne({ userName });
-      
+
       // 生成用户 id，用户 id 是唯一的
       const userId = await this.generateIdValue('userId');
 
       try {
         // 编辑用户信息
-        if(id) {
-          await UserModel.updateOne({ id }, {$set: userInfo })
+        if (id) {
+          await UserModel.updateOne({ id }, { $set: userInfo })
           res.send(this.successMessage('用户信息编辑成功'));
-        // 新增用户信息
+          // 新增用户信息
         } else {
-          if(user) {
+          if (user) {
             res.send(this.failMessage('该用户已存在'));
             return
           }
@@ -410,6 +409,36 @@ class User extends BaseComponent {
         }
       } catch (err) {
         res.send(this.failMessage('用户新增失败'));
+      }
+    });
+  }
+
+  // 修改用户状态
+  async changeUserStatus(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { status = 0, userId = 0 } = fields;
+
+      try {
+        if (!userId) {
+          throw new Error('用户id不能为空');
+        }
+
+        // 根据用户 id 查找用户信息
+        const user = await UserModel.findOne({ id: userId });
+
+        if (!user) {
+          throw new Error('没有找到与id对应的用户信息');
+        }
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
       }
     });
   }
