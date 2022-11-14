@@ -73,8 +73,6 @@ class User extends BaseComponent {
         // 保存用户信息
         await UserModel.create(newUser);
 
-        console.log("调用");
-
         res.send(this.successMessage('用户注册成功'));
       } catch (err) {
         res.send(this.failMessage(err.message));
