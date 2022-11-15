@@ -12,6 +12,7 @@ class Role extends BaseComponent {
     this.getPageList = this.getPageList.bind(this);
     this.getRoleDetail = this.getRoleDetail.bind(this);
     this.saveRoleData = this.saveRoleData.bind(this);
+    this.deleteRoleInfo = this.deleteRoleInfo.bind(this);
   }
 
   // 获得所有角色列表数据
@@ -146,6 +147,47 @@ class Role extends BaseComponent {
 
       } catch (err) {
         res.send(this.failMessage(err.message));
+      }
+    });
+  }
+
+  // 删除角色
+  async deleteRoleInfo(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { roleId = 0 } = fields;
+
+      try {
+        if (!roleId) {
+          throw new Error('角色id不能为空');
+        }
+
+        // 根据角色 id 查找角色信息
+        const role = await UserModel.findOne({ id: roleId });
+
+        // 根据角色 id 查找与角色对应的用户
+        const userList = await UserModel.find({ roles: roleId });
+
+        if (!role) {
+          throw new Error('没有找到与id对应的角色信息');
+        }
+
+        if(userList.length) {
+          throw new Error('该角色已分配给用户了，不能删除');
+        }
+        
+        await RoleModel.findOneAndDelete({ id: roleId })
+        res.send(this.successMessage('角色删除成功'));
+
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
       }
     });
   }

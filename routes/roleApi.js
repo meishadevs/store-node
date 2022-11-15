@@ -21,6 +21,11 @@ const roleApi = (router) => {
   router.post('/role/save', (req, res, next) => {
     Role.saveRoleData(req, res, next);
   });
+
+  // 保存角色
+  router.post('/role/delete', (req, res, next) => {
+    Role.deleteRoleInfo(req, res, next);
+  });
 };
 
 module.exports = roleApi;
