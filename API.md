@@ -204,6 +204,7 @@ GET
 |pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
 |userName      |N       |Number  |用户名 |
 |status      |N       |Number  |用户状态，1：启用，2：禁用 |
+|roleId      |N       |Number  |角色id |
 
 #### 返回示例：
 
