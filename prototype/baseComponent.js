@@ -5,7 +5,8 @@ class BaseComponent {
   constructor() {
     // id 列表
     this.idList = [
-      'userId'
+      'userId',
+      'roleId'
     ];
   }
 
@@ -46,7 +47,8 @@ class BaseComponent {
       // 如果没有找到 id 数据
       if (!idData) {
         let idObject = {
-          userId: 0
+          userId: 0,
+          roleId: 0
         };
 
         // 向 ids 集合中添加一条 id 数据

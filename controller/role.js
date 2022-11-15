@@ -1,5 +1,8 @@
 const RoleModel = require('../model/role');
+const UserModel = require('../model/user');
 const BaseComponent = require('../prototype/baseComponent');
+const dtime = require('time-formater');
+const formidable = require('formidable');
 
 class Role extends BaseComponent {
   // 构造函数
@@ -8,6 +11,7 @@ class Role extends BaseComponent {
     this.getAllList = this.getAllList.bind(this);
     this.getPageList = this.getPageList.bind(this);
     this.getRoleDetail = this.getRoleDetail.bind(this);
+    this.saveRoleData = this.saveRoleData.bind(this);
   }
 
   // 获得所有角色列表数据
@@ -86,8 +90,8 @@ class Role extends BaseComponent {
     }
   }
 
-  // 保存用户数据
-  async saveUserData(req, res, next) {
+  // 保存角色数据
+  async saveRoleData(req, res, next) {
     const form = new formidable.IncomingForm();
 
     form.parse(req, async (err, fields, files) => {
@@ -96,49 +100,48 @@ class Role extends BaseComponent {
         return;
       }
 
-      const { userName, email, status = 0, roles = [], id = 0 } = fields;
+      const { roleName, id = 0 } = fields;
+      const { userId } = req.auth;
 
       try {
-        if (!userName) {
-          throw new Error('用户名不能为空');
-        } else if (!roles.length) {
-          throw new Error('所属角色不能为空');
+        if (!roleName) {
+          throw new Error('角色名不能为空');
         }
 
-        let userInfo = {
-          userName,
-          email,
-          status,
-          roles
+        let roleInfo = {
+          roleName,
+          menus: []
         }
 
-        // 根据用户名查找用户信息
-        const user = await UserModel.findOne({ userName });
+        // 根据角色名查找角色信息
+        const role = await UserModel.findOne({ roleName });
+        
+        // 获得用户信息
+        const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
-        // 生成用户 id，用户 id 是唯一的
-        const userId = await this.generateIdValue('userId');
+        // 生成角色 id，角色 id 是唯一的
+        const roleId = await this.generateIdValue('roleId');
 
-        // 编辑用户信息
+        // 编辑角色信息
         if (id) {
-          await UserModel.updateOne({ id }, { $set: userInfo })
-          res.send(this.successMessage('用户信息编辑成功'));
-          // 新增用户信息
+          await RoleModel.updateOne({ id }, { $set: roleInfo })
+          res.send(this.successMessage('角色信息编辑成功'));
+          // 新增角色信息
         } else {
-          if (user) {
-            res.send(this.failMessage('该用户已存在'));
+          if (role) {
+            res.send(this.failMessage('该角色已存在'));
             return
           }
 
-          userInfo = {
-            ...userInfo,
-            id: userId,
-            isAgree: 1,
-            password: this.encryption(defaultPassword),
+          roleInfo = {
+            ...roleInfo,
+            id: roleId,
+            createBy: userName,
             createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
           }
 
           await UserModel.create(userInfo);
-          res.send(this.successMessage('用户信息新增成功'));
+          res.send(this.successMessage('角色新增成功'));
         }
 
       } catch (err) {

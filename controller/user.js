@@ -243,7 +243,6 @@ class User extends BaseComponent {
       // 获得用户信息
       let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
-
       // 根据用户 id 获得用户的所属角色 
       const roleInfo = await UserModel.aggregate([
         {
