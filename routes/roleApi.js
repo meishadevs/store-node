@@ -11,6 +11,11 @@ const roleApi = (router) => {
   router.get('/role/list', (req, res, next) => {
     Role.getPageList(req, res, next);
   });
+
+   // 获得角色详情数据
+   router.get('/role/detail', (req, res, next) => {
+    Role.getRoleDetail(req, res, next);
+  });
 };
 
 module.exports = roleApi;
