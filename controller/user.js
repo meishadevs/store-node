@@ -66,7 +66,7 @@ class User extends BaseComponent {
           password: newpassword,
           id: userId,
           email,
-          roles: [4],
+          roles: [2],
           status: 1,
           isAgree: parseInt(isAgree),
           createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
@@ -109,12 +109,18 @@ class User extends BaseComponent {
         // 对用户填写的密码加密
         const newpassword = this.encryption(password);
 
+        console.log("user:", user);
+
         if (!user) {
           throw new Error('用户不存在');
         } else if (newpassword.toString() !== user.password.toString()) {
           throw new Error('该用户已存在，密码输入错误');
         } else if (!user.status) {
           throw new Error('该用户已禁用');
+
+        // 客户不能访问系统
+        } else if(user.roles.length === 1 && user.roles[0] === 2) {
+          throw new Error('该用户不能访问系统');
         }
 
         // 生成 token
