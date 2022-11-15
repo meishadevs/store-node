@@ -151,7 +151,7 @@ class User extends BaseComponent {
   async getPageList(req, res, next) {
     let list = [];
 
-    const { pageSize = 10, pageNumber = 1, userName = '', status } = req.query;
+    const { pageSize = 10, pageNumber = 1, userName = '', status, roleId, } = req.query;
 
     const offset = (pageNumber - 1) * pageSize;
 
@@ -169,6 +169,13 @@ class User extends BaseComponent {
       queryCondition = {
         ...queryCondition,
         status
+      }
+    }
+
+    if (roleId) {
+      queryCondition = {
+        ...queryCondition,
+        roles: roleId
       }
     }
 
