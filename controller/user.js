@@ -109,8 +109,6 @@ class User extends BaseComponent {
         // 对用户填写的密码加密
         const newpassword = this.encryption(password);
 
-        console.log("user:", user);
-
         if (!user) {
           throw new Error('用户不存在');
         } else if (newpassword.toString() !== user.password.toString()) {
