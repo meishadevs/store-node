@@ -50,7 +50,7 @@ class Role extends BaseComponent {
 
     try {
       // 获得角色列表
-      const roleList = await RoleModel.find(queryCondition, '-_id -__v')
+      const roleList = await RoleModel.find(queryCondition, '-_id -menus -__v')
         .sort({ createTime: 'desc' })
         .skip(Number(offset))
         .limit(Number(pageSize));
