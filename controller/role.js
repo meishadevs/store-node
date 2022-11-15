@@ -114,7 +114,7 @@ class Role extends BaseComponent {
         }
 
         // 根据角色名查找角色信息
-        const role = await UserModel.findOne({ roleName });
+        const role = await RoleModel.findOne({ roleName });
         
         // 获得用户信息
         const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
@@ -140,13 +140,12 @@ class Role extends BaseComponent {
             createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
           }
 
-          await UserModel.create(userInfo);
+          await RoleModel.create(roleInfo);
           res.send(this.successMessage('角色新增成功'));
         }
 
       } catch (err) {
         res.send(this.failMessage(err.message));
-        return;
       }
     });
   }
