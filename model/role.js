@@ -12,7 +12,13 @@ const roleSchema = new mongoose.Schema({
   menus: [{ 
     type: Number, 
     ref: 'menu' 
-  }]
+  }],
+
+  // 创建人
+  createBy: String,
+
+  // 创建时间
+  createTime: String,
 });
 
 roleSchema.index({ id: 1 });
