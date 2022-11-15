@@ -19,7 +19,7 @@ class Role extends BaseComponent {
   async getAllList(req, res, next) {
     try {
       // 获得所有角色数据
-      const roleList = await RoleModel.find({}, '-_id -menus -password -__v');
+      const roleList = await RoleModel.find({}, '-_id -menus -createBy -createTime -__v');
 
       let data = {
         list: roleList
