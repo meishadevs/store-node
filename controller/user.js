@@ -287,7 +287,7 @@ class User extends BaseComponent {
         {
           $project: {
             '_id': 0,
-            'permissionList.permission': 1
+            'permissionList.permissions': 1
           }
         }
       ]);
@@ -303,7 +303,7 @@ class User extends BaseComponent {
       if (permissionInfo.length && permissionInfo[0].permissionList.length) {
         permissionInfo.map(permission => {
           permission.permissionList.map(item => {
-            permissions.push(item.permission);
+            permissions.push(item.permissions);
           });
         });
       }

@@ -14,7 +14,7 @@ const menuSchema = new mongoose.Schema({
   url: String,
 
   // 菜单权限
-  permission: String,
+  permissions: String,
 
   // 菜单图标
   icon: String,
@@ -26,7 +26,13 @@ const menuSchema = new mongoose.Schema({
   remark: String,
 
   // 菜单类型
-  type: Number
+  type: Number,
+
+  // 创建人
+  createBy: String,
+
+  // 创建时间
+  createTime: String,
 });
 
 menuSchema.index({ id: 1 });

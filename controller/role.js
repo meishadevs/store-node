@@ -116,7 +116,7 @@ class Role extends BaseComponent {
 
         // 根据角色名查找角色信息
         const role = await RoleModel.findOne({ roleName });
-        
+
         // 获得用户信息
         const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
 
@@ -178,10 +178,10 @@ class Role extends BaseComponent {
           throw new Error('没有找到与id对应的角色信息');
         }
 
-        if(userList.length) {
+        if (userList.length) {
           throw new Error('该角色已分配给用户了，不能删除');
         }
-        
+
         await RoleModel.findOneAndDelete({ id: roleId })
         res.send(this.successMessage('角色删除成功'));
 
