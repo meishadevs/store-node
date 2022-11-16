@@ -26,6 +26,11 @@ const roleApi = (router) => {
   router.post('/role/delete', (req, res, next) => {
     Role.deleteRoleInfo(req, res, next);
   });
+
+  // 设置角色权限
+  router.post('/role/set_permissions', (req, res, next) => {
+    Role.setRolePermissions(req, res, next);
+  });
 };
 
 module.exports = roleApi;

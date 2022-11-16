@@ -12,6 +12,7 @@ class Role extends BaseComponent {
     this.getPageList = this.getPageList.bind(this);
     this.getRoleDetail = this.getRoleDetail.bind(this);
     this.saveRoleData = this.saveRoleData.bind(this);
+    this.setRolePermissions = this.setRolePermissions.bind(this);
     this.deleteRoleInfo = this.deleteRoleInfo.bind(this);
   }
 
@@ -145,6 +146,45 @@ class Role extends BaseComponent {
           res.send(this.successMessage('角色新增成功'));
         }
 
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+      }
+    });
+  }
+
+  // 设置角色权限
+  async setRolePermissions(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { roleId = 0, permissions = [] } = fields;
+
+      try {
+        if (!roleId) {
+          throw new Error('角色id不能为空');
+        } else if(!permissions.length) {
+          throw new Error('角色权限不能为空');
+        }
+
+        // 根据角色id查找角色信息
+        const role = await RoleModel.findOne({ id: roleId });
+
+        if (!role) {
+          throw new Error('角色不存在');
+        }
+
+        // 角色信息
+        const roleInfo = {
+          menus: permissions
+        };
+
+        await RoleModel.updateOne({ id: roleId }, { $set: roleInfo })
+        res.send(this.successMessage('角色权限分配成功'));
       } catch (err) {
         res.send(this.failMessage(err.message));
       }
