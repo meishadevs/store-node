@@ -4,12 +4,12 @@ const BaseComponent = require('../prototype/baseComponent');
 class Menu extends BaseComponent {
   constructor() {
     super();
-    this.getList = this.getList.bind(this);
+    this.getTreeList = this.getTreeList.bind(this);
     this.getPermissionList = this.getPermissionList.bind(this);
   }
 
-  // 获得菜单列表
-  async getList(req, res, next) {
+  // 获得树形状结构的菜单列表数据
+  async getTreeList(req, res, next) {
     try {
       // 获得菜单列表
       // -_id 表示不显示 _id 字段
