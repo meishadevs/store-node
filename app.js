@@ -1,5 +1,4 @@
 const path = require('path');
-const chalk = require('chalk');
 const express = require('express');
 const config = require('config-lite')(__dirname);
 const session = require('express-session');
@@ -77,7 +76,5 @@ app.use((err, req, res, next) => {
 
 // 监听端口
 app.listen(config.port, () => {
-  console.log(
-    chalk.green(`成功监听端口：${config.port}`)
-  );
+  console.log(`应用正在运行：http://localhost:${config.port}`);
 });
