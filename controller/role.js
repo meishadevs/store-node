@@ -209,7 +209,7 @@ class Role extends BaseComponent {
         }
 
         // 根据角色 id 查找角色信息
-        const role = await UserModel.findOne({ id: roleId });
+        const role = await RoleModel.findOne({ id: roleId });
 
         // 根据角色 id 查找与角色对应的用户
         const userList = await UserModel.find({ roles: roleId });
