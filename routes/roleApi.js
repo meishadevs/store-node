@@ -22,7 +22,7 @@ const roleApi = (router) => {
     Role.saveRoleData(req, res, next);
   });
 
-  // 保存角色
+  // 删除角色
   router.post('/role/delete', (req, res, next) => {
     Role.deleteRoleInfo(req, res, next);
   });

@@ -20,6 +20,11 @@ const menuApi = (router) => {
   router.post('/menu/save', (req, res, next) => {
     Menu.saveMenuData(req, res, next);
   });
+
+  // 删除菜单
+  router.post('/menu/delete', (req, res, next) => {
+    Menu.deleteMenuInfo(req, res, next);
+  });
 };
 
 module.exports = menuApi;

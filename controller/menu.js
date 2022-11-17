@@ -1,5 +1,6 @@
 const MenuModel = require('../model/Menu');
 const UserModel = require('../model/user');
+const RoleModel = require('../model/role');
 const BaseComponent = require('../prototype/baseComponent');
 const dtime = require('time-formater');
 const formidable = require('formidable');
@@ -10,6 +11,7 @@ class Menu extends BaseComponent {
     this.getTreeList = this.getTreeList.bind(this);
     this.getPermissionList = this.getPermissionList.bind(this);
     this.saveMenuData = this.saveMenuData.bind(this);
+    this.deleteMenuInfo = this.deleteMenuInfo.bind(this);
   }
 
   // 获得树形状结构的菜单列表数据
@@ -137,6 +139,46 @@ class Menu extends BaseComponent {
           await MenuModel.create(menuInfo);
           res.send(this.successMessage('菜单新增成功'));
         }
+
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+      }
+    });
+  }
+
+  // 删除菜单
+  async deleteMenuInfo(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { menuId = 0 } = fields;
+
+      try {
+        if (!menuId) {
+          throw new Error('菜单id不能为空');
+        }
+
+        // 根据菜单 id 查找菜单信息
+        const menu = await MenuModel.findOne({ id: menuId });
+
+        // 根据菜单 id 查找与菜单对应的角色
+        const roleList = await RoleModel.find({ menus: menuId });
+
+        if (!menu) {
+          throw new Error('没有找到与id对应的菜单信息');
+        }
+
+        if (roleList.length) {
+          throw new Error('该菜单已分配给角色了，不能删除');
+        }
+
+        await MenuModel.findOneAndDelete({ id: menuId })
+        res.send(this.successMessage('菜单删除成功'));
 
       } catch (err) {
         res.send(this.failMessage(err.message));
