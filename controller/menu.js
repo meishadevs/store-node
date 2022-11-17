@@ -177,7 +177,9 @@ class Menu extends BaseComponent {
           throw new Error('该菜单已分配给角色了，不能删除');
         }
 
-        await MenuModel.findOneAndDelete({ id: menuId })
+        await MenuModel.findOneAndDelete({ id: menuId });
+        await MenuModel.deleteMany({ parentId: menuId });
+        
         res.send(this.successMessage('菜单删除成功'));
 
       } catch (err) {
