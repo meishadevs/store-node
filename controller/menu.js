@@ -54,6 +54,28 @@ class Menu extends BaseComponent {
     }
   }
 
+  // 获得菜单详情
+  async getMenuDetail(req, res, nex) {
+    const { menuId } = req.query;
+
+    try {
+      if (!menuId) {
+        throw new Error('菜单id不能为空');
+      }
+
+      // 获得菜单信息
+      let menuInfo = await MenuModel.findOne({ id: menuId }, '-_id -__v').lean();
+
+      if (!menuInfo) {
+        throw new Error('未找到当前菜单');
+      } else {
+        res.send(this.successMessage(null, menuInfo));
+      }
+    } catch (err) {
+      res.send(this.failMessage(err.message));
+    }
+  }
+
   // 保存菜单数据
   async saveMenuData(req, res, next) {
     const form = new formidable.IncomingForm();
@@ -70,18 +92,18 @@ class Menu extends BaseComponent {
       try {
         if (!title) {
           throw new Error('菜单名称不能为空');
-        } else if(!permissions) {
+        } else if (!permissions) {
           throw new Error('权限不能为空');
         }
 
         let menuInfo = {
           id,
-          title, 
-          type, 
-          parentId, 
-          url, 
-          sort, 
-          permissions, 
+          title,
+          type,
+          parentId,
+          url,
+          sort,
+          permissions,
           icon
         }
 

@@ -11,6 +11,11 @@ const menuApi = (router) => {
     Menu.getPermissionList(req, res, next);
   });
 
+  // 获得菜单详情
+  router.get('/menu/detail', (req, res, next) => {
+    Menu.getMenuDetail(req, res, next);
+  });
+
   // 保存菜单信息
   router.post('/menu/save', (req, res, next) => {
     Menu.saveMenuData(req, res, next);
