@@ -1,11 +1,15 @@
 const MenuModel = require('../model/Menu');
+const UserModel = require('../model/user');
 const BaseComponent = require('../prototype/baseComponent');
+const dtime = require('time-formater');
+const formidable = require('formidable');
 
 class Menu extends BaseComponent {
   constructor() {
     super();
     this.getTreeList = this.getTreeList.bind(this);
     this.getPermissionList = this.getPermissionList.bind(this);
+    this.saveMenuData = this.saveMenuData.bind(this);
   }
 
   // 获得树形状结构的菜单列表数据
@@ -48,6 +52,74 @@ class Menu extends BaseComponent {
     } catch (err) {
       res.send(this.failMessage('获取权限数据失败'));
     }
+  }
+
+  // 保存菜单数据
+  async saveMenuData(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { userId } = req.auth;
+      const { id = 0, title, type = 0, parentId = 0, url, sort = 1, permissions, icon } = fields;
+
+      try {
+        if (!title) {
+          throw new Error('菜单名称不能为空');
+        } else if(!permissions) {
+          throw new Error('权限不能为空');
+        }
+
+        let menuInfo = {
+          id,
+          title, 
+          type, 
+          parentId, 
+          url, 
+          sort, 
+          permissions, 
+          icon
+        }
+
+        // 根据菜单名称查找菜单信息
+        const menu = await MenuModel.findOne({ title });
+
+        // 获得用户信息
+        const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
+
+        // 生成菜单 id，菜单 id 是唯一的
+        const menuId = await this.generateIdValue('menuId');
+
+        // 编辑菜单信息
+        if (id) {
+          await MenuModel.updateOne({ id }, { $set: menuInfo })
+          res.send(this.successMessage('菜单信息编辑成功'));
+          // 新增角色信息
+        } else {
+          if (menu) {
+            res.send(this.failMessage('该菜单已存在'));
+            return
+          }
+
+          menuInfo = {
+            ...menuInfo,
+            id: menuId,
+            createBy: userName,
+            createTime: dtime().format('YYYY-MM-DD HH:mm:ss')
+          }
+
+          await MenuModel.create(menuInfo);
+          res.send(this.successMessage('菜单新增成功'));
+        }
+
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+      }
+    });
   }
 }
 

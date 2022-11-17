@@ -102,9 +102,9 @@ class Role extends BaseComponent {
         return;
       }
 
-      const { roleName, id = 0 } = fields;
       const { userId } = req.auth;
-
+      const { roleName, id = 0 } = fields;
+      
       try {
         if (!roleName) {
           throw new Error('角色名不能为空');

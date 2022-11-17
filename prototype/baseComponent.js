@@ -6,7 +6,8 @@ class BaseComponent {
     // id 列表
     this.idList = [
       'userId',
-      'roleId'
+      'roleId',
+      'menuId'
     ];
   }
 

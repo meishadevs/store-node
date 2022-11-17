@@ -10,6 +10,11 @@ const menuApi = (router) => {
   router.get('/menu/permissions_list', (req, res, next) => {
     Menu.getPermissionList(req, res, next);
   });
+
+  // 保存菜单信息
+  router.post('/menu/save', (req, res, next) => {
+    Menu.saveMenuData(req, res, next);
+  });
 };
 
 module.exports = menuApi;

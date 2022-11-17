@@ -5,7 +5,10 @@ const idSchema = new mongoose.Schema({
   userId: Number,
 
   // 角色 id
-  roleId: Number
+  roleId: Number,
+
+  // 菜单 id
+  menuId: Number
 });
 
 const Id = mongoose.model('id', idSchema, 'id');
@@ -15,7 +18,8 @@ Id.findOne((err, data) => {
   if (!data) {
     const newIds = new Id({
       userId: 0,
-      roleId: 0
+      roleId: 0,
+      menuId: 0
     });
 
     newIds.save();
