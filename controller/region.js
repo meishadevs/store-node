@@ -22,7 +22,7 @@ class Region extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取省份列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -38,7 +38,7 @@ class Region extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取市列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -54,7 +54,7 @@ class Region extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取区列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 }

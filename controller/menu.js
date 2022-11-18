@@ -31,7 +31,7 @@ class Menu extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取菜单列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -52,7 +52,7 @@ class Menu extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取权限数据失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 

@@ -440,7 +440,6 @@ class User extends BaseComponent {
 
       } catch (err) {
         res.send(this.failMessage(err.message));
-        return;
       }
     });
   }

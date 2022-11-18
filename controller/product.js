@@ -32,7 +32,7 @@ class Product extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      res.send(this.failMessage('获取商品列表失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
@@ -43,7 +43,7 @@ class Product extends BaseComponent {
 
       res.send(this.successMessage(null, { count: productCount }));
     } catch (error) {
-      res.send(this.failMessage('获得商品数量失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 }

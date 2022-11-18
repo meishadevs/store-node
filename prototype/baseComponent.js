@@ -7,7 +7,8 @@ class BaseComponent {
     this.idList = [
       'userId',
       'roleId',
-      'menuId'
+      'menuId',
+      'provinceId'
     ];
   }
 
@@ -49,7 +50,9 @@ class BaseComponent {
       if (!idData) {
         let idObject = {
           userId: 0,
-          roleId: 0
+          roleId: 0,
+          menuId: 0,
+          provinceId: 0
         };
 
         // 向 ids 集合中添加一条 id 数据

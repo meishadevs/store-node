@@ -28,8 +28,7 @@ class Role extends BaseComponent {
 
       res.send(this.successMessage(null, data));
     } catch (err) {
-      console.log("err:", err);
-      res.send(this.failMessage('获取所有角色列表数据失败'));
+      res.send(this.failMessage(err.message));
     }
   }
 
