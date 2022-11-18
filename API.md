@@ -19,6 +19,7 @@
 [保存角色信息](#保存角色信息)  
 [设置角色权限](#设置角色权限)  
 [删除角色信息](#删除角色信息)  
+[获得菜单列表](#获得菜单列表)  
 [获得商品数量](#获得商品数量)  
 [获得商品列表](#获得商品列表)  
 [获得省份列表](#获得省份列表)  
@@ -612,6 +613,65 @@ POST
 }
 ```
 
+### 获得菜单列表
+
+#### 请求URL:  
+```
+/menu/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+无
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "parentId": 0,
+        "title": "首页",
+        "url": "/home",
+        "permissions": "home",
+        "icon": "",
+        "sort": 100,
+        "remark": "",
+        "type": 0,
+        "createBy": "admin",
+        "createTime": "2022-11-16 14:15:30",
+        "__v": 0,
+        "children": [
+          {
+            "id": 22,
+            "parentId": 1,
+            "title": "仪表盘",
+            "url": "/dashboard",
+            "permissions": "dashboard",
+            "icon": "",
+            "sort": 100,
+            "type": 0,
+            "createBy": "admin",
+            "createTime": "2022-11-17 16:43:19",
+            "__v": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+
 ### 获得商品数量
 
 #### 请求URL:  
@@ -892,83 +952,6 @@ GET
       ....
     ],
     "count": 30
-  }
-}
-```
-
-### 获得菜单列表
-
-#### 请求URL:  
-```
-/menu/list
-```
-
-#### 请求方式: 
-```
-GET
-```
-
-#### 请求参数：
-无
-
-#### 返回示例：
-
-```javascript
-{
-  "code": 200,
-  "msg": "请求成功",
-  "data": {
-    "list": [
-      {
-        "id": 1,
-        "parentId": 0,
-        "title": "系统设置",
-        "url": "/setting",
-        "permission": "setting",
-        "icon": "",
-        "sort": 1,
-        "remark": "",
-        "type": 0,
-        "children": [
-          {
-            "id": 2,
-            "parentId": 1,
-            "title": "用户管理",
-            "url": "/user",
-            "permission": "user",
-            "icon": "",
-            "sort": 2,
-            "remark": "",
-            "type": 0,
-            "children": []
-          },
-          {
-            "id": 3,
-            "parentId": 1,
-            "title": "角色管理",
-            "url": "/role",
-            "permission": "role",
-            "icon": "",
-            "sort": 3,
-            "remark": "",
-            "type": 0,
-            "children": []
-          },
-          {
-            "id": 4,
-            "parentId": 1,
-            "title": "菜单管理",
-            "url": "/menu",
-            "permission": "menu",
-            "icon": "",
-            "sort": 4,
-            "remark": "",
-            "type": 0,
-            "children": []
-          }
-        ]
-      }
-    ]
   }
 }
 ```
