@@ -115,7 +115,10 @@ class Province extends BaseComponent {
         }
 
         // 根据省份名称查找省份信息
-        const province = await ProvinceModel.findOne({ provinceName });
+        const provinceFromName = await ProvinceModel.findOne({ provinceName });
+
+        // 根据省份编码查找省份信息
+        const provinceFromCode = await ProvinceModel.findOne({ provinceCode });
 
         // 获得用户信息
         const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
@@ -129,9 +132,12 @@ class Province extends BaseComponent {
           res.send(this.successMessage('省份编辑成功'));
           // 新增省份信息
         } else {
-          if (province) {
-            res.send(this.failMessage('该省份已存在'));
-            return
+          if (provinceFromName) {
+            throw new Error('省份名称已存在');
+          }
+
+          if (provinceFromCode) {
+            throw new Error('省份编码已存在');
           }
 
           provinceInfo = {
