@@ -32,7 +32,7 @@ class Province extends BaseComponent {
 
   // 获得省份列表
   async getPageList(req, res, next) {
-    const { pageSize = 10, pageNumber = 1, provinceName = '' } = req.query;
+    const { pageSize = 10, pageNumber = 1, provinceName = '', provinceCode = '' } = req.query;
 
     const offset = (pageNumber - 1) * pageSize;
 
@@ -43,6 +43,13 @@ class Province extends BaseComponent {
       queryCondition = {
         ...queryCondition,
         provinceName
+      }
+    }
+
+    if (provinceCode) {
+      queryCondition = {
+        ...queryCondition,
+        provinceCode
       }
     }
 
