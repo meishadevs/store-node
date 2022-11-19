@@ -14,7 +14,10 @@ const idSchema = new mongoose.Schema({
   provinceId: Number,
 
   // 市 id
-  cityId: Number
+  cityId: Number,
+
+  // 区 id
+  districtId: Number
 });
 
 const Id = mongoose.model('id', idSchema, 'id');
@@ -27,7 +30,8 @@ Id.findOne((err, data) => {
       roleId: 0,
       menuId: 0,
       provinceId: 0,
-      cityId: 0
+      cityId: 0,
+      districtId: 0
     });
 
     newIds.save();

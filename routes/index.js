@@ -6,6 +6,7 @@ const regionApi = require('./regionApi');
 const roleApi = require('./roleApi');
 const provinceApi = require('./provinceApi');
 const cityApi = require('./cityApi');
+const districtApi = require('./districtApi');
 const express = require('express');
 
 const router = express.Router();
@@ -22,6 +23,7 @@ regionApi(router);
 roleApi(router);
 provinceApi(router);
 cityApi(router);
+districtApi(router);
 
 module.exports = router;
 
