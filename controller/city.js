@@ -78,12 +78,12 @@ class City extends BaseComponent {
         const { id, cityCode, cityName, provinceCode, createBy, createTime, provinceList } = item;
 
         list.push({
-          id, 
-          cityCode, 
-          cityName, 
-          provinceCode, 
+          id,
+          cityCode,
+          cityName,
+          provinceCode,
           provinceName: provinceList[0].provinceName,
-          createBy, 
+          createBy,
           createTime
         });
       });
@@ -135,10 +135,12 @@ class City extends BaseComponent {
       }
 
       const { userId } = req.auth;
-      const { cityName, cityCode, id = 0 } = fields;
+      const { provinceCode, cityName, cityCode, id = 0 } = fields;
 
       try {
-        if (!cityName) {
+        if (!provinceCode) {
+          throw new Error('省份编码不能为空');
+        } else if (!cityName) {
           throw new Error('市名称不能为空');
         } else if (!cityCode) {
           throw new Error('市编码不能为空');
@@ -146,7 +148,8 @@ class City extends BaseComponent {
 
         let cityInfo = {
           cityName,
-          cityCode
+          cityCode,
+          provinceCode,
         }
 
         // 根据市名称查找市信息
