@@ -71,18 +71,22 @@ class District extends BaseComponent {
         .lean()
         .populate({
           path: 'cityList',
-          select: 'cityName -_id'
+          select: '-id -createBy -createTime -_id -__v',
+          populate: {
+            path: 'provinceList',
+            select: 'provinceName -_id',
+          }
         });
 
       districtList.map(item => {
-        const { id, districtCode, districtName, cityCode, createBy, createTime, cityList } = item;
+        const { id, districtCode, districtName, createBy, createTime, cityList } = item;
 
         list.push({
           id,
           districtCode,
           districtName,
-          provinceCode,
           cityName: cityList[0].cityName,
+          provinceName: cityList[0].provinceList[0].provinceName,
           createBy,
           createTime
         });
