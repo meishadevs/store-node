@@ -32,7 +32,7 @@ class District extends BaseComponent {
 
   // 获得区列表
   async getPageList(req, res, next) {
-    const { pageSize = 10, pageNumber = 1, districtName = '', districtCode = '', cityCode = '' } = req.query;
+    const { pageSize = 10, pageNumber = 1, districtName, districtCode, cityCode } = req.query;
 
     const offset = (pageNumber - 1) * pageSize;
 
@@ -85,8 +85,8 @@ class District extends BaseComponent {
           id,
           districtCode,
           districtName,
-          cityName: cityList[0].cityName,
-          provinceName: cityList[0].provinceList[0].provinceName,
+          cityName: cityList.length ? cityList[0].cityName : '',
+          provinceName: cityList.length ? cityList[0].provinceList[0].provinceName : '',
           createBy,
           createTime
         });
