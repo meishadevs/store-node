@@ -17,8 +17,15 @@ class City extends BaseComponent {
 
   // 获得所有市列表数据
   async getAllList(req, res, next) {
+    const { provinceCode } = req.query;
+
+    let cityList = [];
+
     try {
-      const cityList = await CityModel.find({}, '-_id');
+
+      if(provinceCode) {
+        cityList = await CityModel.find({ provinceCode }, '-_id');
+      }
 
       let data = {
         list: cityList

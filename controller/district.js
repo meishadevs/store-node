@@ -32,7 +32,7 @@ class District extends BaseComponent {
 
   // 获得区列表
   async getPageList(req, res, next) {
-    const { pageSize = 10, pageNumber = 1, districtName = '', districtCode = '', provinceCode = '' } = req.query;
+    const { pageSize = 10, pageNumber = 1, districtName = '', districtCode = '', cityCode = '' } = req.query;
 
     const offset = (pageNumber - 1) * pageSize;
 
@@ -55,10 +55,10 @@ class District extends BaseComponent {
       }
     }
 
-    if (provinceCode) {
+    if (cityCode) {
       queryCondition = {
         ...queryCondition,
-        provinceCode
+        cityCode
       }
     }
 
@@ -74,7 +74,7 @@ class District extends BaseComponent {
           select: '-id -createBy -createTime -_id -__v',
           populate: {
             path: 'provinceList',
-            select: 'provinceName -_id',
+            select: '-_id'
           }
         });
 
