@@ -11,10 +11,26 @@ const citySchema = new mongoose.Schema({
   cityCode: Number,
 
   // 省份编码
-  provinceCode: Number
+  provinceCode: Number,
+
+  // 创建人
+  createBy: String,
+
+  // 创建时间
+  createTime: String,
+});
+
+citySchema.virtual('provinceList', {
+  ref: 'province',
+  localField: 'provinceCode',
+  foreignField: 'provinceCode',
+  justOne: false,
 });
 
 citySchema.index({ id: 1 });
+
+citySchema.set('toObject', { virtuals: true });
+citySchema.set('toJSON', { virtuals: true });
 
 const City = mongoose.model('city', citySchema, 'city');
 
