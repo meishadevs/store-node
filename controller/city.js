@@ -89,7 +89,7 @@ class City extends BaseComponent {
           cityCode,
           cityName,
           provinceCode,
-          provinceName: provinceList[0].provinceName,
+          provinceName: provinceList.length ? provinceList[0].provinceName : '',
           createBy,
           createTime
         });
@@ -129,9 +129,12 @@ class City extends BaseComponent {
       if (!cityInfo) {
         throw new Error('未找到与id对应的市信息');
       } else {
-        console.log("cityInfo:", cityInfo);
-        const { provinceName } = cityInfo.provinceList[0];
+        let provinceName = '';
 
+        if(cityInfo.provinceList.length) {
+          provinceName = cityInfo.provinceList[0].provinceName;
+        }
+        
         cityInfo = {
           ...cityInfo,
           provinceName
