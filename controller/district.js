@@ -116,11 +116,32 @@ class District extends BaseComponent {
       }
 
       // 获得区信息
-      let districtInfo = await DistrictModel.findOne({ id: districtId }, '-_id -__v').lean();
+      let districtInfo = await DistrictModel.findOne({ id: districtId }, '-_id -createBy -createTime -__v')
+        .lean()
+        .populate({
+          path: 'cityList',
+          select: '-id -createBy -createTime -_id -__v',
+          populate: {
+            path: 'provinceList',
+            select: '-_id'
+          }
+        });
 
       if (!districtInfo) {
         throw new Error('未找到与id对应的区信息');
       } else {
+        const { cityName } = districtInfo.cityList[0];
+        const { provinceName, provinceCode } = districtInfo.cityList[0].provinceList[0];
+
+        districtInfo = {
+          ...districtInfo,
+          cityName,
+          provinceName,
+          provinceCode
+        };
+
+        delete districtInfo.cityList;
+
         res.send(this.successMessage(null, districtInfo));
       }
     } catch (err) {
