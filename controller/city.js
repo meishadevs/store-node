@@ -23,7 +23,7 @@ class City extends BaseComponent {
 
     try {
 
-      if(provinceCode) {
+      if (provinceCode) {
         cityList = await CityModel.find({ provinceCode }, '-_id');
       }
 
@@ -119,11 +119,26 @@ class City extends BaseComponent {
       }
 
       // 获得市信息
-      let cityInfo = await CityModel.findOne({ id: cityId }, '-_id -__v').lean();
+      let cityInfo = await CityModel.findOne({ id: cityId }, '-_id -__v')
+        .lean()
+        .populate({
+          path: 'provinceList',
+          select: 'provinceName -_id'
+        });
 
       if (!cityInfo) {
         throw new Error('未找到与id对应的市信息');
       } else {
+        console.log("cityInfo:", cityInfo);
+        const { provinceName } = cityInfo.provinceList[0];
+
+        cityInfo = {
+          ...cityInfo,
+          provinceName
+        };
+
+        delete cityInfo.provinceList;
+
         res.send(this.successMessage(null, cityInfo));
       }
     } catch (err) {
