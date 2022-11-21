@@ -1,5 +1,6 @@
 const UserModel = require('../model/user');
 const ProvinceModel = require('../model/province');
+const CityModel = require('../model/city');
 const BaseComponent = require('../prototype/baseComponent');
 const dtime = require('time-formater');
 const formidable = require('formidable');
@@ -186,6 +187,12 @@ class Province extends BaseComponent {
         
         if (!province) {
           throw new Error('没有找到与id对应的省份信息');
+        }
+
+        const city = await CityModel.findOne({ provinceCode: province.provinceCode }, '-_id -__v');
+
+        if (city) {
+          throw new Error('该省份下存在市数据，不能删除');
         }
 
         await ProvinceModel.findOneAndDelete({ id: provinceId })

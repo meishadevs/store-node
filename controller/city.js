@@ -1,5 +1,6 @@
 const UserModel = require('../model/user');
 const CityModel = require('../model/city');
+const DistrictModel = require('../model/district');
 const BaseComponent = require('../prototype/baseComponent');
 const dtime = require('time-formater');
 const formidable = require('formidable');
@@ -242,6 +243,12 @@ class City extends BaseComponent {
 
         if (!city) {
           throw new Error('没有找到与id对应的市信息');
+        }
+
+        const district = await DistrictModel.findOne({ cityCode: city.cityCode });
+
+        if (district) {
+          throw new Error('该市下存在区数据，不能删除');
         }
 
         await CityModel.findOneAndDelete({ id: cityId })
