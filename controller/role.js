@@ -44,7 +44,7 @@ class Role extends BaseComponent {
     if (roleName) {
       queryCondition = {
         ...queryCondition,
-        roleName
+        roleName: { $regex: roleName }
       }
     }
 

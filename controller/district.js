@@ -44,7 +44,7 @@ class District extends BaseComponent {
     if (districtName) {
       queryCondition = {
         ...queryCondition,
-        districtName
+        districtName: { $regex: districtName }
       }
     }
 

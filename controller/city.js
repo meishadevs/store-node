@@ -51,7 +51,7 @@ class City extends BaseComponent {
     if (cityName) {
       queryCondition = {
         ...queryCondition,
-        cityName
+        cityName: { $regex: cityName }
       }
     }
 

@@ -161,7 +161,7 @@ class User extends BaseComponent {
     if (userName) {
       queryCondition = {
         ...queryCondition,
-        userName
+        userName: { $regex: userName }
       }
     }
 
