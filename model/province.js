@@ -8,7 +8,7 @@ const provinceSchema = new mongoose.Schema({
   provinceName: String,
 
   // 省份编码
-  provinceCode: Number,
+  provinceCode: String,
   
   // 创建人
   createBy: String,

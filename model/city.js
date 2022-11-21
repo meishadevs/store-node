@@ -8,10 +8,10 @@ const citySchema = new mongoose.Schema({
   cityName: String,
 
   // 市编码
-  cityCode: Number,
+  cityCode: String,
 
   // 省份编码
-  provinceCode: Number,
+  provinceCode: String,
 
   // 创建人
   createBy: String,

@@ -8,10 +8,10 @@ const districtSchema = new mongoose.Schema({
   districtName: String,
 
   // 区编码
-  districtCode: Number,
+  districtCode: String,
 
   // 市编码
-  cityCode: Number,
+  cityCode: String,
 
   // 创建人
   createBy: String,
