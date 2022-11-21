@@ -235,8 +235,11 @@ class User extends BaseComponent {
     // 用户的所属角色
     let roleList = [];
 
-    // 用户的权限
-    let permissions = [];
+    // 路由权限
+    let routePermissionsList = [];
+
+    // 按钮权限
+    let btnPermissionsList = [];
 
     try {
       if (!userId || !Number(userId)) {
@@ -245,6 +248,10 @@ class User extends BaseComponent {
 
       // 获得用户信息
       let userInfo = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
+
+      if (!userInfo) {
+        throw new Error('未找到当前用户');
+      }
 
       // 根据用户 id 获得用户的所属角色 
       const roleInfo = await UserModel.aggregate([
@@ -283,6 +290,7 @@ class User extends BaseComponent {
         {
           $project: {
             '_id': 0,
+            'permissionList.type': 1,
             'permissionList.permissions': 1
           }
         }
@@ -299,7 +307,11 @@ class User extends BaseComponent {
       if (permissionInfo.length && permissionInfo[0].permissionList.length) {
         permissionInfo.map(permission => {
           permission.permissionList.map(item => {
-            permissions.push(item.permissions);
+            if (item.type) {
+              btnPermissionsList.push(item.permissions);
+            } else {
+              routePermissionsList.push(item.permissions);
+            }
           });
         });
       }
@@ -307,14 +319,11 @@ class User extends BaseComponent {
       userInfo = {
         ...userInfo,
         roleList,
-        permissions
+        routePermissionsList,
+        btnPermissionsList
       }
-
-      if (!userInfo) {
-        throw new Error('未找到当前用户');
-      } else {
-        res.send(this.successMessage(null, userInfo));
-      }
+      
+      res.send(this.successMessage(null, userInfo));
     } catch (err) {
       res.send(this.failMessage(err.message));
     }
