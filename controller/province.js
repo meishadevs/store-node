@@ -49,7 +49,7 @@ class Province extends BaseComponent {
     if (provinceCode) {
       queryCondition = {
         ...queryCondition,
-        provinceCode
+        provinceCode: {$regex: provinceCode}
       }
     }
 
