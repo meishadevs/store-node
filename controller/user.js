@@ -115,10 +115,6 @@ class User extends BaseComponent {
           throw new Error('该用户已存在，密码输入错误');
         } else if (!user.status) {
           throw new Error('该用户已禁用');
-
-        // 客户不能访问系统
-        } else if(user.roles.length === 1 && user.roles[0] === 2) {
-          throw new Error('该用户不能访问系统');
         }
 
         // 生成 token
