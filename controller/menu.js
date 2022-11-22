@@ -109,8 +109,8 @@ class Menu extends BaseComponent {
           icon
         }
 
-        // 根据菜单名称查找菜单信息
-        const menu = await MenuModel.findOne({ title });
+        // 根据菜单权限查找菜单信息
+        const menu = await MenuModel.findOne({ permissions });
 
         // 获得用户信息
         const { userName } = await UserModel.findOne({ id: userId }, '-_id -password -__v').lean();
@@ -125,7 +125,7 @@ class Menu extends BaseComponent {
           // 新增角色信息
         } else {
           if (menu) {
-            res.send(this.failMessage('该菜单已存在'));
+            res.send(this.failMessage('该权限已存在'));
             return
           }
 
