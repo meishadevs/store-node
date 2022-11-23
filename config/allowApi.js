@@ -9,7 +9,7 @@ module.exports = [
   '/advisory/count',
   '/product/lis',
   '/product/count',
-  '/region/provinceList',
-  '/region/cityList',
-  '/region/districtList'
+  '/province/all',
+  '/city/all',
+  '/district/all'
 ];

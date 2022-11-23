@@ -69,7 +69,6 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
     | |____db.js
     |____.editorconfig
     |____controller
-    | |____region.js
     | |____advisory.js
     | |____role.js
     | |____user.js
@@ -96,7 +95,6 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
     |____routes
     | |____provinceApi.js
     | |____productApi.js
-    | |____regionApi.js
     | |____index.js
     | |____menuApi.js
     | |____roleApi.js
