@@ -25,7 +25,7 @@ class City extends BaseComponent {
     try {
 
       if (provinceCode) {
-        cityList = await CityModel.find({ provinceCode }, '-_id');
+        cityList = await CityModel.find({ provinceCode }, '-_id -__v -id -createBy -createTime');
       }
 
       let data = {

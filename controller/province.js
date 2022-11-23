@@ -19,7 +19,7 @@ class Province extends BaseComponent {
   // 获得所有省份列表数据
   async getAllList(req, res, next) {
     try {
-      const provinceList = await ProvinceModel.find({}, '-_id');
+      const provinceList = await ProvinceModel.find({}, '-_id -__v -id -createBy -createTime');
 
       let data = {
         list: provinceList

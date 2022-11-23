@@ -18,7 +18,7 @@ class District extends BaseComponent {
   // 获得所有区列表数据
   async getAllList(req, res, next) {
     try {
-      const districtList = await DistrictModel.find({}, '-_id');
+      const districtList = await DistrictModel.find({}, '-_id -__v -id -createBy -createTime');
 
       let data = {
         list: districtList
