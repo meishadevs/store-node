@@ -26,7 +26,7 @@
 [删除菜单信息](#删除菜单信息)  
 [获得商品数量](#获得商品数量)  
 [获得商品列表](#获得商品列表)  
-[获得省份列表](#获得省份列表)  
+[获得所有省份](#获得所有省份)  
 [获得市列表](#获得市列表)  
 [获得区列表](#获得区列表)  
 [获得咨询数量](#获得咨询数量)  
@@ -901,11 +901,11 @@ GET
 }
 ```
 
-### 获得省份列表
+### 获得所有省份
 
 #### 请求URL:  
 ```
-/region/provinceList
+/province/all
 ```
 
 #### 请求方式: 
@@ -925,18 +925,18 @@ GET
   "data": {
     "list": [
       {
-        "provinceCode": 110000,
+        "provinceCode": "110000",
         "provinceName": "北京市"
       },
       {
-        "provinceCode": 120000,
-        "provinceName": "天津市"
+        "provinceCode": "360000",
+        "provinceName": "江西省"
       },
       {
-        "provinceCode": 130000,
-        "provinceName": "河北省"
+        "provinceCode": "440000",
+        "provinceName": "广东省"
       },
-      ....
+     ....
     ]
   }
 }
