@@ -27,6 +27,7 @@
 [获得商品数量](#获得商品数量)  
 [获得商品列表](#获得商品列表)  
 [获得所有省份](#获得所有省份)  
+[获得省份列表](#获得省份列表)  
 [获得所有市](#获得所有市)  
 [获得所有区](#获得所有区)  
 [获得咨询数量](#获得咨询数量)  
@@ -938,6 +939,62 @@ GET
       },
      ....
     ]
+  }
+}
+```
+
+### 获得省份列表
+
+#### 请求URL:  
+```
+/province/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|provinceName      |N       |String  |省份名称 |
+|provinceCode      |N       |String  |省份编码 |
+|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
+|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "createBy": "admin",
+        "createTime": "2022-11-18 17:28:26",
+        "id": 6,
+        "provinceCode": "210000",
+        "provinceName": "辽宁省"
+      },
+      {
+        "createBy": "admin",
+        "createTime": "2022-11-18 17:28:26",
+        "id": 13,
+        "provinceCode": "350000",
+        "provinceName": "福建省"
+      },
+      {
+        "createBy": "admin",
+        "createTime": "2022-11-18 17:28:26",
+        "id": 9,
+        "provinceCode": "310000",
+        "provinceName": "上海市"
+      },
+      ....
+    ],
+    "count": 34
   }
 }
 ```
