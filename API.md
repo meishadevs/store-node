@@ -26,8 +26,8 @@
 [删除菜单信息](#删除菜单信息)  
 [获得商品数量](#获得商品数量)  
 [获得商品列表](#获得商品列表)  
-[获得省份列表](#获得省份列表)  
-[获得市列表](#获得市列表)  
+[获得所有省份](#获得所有省份)  
+[获得所有市](#获得所有市)  
 [获得区列表](#获得区列表)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
@@ -901,11 +901,11 @@ GET
 }
 ```
 
-### 获得省份列表
+### 获得所有省份
 
 #### 请求URL:  
 ```
-/region/provinceList
+/province/all
 ```
 
 #### 请求方式: 
@@ -925,28 +925,28 @@ GET
   "data": {
     "list": [
       {
-        "provinceCode": 110000,
+        "provinceCode": "110000",
         "provinceName": "北京市"
       },
       {
-        "provinceCode": 120000,
-        "provinceName": "天津市"
+        "provinceCode": "360000",
+        "provinceName": "江西省"
       },
       {
-        "provinceCode": 130000,
-        "provinceName": "河北省"
+        "provinceCode": "440000",
+        "provinceName": "广东省"
       },
-      ....
+     ....
     ]
   }
 }
 ```
 
-### 获得市列表
+### 获得所有市
 
 #### 请求URL:  
 ```
-/region/cityList
+/city/all
 ```
 
 #### 请求方式: 
@@ -969,21 +969,21 @@ GET
   "data": {
     "list": [
       {
-        "cityCode": 360100,
+        "cityCode": "360100",
         "cityName": "南昌市",
-        "provinceCode": 360000
+        "provinceCode": "360000"
       },
       {
-        "cityCode": 360200,
-        "cityName": "景德镇市",
-        "provinceCode": 360000
+        "cityCode": "360500",
+        "cityName": "新余市",
+        "provinceCode": "360000"
       },
       {
-        "cityCode": 360300,
-        "cityName": "萍乡市",
-        "provinceCode": 360000
+        "cityCode": "360800",
+        "cityName": "吉安市",
+        "provinceCode": "360000"
       },
-     .....
+      ....
     ]
   }
 }
