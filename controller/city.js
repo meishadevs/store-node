@@ -20,13 +20,18 @@ class City extends BaseComponent {
   async getAllList(req, res, next) {
     const { provinceCode } = req.query;
 
-    let cityList = [];
-
     try {
+      // 查询条件
+      let queryCondition = {};
 
       if (provinceCode) {
-        cityList = await CityModel.find({ provinceCode }, '-_id -__v -id -createBy -createTime');
+        queryCondition = {
+          ...queryCondition,
+          provinceCode
+        };
       }
+      
+      const cityList = await CityModel.find(queryCondition, '-_id -__v -id -createBy -createTime');
 
       let data = {
         list: cityList
