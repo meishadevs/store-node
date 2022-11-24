@@ -28,7 +28,7 @@
 [获得商品列表](#获得商品列表)  
 [获得所有省份](#获得所有省份)  
 [获得所有市](#获得所有市)  
-[获得区列表](#获得区列表)  
+[获得所有区](#获得所有区)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
 [获得菜单列表](#获得菜单列表)  
@@ -958,7 +958,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|provinceCode      |Y       |Number  |省份编码|
+|provinceCode      |N       |Number  |省份编码|
 
 #### 返回示例：
 
@@ -989,11 +989,11 @@ GET
 }
 ```
 
-### 获得区列表
+### 获得所有区
 
 #### 请求URL:  
 ```
-/region/DistrictList
+/district/all
 ```
 
 #### 请求方式: 
@@ -1005,7 +1005,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|cityCode      |Y       |Number  |市编码|
+|cityCode      |N       |Number  |市编码|
 
 #### 返回示例：
 
@@ -1016,19 +1016,19 @@ GET
   "data": {
     "list": [
       {
-        "districtCode": 360501,
-        "districtName": "市辖区",
-        "cityCode": 360500
+        "cityCode": "360500",
+        "districtCode": "360501",
+        "districtName": "市辖区"
       },
       {
-        "districtCode": 360502,
-        "districtName": "渝水区",
-        "cityCode": 360500
+        "cityCode": "360500",
+        "districtCode": "360502",
+        "districtName": "渝水区"
       },
       {
-        "districtCode": 360521,
-        "districtName": "分宜县",
-        "cityCode": 360500
+        "cityCode": "360500",
+        "districtCode": "360521",
+        "districtName": "分宜县"
       }
     ]
   }
