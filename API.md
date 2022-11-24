@@ -37,6 +37,10 @@
 [保存市信息](#保存市信息)  
 [删除市信息](#删除市信息)  
 [获得所有区](#获得所有区)  
+[获得区列表](#获得区列表)  
+[获得区详情](#获得区详情)  
+[保存区信息](#保存区信息)  
+[删除区信息](#删除区信息)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
 [获得菜单列表](#获得菜单列表)  
@@ -1327,6 +1331,150 @@ GET
       }
     ]
   }
+}
+```
+
+### 获得区列表
+
+#### 请求URL:  
+```
+/district/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|provinceCode      |N       |String  |省份编码 |
+|cityCode      |N       |String  |市编码 |
+|districtName      |N       |String  |区名称 |
+|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
+|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "id": 9,
+        "districtCode": "110109",
+        "districtName": "门头沟区",
+        "cityName": "北京市",
+        "provinceName": "北京市",
+        "createBy": "admin",
+        "createTime": "2022-11-19 17:47:35"
+      },
+      {
+        "id": 10,
+        "districtCode": "110111",
+        "districtName": "房山区",
+        "cityName": "北京市",
+        "provinceName": "北京市",
+        "createBy": "admin",
+        "createTime": "2022-11-19 17:47:35"
+      },
+      ....
+    ],
+    "count": 3165
+  }
+}
+```
+
+### 获得区详情
+
+#### 请求URL:  
+```
+/district/detail
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|districtId      |Y       |Number  |区 id |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "cityCode": "110100",
+    "districtCode": "110108",
+    "districtName": "海淀区",
+    "id": 8,
+    "cityName": "北京市",
+    "provinceName": "北京市",
+    "provinceCode": "110000"
+  }
+}
+```
+
+### 保存区信息
+
+#### 请求URL:  
+```
+/district/save
+```
+
+#### 请求方式: 
+```
+POST
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|id      |N      |Number  |市 id，传值了表示编辑区，没传值表示新增区 |
+|cityCode      |Y      |String  |市编码 |
+|districtName      |Y      |String  |区名称 
+|districtCode      |Y      |String  |区编码 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "区新增成功"
+}
+```
+
+### 删除区信息
+
+#### 请求URL:  
+```
+/district/delete
+```
+
+#### 请求方式: 
+```
+POST
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|districtId      |Y      |Number  |district id |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "区删除成功"
 }
 ```
 
