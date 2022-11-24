@@ -20,11 +20,17 @@ class District extends BaseComponent {
     const { cityCode } = req.query;
 
     try {
-      let districtList = [];
-      
+      // 查询条件
+      let queryCondition = {};
+
       if (cityCode) {
-        districtList = await DistrictModel.find({ cityCode }, '-_id -__v -id -createBy -createTime');
+        queryCondition = {
+          ...queryCondition,
+          cityCode
+        }
       }
+      
+      const districtList = await DistrictModel.find(queryCondition, '-_id -__v -id -createBy -createTime');
 
       let data = {
         list: districtList
