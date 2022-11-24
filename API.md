@@ -32,6 +32,7 @@
 [保存省份信息](#保存省份信息)  
 [删除省份信息](#删除省份信息)  
 [获得所有市](#获得所有市)  
+[获得市列表](#获得市列表)  
 [获得所有区](#获得所有区)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
@@ -1135,6 +1136,61 @@ GET
   }
 }
 ```
+
+### 获得市列表
+
+#### 请求URL:  
+```
+/city/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|provinceCode      |N       |String  |省份编码 |
+|cityName      |N       |String  |市名称 |
+|cityCode      |N       |String  |市编码 |
+|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
+|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "id": 124,
+        "cityCode": "360100",
+        "cityName": "南昌市",
+        "provinceCode": "360000",
+        "provinceName": "江西省",
+        "createBy": "admin",
+        "createTime": "2022-11-19 11:29:45"
+      },
+      {
+        "id": 128,
+        "cityCode": "360500",
+        "cityName": "新余市",
+        "provinceCode": "360000",
+        "provinceName": "江西省",
+        "createBy": "admin",
+        "createTime": "2022-11-19 11:29:45"
+      },
+      ....
+    ],
+    "count": 11
+  }
+}
+```
+
 
 ### 获得所有区
 
