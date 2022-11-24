@@ -1052,7 +1052,7 @@ POST
 |:-----|:-------:|:-----|:-----|
 |id      |N      |Number  |省份 id，传值了表示编辑省份，没传值表示新增省份 |
 |provinceName      |Y      |String  |省份名称 |
-|provinceCode      |Y      |String  |身份编码 |
+|provinceCode      |Y      |String  |省份编码 |
 
 #### 返回示例：
 
