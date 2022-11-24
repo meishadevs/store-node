@@ -56,7 +56,7 @@ class Province extends BaseComponent {
 
     try {
       // 获得省份列表
-      const provinceList = await ProvinceModel.find(queryCondition, '-_id')
+      const provinceList = await ProvinceModel.find(queryCondition, '-_id -__v')
         .sort({ createTime: 'desc' })
         .skip(Number(offset))
         .limit(Number(pageSize));
