@@ -10,7 +10,8 @@ class BaseComponent {
       'menuId',
       'provinceId',
       'cityId',
-      'districtId'
+      'districtId',
+      'bannerId'
     ];
   }
 
@@ -56,7 +57,8 @@ class BaseComponent {
           menuId: 0,
           provinceId: 0,
           cityId: 0,
-          districtId: 0
+          districtId: 0,
+          bannerId: 0
         };
 
         // 向 ids 集合中添加一条 id 数据
