@@ -11,6 +11,7 @@ class Banner extends BaseComponent {
     this.getPageList = this.getPageList.bind(this);
     this.getBannerDetail = this.getBannerDetail.bind(this);
     this.saveBannerData = this.saveBannerData.bind(this);
+    this.changePublishStatus = this.changePublishStatus.bind(this);
     this.deleteBannerData = this.deleteBannerData.bind(this);
   }
 
@@ -50,9 +51,10 @@ class Banner extends BaseComponent {
       }
 
       bannerList.map(item => {
-        const { bannerName, imageUrl, publishStatus, sort, createBy, createTime } = item;
+        const { id, bannerName, imageUrl, publishStatus, sort, createBy, createTime } = item;
         
         list.push({
+          id,
           bannerName, 
           imageUrl, 
           publishStatus, 
@@ -157,6 +159,39 @@ class Banner extends BaseComponent {
           res.send(this.successMessage('轮播图信息新增成功'));
         }
 
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
+      }
+    });
+  }
+
+  // 修改轮播图的发布状态
+  async changePublishStatus(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      const { bannerId = 0 } = fields;
+
+      try {
+        if (!bannerId) {
+          throw new Error('轮播图id不能为空');
+        }
+
+        // 根据轮播图 id 查找轮播图信息
+        const banner = await BannerModel.findOne({ id: bannerId });
+
+        if (!banner) {
+          throw new Error('没有找到与id对应的轮播图信息');
+        }
+
+        await BannerModel.updateOne({ id: bannerId }, { $set: { publishStatus: !banner.publishStatus } })
+        res.send(this.successMessage(banner.publishStatus ? '轮播图撤销成功' : '轮播图发布成功'));
       } catch (err) {
         res.send(this.failMessage(err.message));
         return;
