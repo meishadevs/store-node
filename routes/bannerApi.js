@@ -16,6 +16,11 @@ const bannerApi = (router) => {
     Banner.changePublishStatus(req, res, next);
   });
 
+  // 修改轮播图的置顶状态
+  router.post('/banner/top', (req, res, next) => {
+    Banner.changeTopStatus(req, res, next);
+  });
+
   // 保存轮播图信息
   router.post('/banner/save', (req, res, next) => {
     Banner.saveBannerData(req, res, next);

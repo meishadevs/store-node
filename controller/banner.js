@@ -12,6 +12,7 @@ class Banner extends BaseComponent {
     this.getBannerDetail = this.getBannerDetail.bind(this);
     this.saveBannerData = this.saveBannerData.bind(this);
     this.changePublishStatus = this.changePublishStatus.bind(this);
+    this.changeTopStatus = this.changeTopStatus.bind(this);
     this.deleteBannerData = this.deleteBannerData.bind(this);
   }
 
@@ -192,6 +193,56 @@ class Banner extends BaseComponent {
 
         await BannerModel.updateOne({ id: bannerId }, { $set: { publishStatus: !banner.publishStatus } })
         res.send(this.successMessage(banner.publishStatus ? '轮播图撤销成功' : '轮播图发布成功'));
+      } catch (err) {
+        res.send(this.failMessage(err.message));
+        return;
+      }
+    });
+  }
+
+  // 修改轮播图的置顶状态
+  async changeTopStatus(req, res, next) {
+    const form = new formidable.IncomingForm();
+
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        res.send(this.failMessage('表单信息错误'));
+        return;
+      }
+
+      let sort = 0;
+      let text = '';
+      const { bannerId = 0 } = fields;
+
+      try {
+        if (!bannerId) {
+          throw new Error('轮播图id不能为空');
+        }
+
+        // 根据轮播图 id 查找轮播图信息
+        const banner = await BannerModel.findOne({ id: bannerId });
+
+        if (!banner) {
+          throw new Error('没有找到与id对应的轮播图信息');
+        }
+        
+        // 获得轮播图中排序最大值
+        const { maxSort } = (await BannerModel.aggregate([{"$group":{"_id": {}, "maxSort": {"$max": "$sort"}}}]))[0];
+        
+        // 获得轮播图中排序最小值
+        const { minSort } = (await BannerModel.aggregate([{"$group":{"_id": {}, "minSort": {"$min": "$sort"}}}]))[0];
+
+        // 如果轮播图已经置顶了
+        if(banner.sort >= maxSort) {
+          sort = minSort - 1;
+          text = '轮播图取消置顶成功';
+        } else {
+          sort = maxSort + 1;
+          text = '轮播图置顶成功';
+        }
+
+        await BannerModel.updateOne({ id: bannerId }, { $set: { sort } })
+        res.send(this.successMessage(text));
       } catch (err) {
         res.send(this.failMessage(err.message));
         return;
