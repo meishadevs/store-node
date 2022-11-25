@@ -25,6 +25,9 @@ class Banner extends BaseComponent {
     // 查询条件
     let queryCondition = {};
 
+    // 最大的排序值
+    let maxSort = 0;
+
     if (bannerName) {
       queryCondition = {
         ...queryCondition,
@@ -38,12 +41,33 @@ class Banner extends BaseComponent {
         .sort({ sort: 'desc' })
         .skip(Number(offset))
         .limit(Number(pageSize));
+      
+      const banners = await BannerModel.aggregate([{"$group":{"_id": {}, "maxSort": {"$max": "$sort"}}}]);
+
+      if(banners.length) {
+        // 获得最大的排序值
+        maxSort = banners[0].maxSort
+      }
+
+      bannerList.map(item => {
+        const { bannerName, imageUrl, publishStatus, sort, createBy, createTime } = item;
+        
+        list.push({
+          bannerName, 
+          imageUrl, 
+          publishStatus, 
+          sort, 
+          createBy, 
+          createTime,
+          topStatus: sort >= maxSort
+        });
+      });
 
       // 获得轮播图数量
       const bannerCount = await BannerModel.find(queryCondition).count();
 
       let data = {
-        list: bannerList,
+        list,
         count: bannerCount
       };
 
@@ -86,7 +110,7 @@ class Banner extends BaseComponent {
       }
 
       const { userId } = req.auth;
-      const { bannerName, imageUrl, publishStatus = 0, topStatus = 0, sort = 1, id = 0 } = fields;
+      const { bannerName, imageUrl, publishStatus = 0, sort = 1, id = 0 } = fields;
 
       try {
         if (!bannerName) {
@@ -99,7 +123,6 @@ class Banner extends BaseComponent {
           bannerName,
           imageUrl,
           publishStatus,
-          topStatus,
           sort
         }
 
@@ -111,25 +134,6 @@ class Banner extends BaseComponent {
 
         // 生成轮播图 id，轮播图 id 是唯一的
         const bannerId = await this.generateIdValue('bannerId');
-
-        // 获得轮播图中排序最大值
-        const { maxSort } = (await BannerModel.aggregate([{"$group":{"_id": {}, "maxSort": {"$max": "$sort"}}}]))[0];
-        
-        // 获得轮播图中排序最小值
-        const { minSort } = (await BannerModel.aggregate([{"$group":{"_id": {}, "minSort": {"$min": "$sort"}}}]))[0];
-
-        // 如果选择了置顶
-        if(topStatus) {
-          bannerInfo = {
-            ...bannerInfo,
-            sort: maxSort + 1
-          }
-        } else {
-          bannerInfo = {
-            ...bannerInfo,
-            sort: minSort - 1
-          }
-        }
 
         // 编辑轮播图信息
         if (id) {

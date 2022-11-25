@@ -22,12 +22,6 @@ const bannerSchema = new mongoose.Schema({
     default: 0
   },
 
-  // 置顶状态，1：已置顶，0：未置顶
-  topStatus: {
-    type: Number,
-    default: 0
-  },
-
    // 创建人
    createBy: String,
 
