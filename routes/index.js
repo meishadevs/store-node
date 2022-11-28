@@ -7,6 +7,7 @@ const provinceApi = require('./provinceApi');
 const cityApi = require('./cityApi');
 const districtApi = require('./districtApi');
 const bannerApi = require('./bannerApi');
+const authApi = require('./authApi');
 const express = require('express');
 
 const router = express.Router();
@@ -24,6 +25,7 @@ provinceApi(router);
 cityApi(router);
 districtApi(router);
 bannerApi(router);
+authApi(router);
 
 module.exports = router;
 

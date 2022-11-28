@@ -1,4 +1,5 @@
 const allowApi = require('./allowApi');
+const tencentCos = require('./tencentCos');
 
 module.exports = {
   port: 8002,
@@ -6,6 +7,7 @@ module.exports = {
   secretKey: 'store',
   expiresIn: '10h',
   apiList: allowApi,
+  tencentCos: tencentCos,
   defaultPassword: "000000",
   session: {
     name: 'store',
