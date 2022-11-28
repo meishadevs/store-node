@@ -2,7 +2,7 @@ const multer  = require('multer');
 const Auth = require('../controller/auth');
 
 const upload = multer({
-  dest: './tmp/'
+  dest: './temp/'
 });
 
 const authApi = (router) => {

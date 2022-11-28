@@ -18,21 +18,24 @@ class Auth extends BaseComponent {
   // 上传文件
   async uploadFile(req, res, next) {
     // 文件路径
-    var filePath = './' + req.file.path;
+    const filePath = './' + req.file.path;
+
+    // 获得文件类型、文件大小等信息
+    const { mimetype, size, originalname } = req.file;
 
     // 文件类型
-    var temp = req.file.originalname.split('.');
+    const temp = originalname.split('.');
+    const fileType = temp[temp.length - 1];
 
-    var fileType = temp[temp.length - 1];
-    var lastName = '.' + fileType;
+    const lastName = '.' + fileType;
 
     // 构建图片名
-    var fileName = Date.now() + lastName;
+    const fileName = Date.now() + lastName;
 
     // 图片重命名
     fs.rename(filePath, fileName, (err) => {
       if (err) {
-        res.end(JSON.stringify({ status: '102', msg: '文件写入失败' }));
+        res.send(this.failMessage('文件写入失败'));
       } else {
         var localFile = './' + fileName;
 
@@ -50,14 +53,22 @@ class Auth extends BaseComponent {
           FilePath: localFile
         }
 
-        cos.sliceUploadFile(params, function (err, data) {
+        cos.sliceUploadFile(params, (err, data) => {
           if (err) {
+            // 删除本地文件
             fs.unlinkSync(localFile);
-            res.end(JSON.stringify({ status: '101', msg: '上传失败', error: JSON.stringify(err) }));
+            res.send(this.failMessage('文件上传失败', JSON.stringify(err)));
           } else {
+            // 删除本地文件
             fs.unlinkSync(localFile);
-            var imageSrc = 'http://devimage-1***********4.cossh.myqcloud.com/' + data.Key;
-            res.end(JSON.stringify({ status: '100', msg: '上传成功', imageUrl: imageSrc }));
+            const fileInfo = {
+              fileName: data.Key,
+              fileUrl: `https://${data.Location}`,
+              fileSize: size,
+              fileType: mimetype
+            };
+
+            res.send(this.successMessage("文件上传成功", fileInfo));
           }
         });
       }

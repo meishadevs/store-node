@@ -103,11 +103,19 @@ class BaseComponent {
    * @param message 消息内容
    * @return
    */
-  failMessage(message) {
-    return {
+  failMessage(message, error) {
+    message = message || '请求失败';
+
+    let result = {
       code: 500,
       msg: message
     };
+
+    if (error) {
+      result. error = error;
+    }
+
+    return result;
   }
 
   /**
