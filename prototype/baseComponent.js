@@ -92,7 +92,10 @@ class BaseComponent {
     };
 
     if (data) {
-      result.data = data;
+      result = {
+        ...result,
+        data
+      };
     }
 
     return result;
@@ -103,7 +106,7 @@ class BaseComponent {
    * @param message 消息内容
    * @return
    */
-  failMessage(message, error) {
+  failMessage(message, data) {
     message = message || '请求失败';
 
     let result = {
@@ -111,8 +114,11 @@ class BaseComponent {
       msg: message
     };
 
-    if (error) {
-      result. error = error;
+    if (data) {
+      result = {
+        ...result,
+        data
+      };
     }
 
     return result;

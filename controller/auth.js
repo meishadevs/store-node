@@ -57,7 +57,7 @@ class Auth extends BaseComponent {
           if (err) {
             // 删除本地文件
             fs.unlinkSync(localFile);
-            res.send(this.failMessage('文件上传失败', JSON.stringify(err)));
+            res.send(this.failMessage('文件上传失败', err));
           } else {
             // 删除本地文件
             fs.unlinkSync(localFile);
