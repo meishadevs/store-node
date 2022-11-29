@@ -1,6 +1,5 @@
 
 /node_modules
-/config
 .DS_Store
 **/.DS_Store
 /temp
