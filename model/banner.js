@@ -7,6 +7,9 @@ const bannerSchema = new mongoose.Schema({
   // 轮播图名称
   bannerName: String,
 
+  // 图片名称
+  imageName: String,
+
   // 图片链接
   imageUrl: String,
 
