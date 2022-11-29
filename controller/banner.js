@@ -273,6 +273,10 @@ class Banner extends BaseComponent {
 
         if (!banner) {
           throw new Error('没有找到与id对应的轮播图信息');
+        } 
+
+        if (banner.publishStatus) {
+          throw new Error('不能删除已发布的轮播图');
         }
 
         await BannerModel.findOneAndDelete({ id: bannerId })
