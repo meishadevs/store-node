@@ -13,6 +13,9 @@ const bannerSchema = new mongoose.Schema({
   // 图片链接
   imageUrl: String,
 
+  // 对应商品链接
+  url: String,
+
   // 显示顺序
   sort: Number,
 

@@ -131,7 +131,7 @@ class Banner extends BaseComponent {
       }
 
       const { userId } = req.auth;
-      const { bannerName, imageName, imageUrl, publishStatus = 0, sort = 1, id = 0 } = fields;
+      const { bannerName, imageName, imageUrl, url, publishStatus = 0, sort = 1, id = 0 } = fields;
 
       try {
         if (!bannerName) {
@@ -144,6 +144,7 @@ class Banner extends BaseComponent {
           bannerName,
           imageName,
           imageUrl,
+          url,
           publishStatus,
           sort
         }
