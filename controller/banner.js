@@ -9,6 +9,7 @@ class Banner extends BaseComponent {
   constructor() {
     super();
     this.getPageList = this.getPageList.bind(this);
+    this.getPublishList = this.getPublishList.bind(this);
     this.getBannerDetail = this.getBannerDetail.bind(this);
     this.saveBannerData = this.saveBannerData.bind(this);
     this.changePublishStatus = this.changePublishStatus.bind(this);
@@ -72,6 +73,23 @@ class Banner extends BaseComponent {
       let data = {
         list,
         count: bannerCount
+      };
+
+      res.send(this.successMessage(null, data));
+    } catch (err) {
+      res.send(this.failMessage(err.message));
+    }
+  }
+
+  // 获得已发布的轮播图列表
+  async getPublishList(req, res, next) {
+    try {
+      // 获得轮播图列表
+      const bannerList = await BannerModel.find({ publishStatus: 1 }, '-_id -id -imageName -publishStatus -createBy -createTime -__v')
+        .sort({ sort: 'desc' });
+
+      let data = {
+        list: bannerList
       };
 
       res.send(this.successMessage(null, data));

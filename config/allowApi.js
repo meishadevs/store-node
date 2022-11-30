@@ -11,5 +11,6 @@ module.exports = [
   '/product/count',
   '/province/all',
   '/city/all',
-  '/district/all'
+  '/district/all',
+  '/banner/publish_list'
 ];

@@ -6,6 +6,11 @@ const bannerApi = (router) => {
     Banner.getPageList(req, res, next);
   });
 
+  // 获得已发布的轮播图列表
+  router.get('/banner/publish_list', (req, res, next) => {
+    Banner.getPublishList(req, res, next);
+  });
+
   // 获得轮播图详情
   router.get('/banner/detail', (req, res, next) => {
     Banner.getBannerDetail(req, res, next);
