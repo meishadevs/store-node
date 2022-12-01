@@ -67,7 +67,7 @@ POST
 |password      |Y       |String  |密码 |
 |secondPassword      |Y       |String  |确认密码 |
 |email      |Y       |String  |邮箱 |
-|isAgree      |Y       |Number  |是否同意注册协议，1：同意，0：不同意 |
+|isAgree      |Y       |Int  |是否同意注册协议，1：同意，0：不同意 |
 
 #### 返回示例：
 
@@ -225,11 +225,11 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
-|userName      |N       |Number  |用户名 |
-|status      |N       |Number  |用户状态，1：启用，2：禁用 |
-|roleId      |N       |Number  |角色id |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt    |N       |Int  |当前页数，默认为第 1 页 |
+|userName      |N       |Int  |用户名 |
+|status      |N       |Int  |用户状态，1：启用，2：禁用 |
+|roleId      |N       |Int  |角色id |
 
 #### 返回示例：
 
@@ -280,7 +280,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userId      |Y       |Number  |用户id |
+|userId      |Y       |Int  |用户id |
 
 #### 返回示例：
 
@@ -320,11 +320,11 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|id      |N       |Number  |用户id，有值表示编辑用户信息，无值表示新增用户信息|
+|id      |N       |Int  |用户id，有值表示编辑用户信息，无值表示新增用户信息|
 |userName      |Y       |String  |用户名 |
 |roles      |Y       |Array  |所属角色，由角色 id 组成的数组 |
 |email      |N       |String  |邮箱 |
-|status      |Y       |Number  |用户状态，默认值为 0，表示禁用，1表示启用 |
+|status      |Y       |Int  |用户状态，默认值为 0，表示禁用，1表示启用 |
 
 #### 返回示例：
 
@@ -351,7 +351,7 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userId      |Y       |Number  |用户id |
+|userId      |Y       |Int  |用户id |
 
 #### 返回示例：
 
@@ -378,7 +378,7 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userId      |Y       |Number  |用户id |
+|userId      |Y       |Int  |用户id |
 
 #### 返回示例：
 
@@ -405,7 +405,7 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|userId      |Y       |Number  |用户id |
+|userId      |Y       |Int  |用户id |
 
 #### 返回示例：
 
@@ -473,9 +473,9 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber    |N       |Number  |当前页数，默认为第 1 页 |
-|roleName      |N       |Number  |角色名称 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt    |N       |Int  |当前页数，默认为第 1 页 |
+|roleName      |N       |Int  |角色名称 |
 
 #### 返回示例：
 
@@ -520,7 +520,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|roleId      |Y       |Number  |角色 id |
+|roleId      |Y       |Int  |角色 id |
 
 #### 返回示例：
 
@@ -562,8 +562,8 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|roleId      |N       |Number  |角色 id，传值表示编辑角色信息，不传值表示新增角色信息 |
-|roleName      |Y      |Number  |角色名称 |
+|roleId      |N       |Int  |角色 id，传值表示编辑角色信息，不传值表示新增角色信息 |
+|roleName      |Y      |Int  |角色名称 |
 
 #### 返回示例：
 
@@ -590,7 +590,7 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|roleId      |Y      |Number  |角色 id |
+|roleId      |Y      |Int  |角色 id |
 |permissions      |Y      |Array  |由权限 id 组成的数组 |
 
 #### 返回示例：
@@ -618,7 +618,7 @@ POST
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|roleId      |Y      |Number  |角色 id |
+|roleId      |Y      |Int  |角色 id |
 
 #### 返回示例：
 
@@ -756,7 +756,7 @@ GET
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|menuId      |Y      |Number  |菜单 id |
+|menuId      |Y      |Int  |菜单 id |
 
 #### 返回示例：
 
@@ -795,14 +795,14 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|menuId      |N      |Number  |菜单 id，传了指编辑菜单信息，不传指新增菜单信息|
-|parentId      |N      |Number  |父级菜单 id，不传指新增父级菜单，传了指新增子级菜单 |
-|type      |N      |Number  |菜单类型，0：菜单，1：按钮，默认值为 0 |
+|menuId      |N      |Int  |菜单 id，传了指编辑菜单信息，不传指新增菜单信息|
+|parentId      |N      |Int  |父级菜单 id，不传指新增父级菜单，传了指新增子级菜单 |
+|type      |N      |Int  |菜单类型，0：菜单，1：按钮，默认值为 0 |
 |title      |Y      |String  |菜单名称 |
 |permissions      |Y      |String  |权限 |
 |url      |N     |String  |路由地址 |
 |icon      |N     |String  |图标 |
-|sort      |N     |Number  |排序，值越小越靠前，默认值为 1|
+|sort      |N     |Int  |排序，值越小越靠前，默认值为 1|
 
 #### 返回示例：
 
@@ -828,7 +828,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|menuId      |Y      |Number  |菜单 id|
+|menuId      |Y      |Int  |菜单 id|
 
 #### 返回示例：
 
@@ -883,8 +883,8 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
 
 #### 返回示例：
 
@@ -971,8 +971,8 @@ GET
 |:-----|:-------:|:-----|:-----|
 |provinceName      |N       |String  |省份名称 |
 |provinceCode      |N       |String  |省份编码 |
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
 
 #### 返回示例：
 
@@ -1025,7 +1025,7 @@ GET
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|provinceId      |Y      |Number  |省份id |
+|provinceId      |Y      |Int  |省份id |
 
 #### 返回示例：
 
@@ -1058,7 +1058,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|id      |N      |Number  |省份 id，传值了表示编辑省份，没传值表示新增省份 |
+|id      |N      |Int  |省份 id，传值了表示编辑省份，没传值表示新增省份 |
 |provinceName      |Y      |String  |省份名称 |
 |provinceCode      |Y      |String  |省份编码 |
 
@@ -1086,7 +1086,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|provinceId      |Y      |Number  |省份 id |
+|provinceId      |Y      |Int  |省份 id |
 
 #### 返回示例：
 
@@ -1113,7 +1113,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|provinceCode      |N       |Number  |省份编码|
+|provinceCode      |N       |Int  |省份编码|
 
 #### 返回示例：
 
@@ -1162,8 +1162,8 @@ GET
 |provinceCode      |N       |String  |省份编码 |
 |cityName      |N       |String  |市名称 |
 |cityCode      |N       |String  |市编码 |
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
 
 #### 返回示例：
 
@@ -1213,7 +1213,7 @@ GET
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|cityId      |Y       |Number  |市 id |
+|cityId      |Y       |Int  |市 id |
 
 #### 返回示例：
 
@@ -1248,7 +1248,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|id      |N      |Number  |市 id，传值了表示编辑市，没传值表示新增市 |
+|id      |N      |Int  |市 id，传值了表示编辑市，没传值表示新增市 |
 |provinceCode      |Y      |String  |省份编码 |
 |cityName      |Y      |String  |市名称 
 |cityCode      |Y      |String  |市编码 |
@@ -1277,7 +1277,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|cityId      |Y      |Number  |市 id |
+|cityId      |Y      |Int  |市 id |
 
 #### 返回示例：
 
@@ -1304,7 +1304,7 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|cityCode      |N       |Number  |市编码|
+|cityCode      |N       |Int  |市编码|
 
 #### 返回示例：
 
@@ -1352,8 +1352,8 @@ GET
 |provinceCode      |N       |String  |省份编码 |
 |cityCode      |N       |String  |市编码 |
 |districtName      |N       |String  |区名称 |
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
 
 #### 返回示例：
 
@@ -1403,7 +1403,7 @@ GET
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|districtId      |Y       |Number  |区 id |
+|districtId      |Y       |Int  |区 id |
 
 #### 返回示例：
 
@@ -1438,7 +1438,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|id      |N      |Number  |市 id，传值了表示编辑区，没传值表示新增区 |
+|id      |N      |Int  |市 id，传值了表示编辑区，没传值表示新增区 |
 |cityCode      |Y      |String  |市编码 |
 |districtName      |Y      |String  |区名称 
 |districtCode      |Y      |String  |区编码 |
@@ -1467,7 +1467,7 @@ POST
 #### 请求参数：
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|districtId      |Y      |Number  |district id |
+|districtId      |Y      |Int  |district id |
 
 #### 返回示例：
 
@@ -1521,8 +1521,8 @@ GET
 
 |参数|是否必选|类型|说明|
 |:-----|:-------:|:-----|:-----|
-|pageSize      |N       |Number  |每页数据条数，默认展示 10 条 |
-|pageNumber      |N       |Number  |当前页数，默认为第 1 页 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
 
 #### 返回示例：
 
