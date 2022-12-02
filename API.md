@@ -43,6 +43,9 @@
 [删除区信息](#删除区信息)  
 [获得咨询数量](#获得咨询数量)  
 [获得咨询列表](#获得咨询列表)  
+[获得轮播图列表](#获得轮播图列表)  
+[获得已发布的轮播图](#获得已发布的轮播图)  
+[保存轮播图信息](#保存轮播图信息)  
 
 ## 接口列表：
 
@@ -1551,5 +1554,134 @@ GET
     ],
     "count": 30
   }
+}
+```
+
+### 获得轮播图列表
+
+#### 请求URL:  
+```
+/banner/list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|bannerName      |N       |String  |轮播图名称 |
+|pageSize      |N       |Int  |每页数据条数，默认展示 10 条 |
+|pageInt      |N       |Int  |当前页数，默认为第 1 页 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "id": 19,
+        "bannerName": "手表",
+        "imageUrl": "https://store-1253560230.cos.ap-guangzhou.myqcloud.com/1669714541792.jpg",
+        "publishStatus": 1,
+        "sort": 54,
+        "createBy": "admin",
+        "createTime": "2022-11-29 17:35:56",
+        "topStatus": true
+      },
+      {
+        "id": 20,
+        "bannerName": "女装",
+        "imageUrl": "https://store-1253560230.cos.ap-guangzhou.myqcloud.com/1669714586000.jpg",
+        "publishStatus": 1,
+        "sort": 53,
+        "createBy": "admin",
+        "createTime": "2022-11-29 17:36:32",
+        "topStatus": false
+      },
+      ....
+    ],
+    "count": 4
+  }
+}
+```
+
+### 获得已发布的轮播图
+
+#### 请求URL:  
+```
+/banner/publish_list
+```
+
+#### 请求方式: 
+```
+GET
+```
+
+#### 请求参数：
+无
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "请求成功",
+  "data": {
+    "list": [
+      {
+        "bannerName": "手表",
+        "imageUrl": "https://store-1253560230.cos.ap-guangzhou.myqcloud.com/1669714541792.jpg",
+        "sort": 54,
+        "url": "/proinfo"
+      },
+      {
+        "bannerName": "女装",
+        "imageUrl": "https://store-1253560230.cos.ap-guangzhou.myqcloud.com/1669714586000.jpg",
+        "sort": 53,
+        "url": "/proinfo"
+      },
+      ....
+    ]
+  }
+}
+```
+
+### 保存轮播图信息
+
+#### 请求URL:  
+```
+/banner/save
+```
+
+#### 请求方式: 
+```
+POST
+```
+
+#### 请求参数：
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|id      |N       |Int  |轮播图 id，传了指表示编辑轮播图，没传值表示新增轮播图 |
+|bannerName      |Y       |String  |轮播图名称 |
+|imageName      |Y       |String  |图片名称 |
+|imageUrl      |Y       |String  |图片链接 |
+|publishStatus      |N       |Int  |发布状态，1：已发布，0：未发布，默认值为 0 |
+|url      |N       |String  |跳转链接 |
+|sort      |N       |Int  |显示顺序，值越大越靠前显示，默认值为 1 |
+
+#### 返回示例：
+
+```javascript
+{
+  "code": 200,
+  "msg": "轮播图信息新增成功"
 }
 ```
