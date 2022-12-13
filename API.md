@@ -1,7 +1,7 @@
 # 接口文档
 
 ## 特别说明
-部分接口需要配置 Token 才能访问，Token 配置方法：[http://meishadevs.com/blog/token%E9%AA%8C%E8%AF%81/](http://meishadevs.com/blog/token%E9%AA%8C%E8%AF%81/)
+部分接口需要配置 Token 才能访问，Token 配置方法：[在Postman中配置Token](http://meishadevs.com/blog/%E5%9C%A8Postman%E4%B8%AD%E9%85%8D%E7%BD%AEToken/)
 
 ## 目录：
 
