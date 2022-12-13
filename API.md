@@ -1,5 +1,10 @@
 # 接口文档
 
+## 请求基础路径
+```
+http://localhost:8002
+```
+
 ## 特别说明
 部分接口需要配置 Token 才能访问，Token 配置方法：[在 Postman 中配置 Token](http://meishadevs.com/blog/%E5%9C%A8Postman%E4%B8%AD%E9%85%8D%E7%BD%AEToken/)
 
