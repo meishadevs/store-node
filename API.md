@@ -1,5 +1,8 @@
 # 接口文档
 
+## 特别说明
+部分接口需要配置 Token 才能访问，Token 配置方法：[http://meishadevs.com/blog/token%E9%AA%8C%E8%AF%81/](http://meishadevs.com/blog/token%E9%AA%8C%E8%AF%81/)
+
 ## 目录：
 
 [注册](#注册)  
