@@ -8,7 +8,7 @@ http://localhost:8002
 ## 特别说明
 部分接口需要配置 Token 才能访问，Token 配置方法：[在 Postman 中配置 Token](http://meishadevs.com/blog/%E5%9C%A8Postman%E4%B8%AD%E9%85%8D%E7%BD%AEToken/)
 
-## 目录：
+## 接口目录
 
 [注册](#注册)  
 [登录](#登录)  
@@ -59,7 +59,7 @@ http://localhost:8002
 [删除轮播图信息](#删除轮播图信息)  
 [文件上传](#文件上传)  
 
-## 接口列表：
+## 接口列表
 
 ### 注册
 
