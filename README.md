@@ -84,7 +84,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── product.js             // 商品模型
 │   ├── province.js            // 省份模型
 │   ├── role.js                // 角色模型
-│ 	└── user.js                // 用户模型
+│   └── user.js                // 用户模型
 |── mongodb                
 │ 	└── db.js                  // 数据库连接
 |── prototype                  // 基础功能类
