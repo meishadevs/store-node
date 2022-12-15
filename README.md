@@ -71,9 +71,9 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── role.js                // 角色
 │   └── user.js                // 用户
 |── database                 
-│ 	└── store.rar          // 数据库
+│   └── store.rar             // 数据库
 |── middlewares                // 中间件
-│ 	└── check.js           // 权限认证
+│   └── check.js              // 权限认证
 |── model                      // 模型文件
 |   |── advisory.js            // 咨询模型
 │   ├── auth.js                // 权限认证模型
@@ -86,9 +86,9 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── role.js                // 角色模型
 │   └── user.js                // 用户模型
 |── mongodb                
-│ 	└── db.js                  // 数据库连接
+│   └── db.js                  // 数据库连接
 |── prototype                  // 基础功能类
-│ 	└── baseComponent.js       // 基础类
+│   └── baseComponent.js       // 基础类
 ├── router                     // 路由配置
 |   |── advisoryApi.js         // 咨询接口
 │   ├── authApi.js             // 权限认证路由
@@ -100,7 +100,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── provinceApi.js         // 省份接口
 │   ├── roleApi.js             // 角色接口
 │   ├── userApi.js             // 用户接口
-│ 	└── index.js               // 接口汇总
+│   └── index.js               // 接口汇总
 ├── statics                    // 静态资源目录
 ├── .editorconfig              // 编辑器配置
 ├── .eslintignore              // 配置忽略 eslint 语法检查的文件
