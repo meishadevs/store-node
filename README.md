@@ -54,37 +54,37 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 ## 目录结构
 
 ```  
-|── config                     // 配置文件
-│   ├── allowApi.js            // 配置不需要 token 就可以访问的接口
-│   ├── default.js             // 默认配置
-│   ├── development.js         // 开发环境下的配置
-│   └── tencentCos.js          // 腾讯云 COSS 对象存储相关配置
-├── controller                 // 处理中心，负责数据库的具体操作
-|   |── advisory.js            // 咨询
-│   ├── auth.js                // 权限认证
-│   ├── banner.js              // 轮播图
-│   ├── city.js                // 市
-│   ├── district.js            // 区
-│   ├── menu.js                // 菜单
-│   ├── product.js             // 商品
-│   ├── province.js            // 省份
-│   ├── role.js                // 角色
-│   └── user.js                // 用户
+|── config                    // 配置文件
+│   ├── allowApi.js           // 配置不需要 token 就可以访问的接口
+│   ├── default.js            // 默认配置
+│   ├── development.js        // 开发环境下的配置
+│   └── tencentCos.js         // 腾讯云 COSS 对象存储相关配置
+├── controller                // 处理中心，负责数据库的具体操作
+|   |── advisory.js           // 咨询
+│   ├── auth.js               // 权限认证
+│   ├── banner.js             // 轮播图
+│   ├── city.js               // 市
+│   ├── district.js           // 区
+│   ├── menu.js               // 菜单
+│   ├── product.js            // 商品
+│   ├── province.js           // 省份
+│   ├── role.js               // 角色
+│   └── user.js               // 用户
 |── database                 
 │   └── store.rar             // 数据库
-|── middlewares                // 中间件
+|── middlewares               // 中间件
 │   └── check.js              // 权限认证
-|── model                      // 模型文件
-|   |── advisory.js            // 咨询模型
-│   ├── auth.js                // 权限认证模型
-│   ├── banner.js              // 轮播图模型
-│   ├── city.js                // 市模型
-│   ├── district.js            // 区模型
-│   ├── menu.js                // 菜单模型
-│   ├── product.js             // 商品模型
-│   ├── province.js            // 省份模型
-│   ├── role.js                // 角色模型
-│   └── user.js                // 用户模型
+|── model                     // 模型文件
+|   |── advisory.js           // 咨询模型
+│   ├── auth.js               // 权限认证模型
+│   ├── banner.js             // 轮播图模型
+│   ├── city.js               // 市模型
+│   ├── district.js           // 区模型
+│   ├── menu.js               // 菜单模型
+│   ├── product.js            // 商品模型
+│   ├── province.js           // 省份模型
+│   ├── role.js               // 角色模型
+│   └── user.js               // 用户模型
 |── mongodb                
 │   └── db.js                  // 数据库连接
 |── prototype                  // 基础功能类
