@@ -58,7 +58,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── allowApi.js            // 配置不需要 token 就可以访问的接口
 │   ├── default.js             // 默认配置
 │   ├── development.js         // 开发环境下的配置
-│ 	└── tencentCos.js       // 腾讯云 COSS 对象存储相关配置
+│ 	└── tencentCos.js      // 腾讯云 COSS 对象存储相关配置
 ├── controller                 // 处理中心，负责数据库的具体操作
 |   |── advisory.js            // 咨询
 │   ├── auth.js                // 权限认证
