@@ -71,7 +71,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── role.js                // 角色
 │ 	└── user.js            // 用户
 |── database                 
-│ 	└── store.rar              // 数据库
+│ 	└── store.rar          // 数据库
 |── middlewares                // 中间件
 │ 	└── check.js               // 权限认证
 |── model                      // 模型文件
