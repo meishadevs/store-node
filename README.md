@@ -116,7 +116,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 
 ## 修改配置信息
 
-当需要修改数据库连接地址、端口号、默认密码等配置信息时，可修改 config 目录下的 default.js 文件中的配置项
+当需要修改数据库连接地址、端口号、默认密码等配置信息时，可修改 config 目录下 default.js 文件中的配置项
 ```
 const allowApi = require('./allowApi');
 const tencentCos = require('./tencentCos');
