@@ -143,7 +143,6 @@ module.exports = {
 
 可在 config\allowApi.js 文件中修改不需要配置 token 就能访问的接口
 ```
-// 不需要 token 就能访问的 api 接口
 module.exports = [
   {
     url: /^\/images\/.*/
