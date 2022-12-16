@@ -59,17 +59,17 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 │   ├── default.js            // 默认配置
 │   ├── development.js        // 开发环境下的配置
 │   └── tencentCos.js         // 腾讯云 COSS 对象存储相关配置
-├── controller                // 处理中心，负责数据库的具体操作
-|   |── advisory.js           // 咨询
-│   ├── auth.js               // 权限认证
-│   ├── banner.js             // 轮播图
-│   ├── city.js               // 市
-│   ├── district.js           // 区
-│   ├── menu.js               // 菜单
-│   ├── product.js            // 商品
-│   ├── province.js           // 省份
-│   ├── role.js               // 角色
-│   └── user.js               // 用户
+├── controller                // 控制器
+|   |── advisory.js           // 咨询控制器
+│   ├── auth.js               // 权限认证控制器
+│   ├── banner.js             // 轮播图控制器
+│   ├── city.js               // 市控制器
+│   ├── district.js           // 区控制器
+│   ├── menu.js               // 菜单控制器
+│   ├── product.js            // 商品控制器
+│   ├── province.js           // 省份控制器
+│   ├── role.js               // 角色控制器
+│   └── user.js               // 用户控制器
 |── database                 
 │   └── store.rar             // 数据库
 |── middlewares               // 中间件
