@@ -116,7 +116,7 @@ mongorestore -h 192.168.10.178:27017 -d store F:\database
 
 ## 修改配置信息
 
-当需要修改数据库连接地址、端口号、默认密码等配置信息时，可修改 config 目录下 default.js 文件中的配置项
+可在 config\default.js 文件中修改数据库连接地址、端口号、默认密码、token 失效时间等配置信息
 ```
 const allowApi = require('./allowApi');
 const tencentCos = require('./tencentCos');
@@ -138,5 +138,35 @@ module.exports = {
       maxAge: 365 * 24 * 60 * 60 * 1000
     }
   }
+};
+```
+
+可在 config\allowApi.js 文件中修改不需要配置 token 就能访问的接口
+```
+// 不需要 token 就能访问的 api 接口
+module.exports = [
+  {
+    url: /^\/images\/.*/
+  },
+  '/user/login',
+  '/user/register',
+  '/advisory/list',
+  '/advisory/count',
+  '/product/lis',
+  '/product/count',
+  '/province/all',
+  '/city/all',
+  '/district/all',
+  '/banner/publish_list'
+];
+```
+
+可在 config\tencentCos.js 文件中修改腾讯云 COS 的配置信息
+```
+module.exports = {
+  secretId: 'A**********************************O',
+  secretKey: 'O**********************************J',
+  bucket: 'store-1253560230',
+  region: 'ap-guangzhou'
 };
 ```
