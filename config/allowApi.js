@@ -7,7 +7,7 @@ module.exports = [
   '/user/register',
   '/advisory/list',
   '/advisory/count',
-  '/product/lis',
+  '/product/list',
   '/product/count',
   '/province/all',
   '/city/all',
