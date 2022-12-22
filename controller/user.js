@@ -109,12 +109,21 @@ class User extends BaseComponent {
         // 对用户填写的密码加密
         const newpassword = this.encryption(password);
 
+        // 获得用户登录失败的次数
+        let failCont = user ? user.failTime : 0;
+
         if (!user) {
           throw new Error('用户不存在');
+        }  else if (!user.status) {
+          throw new Error('您的账号已禁用，请联系管理员');
+        } else if (failCont > 3) {
+          // 禁用用户
+          await UserModel.updateOne({ id: user.id }, { $set: { status: 0 } })
+          throw new Error('您的账号已禁用，请联系管理员');
         } else if (newpassword.toString() !== user.password.toString()) {
+          // 登录失败次数加 1
+          await UserModel.updateOne({ id: user.id }, { $set: { failTime: failCont + 1 } })
           throw new Error('该用户已存在，密码输入错误');
-        } else if (!user.status) {
-          throw new Error('该用户已禁用');
         }
 
         // 生成 token
@@ -374,7 +383,8 @@ class User extends BaseComponent {
           userName,
           email,
           status,
-          roles
+          roles,
+          failTime: 0
         }
 
         // 根据用户名查找用户信息
@@ -437,7 +447,7 @@ class User extends BaseComponent {
           throw new Error('没有找到与id对应的用户信息');
         }
 
-        await UserModel.updateOne({ id: userId }, { $set: { status: !user.status } })
+        await UserModel.updateOne({ id: userId }, { $set: { failTime: 0, status: !user.status } })
 
         const msgContent = user.status ? '用户禁用成功' : '用户启用成功';
 

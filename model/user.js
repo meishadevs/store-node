@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema({
     default: 1
   },
 
+  // 登录失败次数
+  failTime: {
+    type: Number,
+    default: 0
+  },
+
   // 创建时间
   createTime: String,
 
